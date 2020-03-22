@@ -8,6 +8,7 @@ public class Test{
         int a = 272388723;
         double b = a;
 
+
         double c = 3.67895423;
         int d = (int) c;
 

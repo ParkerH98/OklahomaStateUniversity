@@ -1,12 +1,11 @@
 public class HashNode{
 
+    public HashNode next;
+    public int data;
 
+    public HashNode(int element){
 
-    HashNode next;
-
-
-    
-
-
-
+        this.data = element;
+        this.next = null;
+    }
 }
