@@ -296,6 +296,9 @@ public class HashChain{
                         int operand = Integer.parseInt(dotCommands[0]);
                         String operator = dotCommands[1];
 
+                        System.out.println("TABLE BEFORE: ");
+                        test.printHashTable();
+
                         if (operator.equals("in")){
 
                             test.insert(operand);
@@ -309,6 +312,9 @@ public class HashChain{
 
                             test.search(operand);
                         }
+
+                        System.out.println("TABLE AFTER: ");
+                        test.printHashTable();
                     }
                 }
 
