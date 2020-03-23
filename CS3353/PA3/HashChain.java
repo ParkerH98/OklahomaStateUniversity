@@ -13,15 +13,17 @@
 
 import java.io.*;
 
-public class HashTable{
+public class HashChain{
 
+    // instance variables
     private HashNode[] table;
     private int size;
     private int tableSize;
 
 
 
-    public HashTable(int tableSize){
+    // constructor with size defined
+    public HashChain(int tableSize){
 
         this.tableSize = tableSize;
         table = new HashNode[tableSize];
@@ -30,18 +32,53 @@ public class HashTable{
 
     public void insert(int toInsert){
 
+        // counts number of empty spots in table
+        int count = 0;
+        for (int i = 0; i < table.length; i++){
+            
+            if (isEmpty(i) == false){
+                count++;
+            }
+        }
+
+        // checks if every spot is filled in table
+        if (count == table.length){
+            System.out.println("TABLE IS FULL");
+            System.out.println("EXECUTION TERMINATED");
+            System.exit(0);
+        }
+
         if (size >= .6 * table.length){
             //resize();
         }
 
         int index = hashFunc(toInsert);
-
         HashNode newEntry = new HashNode(toInsert);
 
         if (table[index] == null){
             table[index] = newEntry;
         }
+
         else{
+
+            // checks if duplicate is first element
+            HashNode head = table[index];
+            if (head.data == toInsert){
+                System.out.println("DUPLICATE KEY: " + head.data);
+                return;
+            }
+
+            // checks if duplicate is subsequent elements
+            while (head.next != null){
+
+                head = head.next;
+                if (head.data == toInsert){
+                    System.out.println("DUPLICATE KEY: " + head.data);
+                    return;
+                }
+            }
+
+            // inserts into table and moves pointers
             newEntry.next = table[index];
             table[index] = newEntry;
         }
@@ -199,18 +236,26 @@ public class HashTable{
         while(find != null){
 
             if (find.data == toSearch){
+                System.out.println("FOUND");
                 return true;
             }
             find = find.next;
         }
+        System.out.println("NOT FOUND");
         return false;
+    }
+
+
+    public boolean isEmpty(int index){
+        return (table[index] == null);
     }
 
 
     public static void main(String[] args) {
 
-        HashTable test;
+        HashChain test;
         String inFileName = args[0]; // file pathname
+        //String inFileName = "HashFile.txt"; // file pathname
         File inFile = new File(inFileName);
 
         String instructions;
@@ -227,7 +272,7 @@ public class HashTable{
                 commands = instructions.split(" ");
 
                 int tableSize = Integer.parseInt(commands[0]);
-                test = new HashTable(tableSize);
+                test = new HashChain(tableSize);
 
                 for (String command : commands) {
                 
