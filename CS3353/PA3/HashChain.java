@@ -32,17 +32,10 @@ public class HashChain{
 
     public void insert(int toInsert){
 
-        // counts number of empty spots in table
-        int count = 0;
-        for (int i = 0; i < table.length; i++){
-            
-            if (isEmpty(i) == false){
-                count++;
-            }
-        }
 
-        // checks if every spot is filled in table
-        if (count == table.length){
+        // checks if all indices in table are used
+        if (isFull() == true){
+
             System.out.println("TABLE IS FULL");
             System.out.println("EXECUTION TERMINATED");
             System.exit(0);
@@ -251,6 +244,23 @@ public class HashChain{
     }
 
 
+    public boolean isFull(){
+
+        int count = 0;
+        for (int i = 0; i < table.length; i++){
+            
+            if (isEmpty(i) == false){
+                count++;
+            }
+        }
+
+        if (count == table.length){
+            return true;
+        }
+        return false;
+    }
+
+
     public static void main(String[] args) {
 
         HashChain test;
@@ -294,6 +304,10 @@ public class HashChain{
                         if (operator.equals("del")){
 
                             test.delete(operand);
+                        }
+                        if (operator.equals("sch")){
+
+                            test.search(operand);
                         }
                     }
                 }

@@ -6,24 +6,25 @@
  * Programming Assignment 3
  * 
  * 
- * HashTable with probing
+ * HashTable with double hashing for collision handling.
  */
 
 
 
 import java.io.*;
 
-public class HashProbe{
+public class HashDoubleHash{
 
     // instance variables
     private HashNode[] table;
     private int size;
     private int tableSize;
+    private int q;
 
 
 
     // constructor with size defined
-    public HashProbe(int tableSize){
+    public HashDoubleHash(int tableSize){
 
         this.tableSize = tableSize;
         table = new HashNode[tableSize];
@@ -45,12 +46,16 @@ public class HashProbe{
         }
 
         int index = hashFunc(toInsert);
-        int probeIndex = findIndex(index);
+        //int probeIndex = findIndex(index);
+        int doubleHashIndex = doubleHashFunc(toInsert);
+
+        int newIndex = (index + doubleHashIndex) % table.length;
+
 
         HashNode newEntry = new HashNode(toInsert);
 
         if (table[index] == null){
-            table[probeIndex] = newEntry;
+            table[index] = newEntry;
         }
 
         else{
@@ -73,8 +78,18 @@ public class HashProbe{
             }
 
             // inserts into table and moves pointers
-            newEntry.next = table[probeIndex];
-            table[probeIndex] = newEntry;
+            //newEntry.next = table[index];
+
+            if (table[newIndex] == null){
+                table[newIndex] = newEntry;
+                return;
+            }
+            while (table[newIndex] != null){
+
+                newIndex = (newIndex + doubleHashIndex) % table.length;
+
+            }
+            table[newIndex] = newEntry;
         }
         size++;
     }
@@ -114,6 +129,14 @@ public class HashProbe{
         int index = hash % table.length;
         return index;
     }
+
+    public int doubleHashFunc(Object toHash){
+
+        int k = toHash.hashCode();
+        int index = this.q - k % this.q;
+        return index;
+    }
+
 
 
     public void resize(){
@@ -269,7 +292,7 @@ public class HashProbe{
 
     public static void main(String[] args) {
 
-        HashProbe test;
+        HashDoubleHash test;
         String inFileName = args[0]; // file pathname
         //String inFileName = "HashFile.txt"; // file pathname
         File inFile = new File(inFileName);
@@ -288,7 +311,10 @@ public class HashProbe{
                 commands = instructions.split(" ");
 
                 int tableSize = Integer.parseInt(commands[0]);
-                test = new HashProbe(tableSize);
+                
+                test = new HashDoubleHash(tableSize);
+
+                test.q = Integer.parseInt(commands[1]);
 
                 for (String command : commands) {
                 
