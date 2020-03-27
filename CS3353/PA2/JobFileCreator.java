@@ -55,7 +55,7 @@ public class JobFileCreator {
         try{
 
             FileWriter writer = new FileWriter(fileName);
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 5000; i++) {
 
                 String jobString = test.randomJobName() + " " + test.randomPriority() +  " " + test.randomArrivalTime() + " " + test.randomLength();
                 writer.write(jobString);
