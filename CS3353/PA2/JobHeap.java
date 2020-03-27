@@ -15,7 +15,8 @@ public class JobHeap extends Job implements Comparator{
     // Series of helper methods to get parents
     // and children and other data.
     public Job highestPriority() {
-        if (heapArray.isEmpty()) return null;
+        Job temp = new Job();
+        if (heapArray.isEmpty()) return temp;
         return heapArray.get(0);
     }
 

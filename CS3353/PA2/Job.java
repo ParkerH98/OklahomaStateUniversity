@@ -61,6 +61,7 @@ public class Job {
 
         // variables to set up file input
         String inFile = args[0];
+        
         File fileName = new File(inFile);
         String readInput;
         String[] commands;
@@ -116,7 +117,7 @@ public class Job {
       
 
         // main simulation loop
-        while (arrivalTimes.size() > 5 || schedule.size() != 0){ // gurantees all jobs get processed
+        while (arrivalTimes.size() > 1 || schedule.size() != 0){ // gurantees all jobs get processed
 
             System.out.print("Time Slice #" + timeSlice);
 
