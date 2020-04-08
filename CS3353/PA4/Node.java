@@ -45,4 +45,10 @@ public class Node {
         this.element = element;
         return element;
     }
+
+    public void setColor(Node n, Color color){
+
+        n.color = color;
+    }
+
 }

@@ -64,13 +64,20 @@ public class Tree implements Comparator{
     }
 
 
-    public void correctInsertion(Node n){
+    public void correctInsertion(Node x){
 
 
-        n.color = Color.RED;
+        x.color = Color.RED;
 
-        while (n != null && n != root && n.parent.color == Color.RED){
-            
+        while (x != null && x != root && x.parent.color == Color.RED){
+            if (x.parent.element == x.leftChild.parent.parent.element){
+                Node y = x.rightChild.parent.parent;
+                if (y.color == Color.RED){
+                    setColor(x.parent, Color.BLACK);
+                    setColor(y, Color.BLACK);
+                    setColor(x.parent.parent, Color.RED);
+                }
+            }
         }
 
 
