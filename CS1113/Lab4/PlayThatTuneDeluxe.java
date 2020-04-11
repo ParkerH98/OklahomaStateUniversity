@@ -1,23 +1,24 @@
+package CS1113.Lab4;
+
 /******************************************************************************
- *  Compilation:  javac PlayThatTuneDeluxe.java
- *  Execution:    java PlayThatTuneDeluxe < data.txt
+ * Compilation: javac PlayThatTuneDeluxe.java Execution: java PlayThatTuneDeluxe
+ * < data.txt
  *
- *  % java PlayThatTuneDeluxe 0.5 < elise.txt
+ * % java PlayThatTuneDeluxe 0.5 < elise.txt
  *
- *  Data files
- *  ----------
- *  http://www.cs.princeton.edu/introcs/21function/elise.txt
- *  http://www.cs.princeton.edu/introcs/21function/freebird.txt
- *  http://www.cs.princeton.edu/introcs/21function/Ascale.txt
- *  http://www.cs.princeton.edu/introcs/21function/National_Anthem.txt
- *  http://www.cs.princeton.edu/introcs/21function/looney.txt
- *  http://www.cs.princeton.edu/introcs/21function/StairwayToHeaven.txt
- *  http://www.cs.princeton.edu/introcs/21function/entertainer.txt
- *  http://www.cs.princeton.edu/introcs/21function/old-nassau.txt
- *  http://www.cs.princeton.edu/introcs/21function/arabesque.txt
- *  http://www.cs.princeton.edu/introcs/21function/firstcut.txt
- *  http://www.cs.princeton.edu/introcs/21function/tomsdiner.txt
- *  http://www.cs.princeton.edu/introcs/21function/portal.txt
+ * Data files ----------
+ * http://www.cs.princeton.edu/introcs/21function/elise.txt
+ * http://www.cs.princeton.edu/introcs/21function/freebird.txt
+ * http://www.cs.princeton.edu/introcs/21function/Ascale.txt
+ * http://www.cs.princeton.edu/introcs/21function/National_Anthem.txt
+ * http://www.cs.princeton.edu/introcs/21function/looney.txt
+ * http://www.cs.princeton.edu/introcs/21function/StairwayToHeaven.txt
+ * http://www.cs.princeton.edu/introcs/21function/entertainer.txt
+ * http://www.cs.princeton.edu/introcs/21function/old-nassau.txt
+ * http://www.cs.princeton.edu/introcs/21function/arabesque.txt
+ * http://www.cs.princeton.edu/introcs/21function/firstcut.txt
+ * http://www.cs.princeton.edu/introcs/21function/tomsdiner.txt
+ * http://www.cs.princeton.edu/introcs/21function/portal.txt
  *
  ******************************************************************************/
 

@@ -1,3 +1,5 @@
+package CS1113.Lab4;
+
 /******************************************************************************
  *  Compilation:  javac StdAudio.java
  *  Execution:    java StdAudio

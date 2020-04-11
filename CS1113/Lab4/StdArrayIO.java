@@ -1,4 +1,4 @@
-package CS1113.Lab3;
+package CS1113.Lab4;
 
 /******************************************************************************
  *  Compilation:  javac StdArrayIO.java

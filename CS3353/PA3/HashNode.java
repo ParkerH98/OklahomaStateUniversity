@@ -1,3 +1,5 @@
+package CS3353.PA3;
+
 public class HashNode{
 
     public HashNode next;

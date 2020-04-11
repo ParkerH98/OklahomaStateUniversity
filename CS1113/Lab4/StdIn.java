@@ -1,3 +1,5 @@
+package CS1113.Lab4;
+
 /******************************************************************************
  *  Compilation:  javac StdIn.java
  *  Execution:    java StdIn   (interactive test of basic functionality)

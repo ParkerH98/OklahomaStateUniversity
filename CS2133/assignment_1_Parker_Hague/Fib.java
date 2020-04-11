@@ -1,4 +1,6 @@
-public class Fib{
+package CS2133.assignment_1_Parker_Hague;
+
+public class Fib {
     public static void main(String[] args) {
         
         int n = Integer.parseInt(args[0]);

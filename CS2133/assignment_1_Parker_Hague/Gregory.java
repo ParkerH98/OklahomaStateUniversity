@@ -1,4 +1,6 @@
-public class Gregory{
+package CS2133.assignment_1_Parker_Hague;
+
+public class Gregory {
     public static void main(String[] args) {
         
         int n = Integer.parseInt(args[0]);

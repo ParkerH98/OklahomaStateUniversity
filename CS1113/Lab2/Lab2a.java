@@ -1,3 +1,5 @@
+package CS1113.Lab2;
+
 // CS 1113 Lab 2
 // Parker Hague
 // 60863

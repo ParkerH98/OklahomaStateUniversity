@@ -1,4 +1,6 @@
-public class Ramanujan{
+package CS2133.assignment_2_Parker_Hague;
+
+public class Ramanujan {
     public static void main(String[] args) {
 
         int n = Integer.parseInt(args[0]);

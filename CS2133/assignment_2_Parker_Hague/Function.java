@@ -1,4 +1,6 @@
-public abstract class Function{
+package CS2133.assignment_2_Parker_Hague;
+
+public abstract class Function {
     public static void main(String[] args) {
         double epsilon = 0.00000001;
 

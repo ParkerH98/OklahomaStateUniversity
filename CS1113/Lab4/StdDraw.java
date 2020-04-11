@@ -1,4 +1,4 @@
-package CS1113.Lab5;
+package CS1113.Lab4;
 
 /******************************************************************************
  *  Compilation:  javac StdDraw.java

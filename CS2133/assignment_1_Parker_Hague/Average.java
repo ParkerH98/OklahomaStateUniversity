@@ -1,3 +1,5 @@
+package CS2133.assignment_1_Parker_Hague;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

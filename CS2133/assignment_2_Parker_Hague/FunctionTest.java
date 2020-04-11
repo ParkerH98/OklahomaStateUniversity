@@ -1,4 +1,6 @@
-public class FunctionTest{
+package CS2133.assignment_2_Parker_Hague;
+
+public class FunctionTest {
     public static void main(String[] args) {   
         double epsilon = 0.00000001;
         System.out.println(findRoot(3, 4, epsilon)); // prints root of sin

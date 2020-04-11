@@ -1,3 +1,5 @@
+package CS1113.Lab4;
+
 /******************************************************************************
  *  Compilation:  javac StdStats.java
  *  Execution:    java StdStats < input.txt

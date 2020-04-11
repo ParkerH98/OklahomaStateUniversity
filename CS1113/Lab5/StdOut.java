@@ -1,3 +1,5 @@
+package CS1113.Lab5;
+
 /******************************************************************************
  *  Compilation:  javac StdOut.java
  *  Execution:    java StdOut

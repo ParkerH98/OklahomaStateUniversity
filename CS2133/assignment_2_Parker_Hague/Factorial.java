@@ -1,4 +1,6 @@
-public class Factorial{
+package CS2133.assignment_2_Parker_Hague;
+
+public class Factorial {
     
     public static void main(String[] args) {
 

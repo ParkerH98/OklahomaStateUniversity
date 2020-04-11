@@ -1,3 +1,5 @@
+package CS3353.PA2;
+
 import java.io.*;
 import java.util.Random;
 

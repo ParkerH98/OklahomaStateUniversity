@@ -1,4 +1,6 @@
-public class FibTest{
+package CS2133.assignment_2_Parker_Hague;
+
+public class FibTest {
     public static void main(String[] args) {
 
         

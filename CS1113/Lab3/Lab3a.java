@@ -1,3 +1,5 @@
+package CS1113.Lab3;
+
 public class Lab3a {
     public static void main(String [] args){
         for (int r=1; r <=5; ++r) 

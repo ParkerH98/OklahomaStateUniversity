@@ -1,4 +1,4 @@
-package CS1113.Lab3;
+package CS2133.assignment_1_Parker_Hague;
 
 /******************************************************************************
  *  Compilation:  javac StdOut.java

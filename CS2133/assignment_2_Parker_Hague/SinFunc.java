@@ -1,4 +1,6 @@
-public class SinFunc extends Function{    
+package CS2133.assignment_2_Parker_Hague;
+
+public class SinFunc extends Function {
 
     public double evaluate(double x){
         return Math.sin(x);
