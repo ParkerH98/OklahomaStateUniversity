@@ -1,4 +1,7 @@
 
-Data Structures and Algorithm Analysis - Spring 2020
+Parker Hague
 
-second semester junior year
+Data Structures and Algorithm Analysis - Spring 2020
+Professor: Park
+
+Taken: Second Semester Junior Year
