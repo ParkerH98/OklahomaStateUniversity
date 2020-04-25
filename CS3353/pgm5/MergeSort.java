@@ -1,64 +1,45 @@
-package CS3353.PA5;
-import java.util.ArrayList;
 
-public class MergeSort{
+import java.io.*;
+import java.util.*;
 
+public class MergeSort {
 
-    public int middleIndex(ArrayList a){
-
-        int length = a.size();
-        int midIndex = length / 2;
-        return midIndex;
-    }
+    public void merge(int[] toSort, int leftBound, int middle, int rightBound) {
 
 
-
-
-
-
-    public ArrayList merge(ArrayList toSort, int leftBound, int middle, int rightBound){
-
-        if (toSort.size() == 1) return toSort;
-
-
-        middle = middleIndex(toSort);
         int sizeL = middle - leftBound + 1;
         int sizeR = rightBound - middle;
 
+        int[] firstHalf = new int[sizeL];
+        int[] secondHalf = new int[sizeR];
 
+        // adds elements to subarray
+        for (int i = 0; i < sizeL; i++) {
 
-        ArrayList <Integer> firstHalf = new ArrayList<>(sizeL);
-        ArrayList <Integer> secondHalf = new ArrayList<>(sizeR);
-
-        // adds elements to subarray from 0 to m - 1
-        for (int i = 0; i < middle - 1; i++){
-
-            firstHalf.add((Integer)toSort.get(i));
+            firstHalf[i] = toSort[leftBound + i];
         }
 
+        // adds elements to subarray
+        for (int j = 0; j < sizeR; j++) {
 
-        // adds elements to subarray from m to n + 1
-        for (int i = middle; i < toSort.size() + 1; i++){
-
-            secondHalf.add((Integer)toSort.get(i));
+            secondHalf[j] = toSort[1 + middle + j];
         }
 
-      
         // indices to check of subarrays
         int i = 0;
         int j = 0;
         int k = leftBound;
 
-        while (i <= sizeL && j <= sizeR){
+        while (i < sizeL && j < sizeR) {
 
+            if (firstHalf[i] <= secondHalf[j]) {
 
-            if (firstHalf.get(i) <= secondHalf.get(j)){
-
-                toSort.set(k, firstHalf.get(i));
+                toSort[k] = firstHalf[i];
                 i++;
             }
-            else{
-                toSort.set(k, secondHalf.get(j));
+
+            else {
+                toSort[k] = secondHalf[j];
                 j++;
             }
 
@@ -66,31 +47,24 @@ public class MergeSort{
         }
 
         // adds elements that did not need sorting
-        while (i < sizeL){
-            toSort.set(k, firstHalf.get(i));
+        while (i < sizeL) {
+
+            toSort[k] = firstHalf[i];
             i++;
             k++;
         }
 
-        while (j < sizeR){
+        while (j < sizeR) {
 
-            toSort.set(k, secondHalf.get(j));
+            toSort[k] = secondHalf[j];
             j++;
             k++;
-
         }
-
-        return toSort;
     }
 
+    public void sort(int[] toSort, int leftBound, int rightBound) {
 
-
-
-    public ArrayList sort(ArrayList toSort, int leftBound, int rightBound){
-
-
-        if (leftBound < rightBound){
-
+        if (leftBound < rightBound) {
 
             // gets middle of bounds
             int middle = (leftBound + rightBound) / 2;
@@ -99,33 +73,91 @@ public class MergeSort{
             sort(toSort, middle + 1, rightBound);
 
             merge(toSort, leftBound, middle, rightBound);
-
         }
-
-        return toSort;
     }
 
-
-    public void printArray(ArrayList<Integer> print) {
+    
+    public void printArray(int[] print) {
 
         for (Integer num : print) {
 
             System.out.println(num);
-            
         }
-
-
     }
 
 
+    public void rangePrint(int[] array, int leftR, int rightR){
 
+        if (leftR == 0) leftR = 1;
 
+        for (int i = leftR - 1; i <= rightR - 1; i++){
 
-    public static void main(String[] args) {
+            System.out.println(array[i]);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        // Use when debugging
+        //String inFile = "Numbers.txt";
+        //File fileName = new File(inFile);
         
+        MergeSort test = new MergeSort();
 
+        // sets up program output format
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter file name: ");
+        File fileName = new File(scanner.nextLine());
+
+        System.out.println("Enter left range: ");
+        int lr = scanner.nextInt();
+
+        System.out.println("Enter right range: ");
+        int rr = scanner.nextInt();
+
+
+        // variables to set up file input
+        String readInput;
+        String numberString = "";
+        String[] numbers;
+        int[] numbersToSort;
+
+        try { // try needed for file input
+
+            BufferedReader in = new BufferedReader(new FileReader(fileName)); // reads file input
+
+            while ((readInput = in.readLine()) != null){
+       
+                numberString += readInput + " ";
+            }
+
+            numbers = numberString.split(" "); // converts from string to an array of strings
+            numbersToSort = new int[numbers.length]; // initializes main array
+
+            for (int i = 0; i < numbers.length; i++) { // copies elements from string array to int array
+
+                numbersToSort[i] = Integer.parseInt(numbers[i]);  
+            }
+
+            // after setup, now sorting begins
+
+            System.out.println("\nBefore: ");
+            test.printArray(numbersToSort);
+
+            test.sort(numbersToSort, 0, numbersToSort.length - 1);
+
+            System.out.println("\nAfter: ");
+            
+            test.rangePrint(numbersToSort, lr, rr);
+
+            in.close();
+
+        } catch (FileNotFoundException e) { // needed for file input
+            System.out.println("FILE NOT FOUND");;
+        }
+          catch (IOException e){ // needed for file input
+            e.printStackTrace();
+        }
     }
-
-
-
 }
