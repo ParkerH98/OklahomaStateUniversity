@@ -3,8 +3,6 @@ import re
 import pandas as pd
 from sklearn.linear_model import LinearRegression  
 
-# test
-
 movieFields = ['id', 'title', 'vote_average']
 castFields = ['id', 'cast']
 
