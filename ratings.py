@@ -17,7 +17,6 @@ df = pd.DataFrame(movie_dataset)
 
 # actor_dict = pd.read_csv('actor_dict.csv', header=None, index_col=0, squeeze=True).to_dict()
 
-
 # gets unique keys from actors i.e:
 # ['Tom Hanks', 'Will Smith', 'Tom Hanks', 'Jonah Hill', 'Tom Hanks', 'Will Smith', 'Jonah Hill']
 # returns list [0, 1, 0, 2, 0, 1, 2]
@@ -31,8 +30,6 @@ actor_dict = dict(zip(keys, all_names))
 
 # inverts dictionary...names are keys
 actor_dict_inv = {v: k for k, v in actor_dict.items()}
-
-
 
 # w = csv.writer(open("actor_dict.csv", "w"))
 # for key, val in actor_dict.items():
