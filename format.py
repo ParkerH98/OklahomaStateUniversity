@@ -1,71 +1,63 @@
-# I had to split the formatting of the csv between two separate functions.
-# Particularly, I had to do this because I needed to apply two different
-# regex functions. I was also having problems with the strings storing
-# into the list properly after the first regex function.
-# There may be a better/more efficient way, but I'm still inexperienced with
-# python and pandas.
-
 import re
 import pandas as pd
 
-# This function reads in the csv file and extracts all of the names
-# from the paragraph of cast information given in credits.csv.
-# After, the names will appear in the format: ['Mark Hamill', 'Harrison Ford']
-def format1():
+movieFields = ['id', 'title', 'vote_average']
+castFields = ['id', 'cast']
 
-    movieFields = ['id', 'title', 'vote_average']
-    castFields = ['id', 'cast']
+movieData = pd.read_csv('../archive/movies_metadata.csv', skipinitialspace=True, usecols=movieFields)
+castData = pd.read_csv('../archive/credits.csv', skipinitialspace=True, usecols=castFields)
 
-    movieData = pd.read_csv('../archive/movies_metadata.csv', skipinitialspace=True, usecols=movieFields)
-    castData = pd.read_csv('../archive/credits.csv', skipinitialspace=True, usecols=castFields)
+dfMovies = pd.DataFrame(movieData)
+dfCast = pd.DataFrame(castData)
 
-    dfMovies = pd.DataFrame(movieData)
-    dfCast = pd.DataFrame(castData)
+df = pd.merge(dfMovies, dfCast, how='inner')
 
-    df = pd.merge(dfMovies, dfCast, how='inner')
+unformattedNames = df['cast']
 
-    unformattedNames = df['cast']
+# main list of cast sorted by movies
+cast = []
 
-    partiallyFormatted = []
+# list of overall cast
+all_names = []
 
-    for row in unformattedNames:
+# reads through the cast for each movie
+for row in unformattedNames:
 
-        line = re.findall("(?<=\'name\': )(.*?)(?=,)", row)
-        partiallyFormatted.append(line)
-    
-    df['cast'] = partiallyFormatted
+    # creates new list for current movie
+    grouped = []
 
-    print(df)
+    # pulls actors' names out of the paragraph
+    line = re.findall("(?<=\'name\': )(.*?)(?=,)", row)
 
-    pd.DataFrame.to_csv(df, "format-temp.csv", index="false")
+    # converts list of cast for one movie into a string to manipulate further 
+    line_string = str(line)
 
+    # separates cast into a unique list per movie
+    line_split = line_string.split(", ")
 
-# This function is needed to further extract the cast names from
-# the csv. After this function executes, the names will appear
-# in the format: [Mark Hamill, Harrison Ford]
-def format2():
-    movieFields = ['id', 'title', 'vote_average', 'cast']
+    # reads through each actor per movie
+    for name in line_split:
+     
+        # removes extraneous symbols from the actors' names
+        name = name.replace("\"", "")
+        name = name.replace("\'", "")
+        name = name.replace("[", "")
+        name = name.replace("]", "")
 
-    movieData = pd.read_csv('format-temp.csv', skipinitialspace=True, usecols=movieFields)
+        # adds actors to two working lists
+        # grouped: actors are in lists by movies
+        # all_names: puts every actors in one list
+        grouped.append(name)
+        all_names.append(name)
 
-    df = pd.DataFrame(movieData)
+    # adds formatted cast members to list
+    cast.append(grouped)
 
-    unformattedNames = df['cast']
+# assigns formatted cast to 'cast' column of DataFrame
+df['cast'] = cast
 
-    formattedActors = []
+# ensure correct
+print(df)
 
-    for row in unformattedNames:
-
-        line = re.findall("(?<=\"\')(.*?)(?=\'\")", row)
-
-        formattedActors.append(line)
-
-    df['cast'] = formattedActors
-
-    print(df)
-
-    pd.DataFrame.to_csv(df, "movies.csv", index="false")
-
-
-format1()
-format2()
+# writes formatted DataFrame values to a new csv
+pd.DataFrame.to_csv(df, "movies.csv", index="false")
