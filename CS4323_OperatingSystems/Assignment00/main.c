@@ -7,5 +7,9 @@ int main(){
     //playerInfo();
 
     boardInitialization();
-    printBoard();
+ 
+    printBoardNoSpaces();
+    printBoardSpaces();
+
+
 }

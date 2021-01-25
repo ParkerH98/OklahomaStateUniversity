@@ -4,4 +4,9 @@
 
 void playerInfo();
 void boardInitialization();
-void printBoard();
+void formatBoard();
+void printBoardNoSpace();
+void printBoardSpaces();
+void printBoardNoSpaces();
+
+
