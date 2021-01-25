@@ -2,7 +2,6 @@
 #include "functions.h"
 #include <ctype.h>
 
-
 // constants for height and width of array for reading file
 #define WIDTH  100
 #define HEIGHT 100
@@ -11,10 +10,10 @@
 char gameBoardTemp[HEIGHT][WIDTH];
 char gameBoard[HEIGHT][WIDTH];
 
+int *gamePtr = &gameBoard;
 
 // initializes variables for height, width, and nested loops
 int height, width, i, j;
-
 
 // reads the state.txt file to initialize the gameBoard
 void boardInitialization(){
@@ -65,7 +64,6 @@ void boardInitialization(){
     // closes the file stream
     fclose(f);
 }
-
 
 // prints the gameboard as it's formatted in the .txt file
 void printBoardSpaces(){

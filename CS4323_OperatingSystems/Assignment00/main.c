@@ -10,6 +10,6 @@ int main(){
  
     printBoardNoSpaces();
     printBoardSpaces();
-
+    test();
 
 }
