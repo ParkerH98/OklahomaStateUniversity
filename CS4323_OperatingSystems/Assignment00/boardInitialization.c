@@ -1,22 +1,29 @@
 // header file containing program function definitions and library imports
 #include "functions.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+// constants for height and width of array for reading file
 #define WIDTH  100
 #define HEIGHT 100
 
+// 2d array representing the gameboard
+char gameBoard[HEIGHT][WIDTH];
 
-void readFile1(){
+// initializes variables for height, width, and nested loops
+int height, width, i, j;
 
-    FILE* f;
-    int height, width, i, j;
-    char gameBoard[HEIGHT][WIDTH];
+// reads the state.txt file to initialize the gameBoard
+void boardInitialization(){
 
+    // initializes file object and assigns a pointer 'f'
+    FILE *f;
+
+    // reads file and stores into pointer f
     f = fopen("state.txt", "r");
 
+    // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
 
-
+    // iterates through file and writes to gameBoard array
     for(i = 0; i < height; i++){
 
         for (j = 0; j < (width * 2) + 2; j++){
@@ -24,46 +31,22 @@ void readFile1(){
             fscanf(f, "%c", &gameBoard[j][i]);
         }
     }
+    // closes the file stream
     fclose(f);
-    
+}
+
+// prints the gameBoard
+void printBoard(){
+
+    // nested loop to iterate through the board
     for(i = 0; i < height; i++){ 
 
         for(j = 0; j < (width * 2) + 2; j++){
 
+            // prints each char in gameBoard
             printf ("%c", gameBoard[j][i]);
         }
 
         printf("\n");
     }
-}
-
-
-
-void readFile(){
-
-    /* Pointer to the file */
-    FILE *fp;
-
-    /* Character variable to read the content of file */
-    char c;
-
-    /* Opening a file in r mode*/
-    fp = fopen ("state.txt", "r");
-
-    /* Infinite loop –I have used break to come out of the loop*/
-    while(1){
-
-        c = fgetc(fp);
-
-        if(c==EOF) break;
-
-        else printf("%c", c);
-    }
-    fclose(fp);
-}
-
-
-
-void boardInitialization(){
-
 }

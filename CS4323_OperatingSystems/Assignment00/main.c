@@ -6,5 +6,6 @@ int main(){
 
     //playerInfo();
 
-    readFile1();
+    boardInitialization();
+    printBoard();
 }
