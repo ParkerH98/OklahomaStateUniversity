@@ -1,8 +1,6 @@
 // header file containing program function definitions and library imports
 #include "functions.h"
 
-
-
 int isActive(char cellContents){
 
     if (cellContents == 'X'){
@@ -14,64 +12,68 @@ int isActive(char cellContents){
 
 void test(){
 
-    printf("%d", isActive(gameBoard[0][1]));
-}
+    int loopi, loopj;
 
-void rule1(){
+    for (loopi = 0; loopi < height; loopi++){
+        for (loopj = 0; loopj < width; loopj++){
 
-    for (int i = 0; i < sizeof(gameBoard); i++){
-
-        for (int j = 0; j < sizeof(gameBoard); j++){
-
-
-
-        
+            printf("%d ",isActive(gameBoard[loopi][loopj]));
         }
     }
 }
 
-
-int inBounds(int row, int col){
+int inBounds(int rowIndex, int colIndex){
 
     int bounds = 1;
 
-    if (row < 0 || row >= sizeof(gameBoard) || col < 1 || col >= sizeof(gameBoard)){
+    if (rowIndex < 0 || rowIndex >= height || colIndex < 0 || colIndex >= width){
 
-        bounds = false;
+        bounds = 0;
     }
 
     return bounds;
 }
 
-int countActiveNeighbors(){
+int countActiveNeighbors(int rowIndex, int colIndex){
 
-    int count, rowPos, colPos;
-    int row, col = 0;
+    int count = 0;
+    int rowPos = 0;
+    int colPos = 0;
 
-    for (int row = 0; row < sizeof(gameBoard); row++){
+    for (int i = -1; i < 2; i++){
+        for (int j = -1; j < 2; j++){
 
-        for (int col = 0; col < sizeof(gameBoard); col++){
+            if (i == 0 && j == 0) continue;
 
-            count, rowPos, colPos = 0;
+            rowPos = rowIndex + i;
+            colPos = colIndex + j;
 
-            for (int i = -1; i < 2; i++){
-                for (int j = -1; j < 2; j++){
-
-                    rowPos = row + i;
-                    colPos = col + j;
-
-                    if (inBounds(rowPos, colPos) == 1){
-                        if (isActive(gameBoard[rowPos][colPos]) == 1){
-                            count++;
-                        }
-                        else continue;
-                    }
-                    else continue;
-
+            if (inBounds(rowPos, colPos) == 1){
+                if (isActive(gameBoard[rowPos][colPos]) == 1){
+                    count++;
                 }
+                else continue;
             }
+            else continue;
         }
     }
     return count;
 }
 
+
+void rule1(){
+
+    int i, j;
+
+    // nested loop to iterate through the board
+    for(i = 0; i < height; i++){ 
+
+        for(j = 0; j < width; j++){
+
+            if (countActiveNeighbors(gameBoard[i][j]) < 2)
+        }
+
+        printf("\n");
+    }
+    
+}

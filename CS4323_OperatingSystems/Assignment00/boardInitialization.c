@@ -8,9 +8,9 @@
 
 // 2d array representing the gameboard
 char gameBoardTemp[HEIGHT][WIDTH];
-char gameBoard[HEIGHT][WIDTH];
+//char gameBoard[HEIGHT][WIDTH];
 
-int *gamePtr = &gameBoard;
+char **gameBoard;
 
 // initializes variables for height, width, and nested loops
 int height, width, i, j;
@@ -30,8 +30,14 @@ void boardInitialization(){
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
 
+
+
+    gameBoard = malloc(sizeof(char *) * height);
+
     // iterates through file and writes to gameBoard array
     for(i = 0; i < height; i++){
+
+        gameBoard[i] = malloc(sizeof(char) * width);
 
         // reset jcount to 0 at the beginning of each outer loop
         jCount = 0;
@@ -96,6 +102,3 @@ void printBoardNoSpaces(){
         printf("\n");
     }
 }
-
-
-
