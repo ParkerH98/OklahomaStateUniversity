@@ -85,6 +85,7 @@ void printBoardSpaces(){
 
         printf("\n");
     }
+    printf("\n");
 }
 
 // prints the gameboard as it's formatted in the .txt file
@@ -101,4 +102,5 @@ void printBoardNoSpaces(){
 
         printf("\n");
     }
+    printf("\n");
 }

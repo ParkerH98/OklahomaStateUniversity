@@ -10,16 +10,35 @@ int isActive(char cellContents){
 }
 
 
+// void test(){
+
+//     int loopi, loopj;
+
+//     for (loopi = 0; loopi < height; loopi++){
+//         for (loopj = 0; loopj < width; loopj++){
+
+//             printf("%d ",isActive(gameBoard[loopi][loopj]));
+//         }
+//     }
+// }
+
+
 void test(){
 
-    int loopi, loopj;
+    int ii, jj;
 
-    for (loopi = 0; loopi < height; loopi++){
-        for (loopj = 0; loopj < width; loopj++){
+    // nested loop to iterate through the board
+    for(ii = 0; ii < width; ii++){ 
 
-            printf("%d ",isActive(gameBoard[loopi][loopj]));
+        for(jj = 0; jj < height; jj++){
+
+            // prints each char in gameBoard
+            printf ("%d", countActiveNeighbors(ii, jj));
         }
+
+        printf("\n");
     }
+    printf("\n");
 }
 
 int inBounds(int rowIndex, int colIndex){
@@ -70,10 +89,9 @@ void rule1(){
 
         for(j = 0; j < width; j++){
 
-            if (countActiveNeighbors(gameBoard[i][j]) < 2)
+            if (isActive(gameBoard[i][j]) == 1 && countActiveNeighbors(i, j) < 2){
+                gameBoard[i][j] = '-';
+            }
         }
-
-        printf("\n");
     }
-    
 }

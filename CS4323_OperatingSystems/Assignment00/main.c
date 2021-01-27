@@ -9,9 +9,11 @@ int main(){
     boardInitialization();
  
     printBoardNoSpaces();
+
+
     // printBoardSpaces();
 
-    // test();
+    test();
 
     // printf("%d\n", countActiveNeighbors(1, 0));
     // printf("%d\n", countActiveNeighbors(1, 1));
@@ -21,4 +23,7 @@ int main(){
     // printf("%d\n", countActiveNeighbors(2, 0));
     // printf("%d\n", countActiveNeighbors(2, 1));
 
+    rule1();
+
+    printBoardNoSpaces();
 }

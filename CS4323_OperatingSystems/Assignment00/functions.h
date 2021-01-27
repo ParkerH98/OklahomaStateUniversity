@@ -10,11 +10,19 @@ extern int height;
 extern int width;
 
 
+// playerInfo.c
 void playerInfo();
+
+
+// boardInitialization.c
 void boardInitialization();
 void printBoardSpaces();
 void printBoardNoSpaces();
+
+
+// generations.c
 int isActive(char cellContents);
 void test();
 int countActiveNeighbors(int rowIndex, int colIndex);
 int inBounds(int row, int col);
+void rule1();
