@@ -16,13 +16,23 @@ void playerInfo();
 
 // boardInitialization.c
 void boardInitialization();
-void printBoardSpaces();
-void printBoardNoSpaces();
+
+
 
 
 // generations.c
 int isActive(char cellContents);
-void test();
-int countActiveNeighbors(int rowIndex, int colIndex);
+void printActiveCount();
 int inBounds(int row, int col);
 void rule1();
+void rule2();
+void rule3();
+void rule4();
+void generations();
+
+// displayGenerations.c
+void displayGeneration();
+int countActiveNeighbors(int rowIndex, int colIndex);
+
+// readPlayersInformation.c
+void readPlayersInformation();

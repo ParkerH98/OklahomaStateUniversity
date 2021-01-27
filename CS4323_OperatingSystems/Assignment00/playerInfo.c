@@ -2,9 +2,7 @@
 #include "functions.h"
 #include "time.h"
 
-
-
-
+extern char date[64];
 
 
 

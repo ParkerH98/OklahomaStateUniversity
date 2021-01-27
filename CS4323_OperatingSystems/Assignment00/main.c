@@ -5,25 +5,29 @@
 int main(){
 
     //playerInfo();
+    readPlayersInformation();
 
-    boardInitialization();
- 
-    printBoardNoSpaces();
+    displayGeneration();
+    generations();
+    displayGeneration();
 
-
-    // printBoardSpaces();
-
-    test();
-
-    // printf("%d\n", countActiveNeighbors(1, 0));
-    // printf("%d\n", countActiveNeighbors(1, 1));
-    // printf("%d\n", countActiveNeighbors(1, 2));
-    // printf("%d\n", countActiveNeighbors(1, 3));
-    // printf("%d\n", countActiveNeighbors(1, 4));
-    // printf("%d\n", countActiveNeighbors(2, 0));
-    // printf("%d\n", countActiveNeighbors(2, 1));
-
-    rule1();
-
-    printBoardNoSpaces();
+    
 }
+
+
+
+// printActiveCount();
+// rule1();
+// printBoardNoSpaces();
+
+// printActiveCount();
+// rule2();
+// printBoardNoSpaces();
+
+// printActiveCount();
+// rule3();
+// printBoardNoSpaces();
+
+// printActiveCount();
+// rule4();
+// printBoardNoSpaces();

@@ -23,23 +23,7 @@ int isActive(char cellContents){
 // }
 
 
-void test(){
 
-    int ii, jj;
-
-    // nested loop to iterate through the board
-    for(ii = 0; ii < width; ii++){ 
-
-        for(jj = 0; jj < height; jj++){
-
-            // prints each char in gameBoard
-            printf ("%d", countActiveNeighbors(ii, jj));
-        }
-
-        printf("\n");
-    }
-    printf("\n");
-}
 
 int inBounds(int rowIndex, int colIndex){
 
@@ -94,4 +78,60 @@ void rule1(){
             }
         }
     }
+}
+
+void rule2(){
+
+    int i, j;
+
+    // nested loop to iterate through the board
+    for(i = 0; i < height; i++){ 
+
+        for(j = 0; j < width; j++){
+
+            if (isActive(gameBoard[i][j]) == 1 && countActiveNeighbors(i, j) > 3){
+                gameBoard[i][j] = '-';
+            }
+        }
+    }
+}
+
+void rule3(){
+
+    int i, j;
+
+    // nested loop to iterate through the board
+    for(i = 0; i < height; i++){ 
+
+        for(j = 0; j < width; j++){
+
+            if ((isActive(gameBoard[i][j]) == 1 && countActiveNeighbors(i, j) == 2) || (isActive(gameBoard[i][j]) == 1 && countActiveNeighbors(i, j) == 3)){
+                gameBoard[i][j] = 'X';
+            }
+        }
+    }
+}
+
+void rule4(){
+
+    int i, j;
+
+    // nested loop to iterate through the board
+    for(i = 0; i < height; i++){ 
+
+        for(j = 0; j < width; j++){
+
+            if (isActive(gameBoard[i][j]) == 0 && countActiveNeighbors(i, j) == 3){
+                gameBoard[i][j] = 'X';
+            }
+        }
+    }
+}
+
+void generations(){
+
+    rule1();
+    rule2();
+    rule3();
+    rule4();
 }
