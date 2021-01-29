@@ -10,16 +10,27 @@ struct Info info;
 
 // 2d array representing the gameboard
 char gameBoardTemp[HEIGHT][WIDTH];
-
+ 
 
 
 void test(){
 
+    int i, j;
 
-    char **ptr;
-    ptr = gameBoard;
 
-    printf("%c", *(*ptr)+5);
+
+    for(i = 0; i < height; i++){
+
+
+
+        // iterates over columns
+        for (j = 0; j < width ; j++){
+
+            printf("%c", *(*(gameBoard + i) + j));
+        }
+
+    }
+    
 }
 
 // initializes variables for height, width, and nested loops

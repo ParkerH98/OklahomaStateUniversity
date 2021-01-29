@@ -59,7 +59,9 @@ void rule1(){
         for(j = 0; j < width; j++){
 
             if (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(i, j) < 2){
-                gameBoard[i][j] = '-';
+                // gameBoard[i][j] = '-';
+
+                *(*(gameBoard + i) + j)) = 4;
             }
         }
     }

@@ -20,4 +20,7 @@ void boardInitialization(){
         arrayCopy[i] = malloc(sizeof(char) * width);
 
     }
+
+    char *ptr;
+    ptr = *gameBoard;
 }

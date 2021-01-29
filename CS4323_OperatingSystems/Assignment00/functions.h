@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 
+
+extern char *ptr;
+
 extern int isContinueing;
 extern int additional;
 
