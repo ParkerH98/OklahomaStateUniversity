@@ -2,14 +2,25 @@
 #include "functions.h"
 #include <ctype.h>
 
+struct Info info;
+
 // constants for height and width of array for reading file
 #define WIDTH  100
 #define HEIGHT 100
 
 // 2d array representing the gameboard
 char gameBoardTemp[HEIGHT][WIDTH];
-//char gameBoard[HEIGHT][WIDTH];
 
+
+
+void test(){
+
+
+    char **ptr;
+    ptr = gameBoard;
+
+    printf("%c", *(*ptr)+5);
+}
 
 // initializes variables for height, width, and nested loops
 int height, width, i, j;
@@ -24,7 +35,7 @@ void readPlayersInformation(){
     FILE *f;
 
     // reads file and stores into pointer f
-    f = fopen("state.txt", "r");
+    f = fopen("test.txt", "r");
 
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
@@ -79,23 +90,6 @@ void printBoardSpaces(){
 
             // prints each char in gameBoard
             printf ("%c", gameBoardTemp[i][j]);
-        }
-
-        printf("\n");
-    }
-    printf("\n");
-}
-
-// prints the gameboard as it's formatted in the .txt file
-void printBoardNoSpaces(){
-
-    // nested loop to iterate through the board
-    for(i = 0; i < height; i++){ 
-
-        for(j = 0; j < width; j++){
-
-            // prints each char in gameBoard
-            printf ("%c", gameBoard[i][j]);
         }
 
         printf("\n");

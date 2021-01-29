@@ -1,33 +1,17 @@
 // header file containing program function definitions and library imports
 #include "functions.h"
+#include <stdio.h>
 
 
 int main(){
 
-    //playerInfo();
+    // playerInfo();
     readPlayersInformation();
 
-    displayGeneration();
-    generations();
-    displayGeneration();
+    // runGenerations(info.numGenerations);
 
-    
+    // hh();
+    // endGame();
+
+    test();
 }
-
-
-
-// printActiveCount();
-// rule1();
-// printBoardNoSpaces();
-
-// printActiveCount();
-// rule2();
-// printBoardNoSpaces();
-
-// printActiveCount();
-// rule3();
-// printBoardNoSpaces();
-
-// printActiveCount();
-// rule4();
-// printBoardNoSpaces();
