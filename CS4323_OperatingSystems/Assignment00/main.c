@@ -2,16 +2,10 @@
 #include "functions.h"
 #include <stdio.h>
 
-
 int main(){
 
-    // playerInfo();
+    playerInfo();
     readPlayersInformation();
-
-    // runGenerations(info.numGenerations);
-
-    // hh();
-    // endGame();
-
-    test();
+    runGenerations(info.numGenerations);
+    endGame();
 }

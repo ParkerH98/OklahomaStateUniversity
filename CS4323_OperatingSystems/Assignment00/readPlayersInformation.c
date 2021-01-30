@@ -1,8 +1,17 @@
+/*
+Filename: FamilyMember.java
+Author: Parker Hague
+Course: Operating Systems - CS4323
+Assignment: Assignment00
+Due: Feb. 4th, 2021, 11:59 PM
+Submitted: Nov. 30th, 2020
+
+This file reads in the input file 'state.txt' and assigns the information to the necessary variables. 
+*/
+
 // header file containing program function definitions and library imports
 #include "functions.h"
 #include <ctype.h>
-
-struct Info info;
 
 // constants for height and width of array for reading file
 #define WIDTH  100
@@ -10,28 +19,6 @@ struct Info info;
 
 // 2d array representing the gameboard
 char gameBoardTemp[HEIGHT][WIDTH];
- 
-
-
-void test(){
-
-    int i, j;
-
-
-
-    for(i = 0; i < height; i++){
-
-
-
-        // iterates over columns
-        for (j = 0; j < width ; j++){
-
-            printf("%c", *(*(gameBoard + i) + j));
-        }
-
-    }
-    
-}
 
 // initializes variables for height, width, and nested loops
 int height, width, i, j;
@@ -51,13 +38,11 @@ void readPlayersInformation(){
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
 
-
+    // dynamically allocates the 2d array as the game board
     boardInitialization();
-
 
     // iterates through file and writes to gameBoard array
     for(i = 0; i < height; i++){
-
 
         // reset jcount to 0 at the beginning of each outer loop
         jCount = 0;
@@ -89,21 +74,4 @@ void readPlayersInformation(){
 
     // closes the file stream
     fclose(f);
-}
-
-// prints the gameboard as it's formatted in the .txt file
-void printBoardSpaces(){
-
-    // nested loop to iterate through the board
-    for(i = 0; i < height; i++){ 
-
-        for(j = 0; j < (width * 2) + 2; j++){
-
-            // prints each char in gameBoard
-            printf ("%c", gameBoardTemp[i][j]);
-        }
-
-        printf("\n");
-    }
-    printf("\n");
 }

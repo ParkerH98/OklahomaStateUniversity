@@ -9,7 +9,6 @@ struct Info info;
 
 void playerInfo(){
 
-
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
     // char date[64];
@@ -21,22 +20,4 @@ void playerInfo(){
 
     printf("\nHow many generations would you like to see initially?.\n");
     scanf("%d", &info.numGenerations);
-
-    // printf("\nUserName: %s\nDate: %s\n", info.playerName, info.date);
 }
-
-// void generationPrompt(){
-
-//     char answer[3];
-//     scanf("%s");
-//     printf("%c\n", answer);
-
-//     printf("The initial generations are finished. Would you like to print more?");
-
-
-
-
-// }
-
-
-

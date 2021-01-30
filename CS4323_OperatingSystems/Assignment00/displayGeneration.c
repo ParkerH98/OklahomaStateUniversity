@@ -1,12 +1,10 @@
 // header file containing program function definitions and library imports
 #include "functions.h"
 
-
 // prints the gameboard as it's formatted in the .txt file
 void displayGeneration(){
 
     int i, j;
-
 
     // nested loop to iterate through the board
     for(i = 0; i < height; i++){ 
@@ -22,9 +20,7 @@ void displayGeneration(){
     printf("\n");
 }
 
-
-
-
+//debug function no actual use
 void printActiveCount(){
 
     int i, j;

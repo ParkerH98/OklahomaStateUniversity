@@ -5,6 +5,8 @@
 #include <string.h>
 
 
+
+extern int active;
 extern char *ptr;
 
 extern int isContinueing;
@@ -31,14 +33,10 @@ extern int numGenerations;
 
 // playerInfo.c
 void playerInfo();
-// void generationPrompt();
-
 
 // boardInitialization.c
 void boardInitialization();
-
-
-
+void freeBoard();
 
 // generations.c
 int isActive(char cellContents);
@@ -50,6 +48,12 @@ void rule3();
 void rule4();
 void generations();
 void copyArray();
+void runGenerations(int numGenerations);
+void runAdditionalGenerations();
+void runGenerationsAdditionally(int numGenerations);
+void checkIfAllInactive();
+int checkIfAllInactiveHelper();
+void endGame();
 
 // displayGenerations.c
 void displayGeneration();
@@ -57,14 +61,9 @@ int countActiveNeighbors(int rowIndex, int colIndex);
 
 // readPlayersInformation.c
 void readPlayersInformation();
-void printBoardSpaces();
 
-void print();
+// displayGameSummary.c
+void writeToGameLog();
+void displayGameLog();
+
 void test();
-
-void runGenerations(int numGenerations);
-void endGame();
-void hh();
-void runAdditionalGenerations();
-
-void runGenerationsAdditionally(int numGenerations);
