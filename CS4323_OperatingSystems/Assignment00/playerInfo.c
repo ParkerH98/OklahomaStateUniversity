@@ -9,7 +9,7 @@ void playerInfo(){
 
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
-    assert(strftime(info.date, sizeof(info.date), "%A %x - %I:%M%p", tm));
+    assert(strftime(info.date, sizeof(info.date), "%A, %B %d, %Y - %I:%M %p", tm));
     
     printf("\nPlease input your name.\n");
     fgets(info.playerName, 30, stdin);
