@@ -1,44 +1,12 @@
 PLAYER NAME: Parker Hague
-DATE: Thu Jan 28 22:21:09 2021
-NUMBER OF GENERATIONS: 2
----------------------------------------------------
-PLAYER NAME: Joshi Shital
-DATE: Thu Jan 28 22:21:24 2021
-NUMBER OF GENERATIONS: 0
+DATE: Saturday, January 30, 2021 - 04:46 AM
+NUMBER OF GENERATIONS: 4
 ---------------------------------------------------
 PLAYER NAME: Dax Jones
-DATE: Saturday 01/30/21 - 04:34AM
-NUMBER OF GENERATIONS: 7
----------------------------------------------------
-PLAYER NAME: PArker
-DATE: Saturday 01/30/21 - 04:38AM
+DATE: Saturday, January 30, 2021 - 04:47 AM
 NUMBER OF GENERATIONS: 3
 ---------------------------------------------------
-PLAYER NAME: gg
-DATE: Saturday 01/30/21 - 04:39AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: dd
-DATE: Saturday January 01/30/21 - 04:41AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: f
-DATE: Saturday January 30 - 04:42AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: josh
-DATE: Saturday January 30, 2021 - 04:43 AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: ff
-DATE: Saturday, 30 January 2021 - 04:44 AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: gg
-DATE: Saturday, January 30, 2021 - 04:45 AM
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: dd
-DATE: Saturday, January 30, 2021 - 04:46 AM
+PLAYER NAME: Robert Hague
+DATE: Saturday, January 30, 2021 - 05:02 AM
 NUMBER OF GENERATIONS: 4
 ---------------------------------------------------

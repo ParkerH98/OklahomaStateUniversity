@@ -11,7 +11,6 @@ This file reads in the input file 'state.txt' and assigns the information to the
 
 // header file containing program function definitions and library imports
 #include "functions.h"
-#include <ctype.h>
 
 // constants for height and width of array for reading file
 #define WIDTH  100

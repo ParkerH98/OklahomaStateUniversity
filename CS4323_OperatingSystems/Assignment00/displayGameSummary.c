@@ -1,6 +1,5 @@
 // header file containing program function definitions and library imports
 #include "functions.h"
-#include <stdio.h>
 
 void writeToGameLog(){
 
@@ -14,7 +13,6 @@ void writeToGameLog(){
     fprintf(f, "PLAYER NAME: %s\nDATE: %s\nNUMBER OF GENERATIONS: %d\n---------------------------------------------------\n", info.playerName, info.date, info.numGenerations);
     printf("");
     fclose(f);
-
 }
 
 void displayGameLog(){
