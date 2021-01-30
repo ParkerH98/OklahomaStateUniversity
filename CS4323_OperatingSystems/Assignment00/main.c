@@ -18,3 +18,5 @@ int main(){
 // ask joshi is pointer passing is correct
 // implemnet pointer arithmentic
 // print with pointer arith
+
+// memory leak detectoin
