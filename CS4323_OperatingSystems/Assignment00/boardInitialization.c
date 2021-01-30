@@ -2,8 +2,6 @@
 This file creates and frees the arrays needed in this program.
 */
 
-
-
 // header file containing program function definitions and library imports
 #include "functions.h"
 

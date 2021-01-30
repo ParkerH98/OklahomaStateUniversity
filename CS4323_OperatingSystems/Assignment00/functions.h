@@ -6,10 +6,6 @@
 #include <time.h>
 #include <ctype.h>
 
-
-
-
-
 extern int active;
 extern char *ptr;
 extern int currGenCount;
