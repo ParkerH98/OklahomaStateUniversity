@@ -162,22 +162,6 @@ void copyArray(){
     }
 }
 
-
-void print(){
-
-    char arrayCopy[height][width];
-
-    for (int i = 0; i < height; i++)
-    {
-        for (int j = 0; j < width; j++){
-            printf("%c", arrayCopy[i][j]);
-
-        }
-        printf("\n");
-    }
-}
-
-
 void generations(){
 
     copyArray();
@@ -187,14 +171,13 @@ void generations(){
     rule3();
     rule4();
 
-    // checkIfAllInactive();
+    checkIfAllInactive();
 }
 
 void runGenerations(int numGenerations){
 
-    printf("Generation 0:\n");
+    printf("Initial Generation 0:\n");
     displayGeneration();
-
 
     for (int i = 0; i < numGenerations; i++){
 
@@ -213,7 +196,6 @@ void runGenerationsAdditionally(int additionalGens){
         printf("Generation %d:\n", i + 1);
         displayGeneration();
         currGenCount++;
-
     }
 
     endGame();
@@ -230,7 +212,6 @@ void runAdditionalGenerations(){
 
     runGenerationsAdditionally(additional);
 }
-
 
 
 int checkIfAllInactiveHelper(){
@@ -257,9 +238,12 @@ void checkIfAllInactive(){
 
     int active = checkIfAllInactiveHelper();
 
-    if (active == 1){
+    if (active == 0){
 
-        printf("After %d generation, all cells in the board are inactive.\n", currGenCount);
+        printf("Generation %d:\n", currGenCount + 1);
+        displayGeneration();
+
+        printf("After %d generation, all cells in the board are inactive.\n\n", currGenCount + 1);
         endGame();
     }
 }
@@ -267,7 +251,8 @@ void checkIfAllInactive(){
 void endGame(){
 
     // is it better to have an int rep the active state or just do another function call to get the state
-    if (checkIfAllInactiveHelper() == 1){
+    if (checkIfAllInactiveHelper() == 0){
+        writeToGameLog();
         displayGameLog();
         exit(0);
     }

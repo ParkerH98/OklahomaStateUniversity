@@ -3,6 +3,9 @@
 #include <stdio.h>
 
 void writeToGameLog(){
+
+    info.numGenerations = currGenCount + 1;
+
     // initializes file object and assigns a pointer 'f'
     FILE *f;
     // reads file and stores into pointer f

@@ -8,6 +8,7 @@
 
 extern int active;
 extern char *ptr;
+extern int currGenCount;
 
 extern int isContinueing;
 extern int additional;

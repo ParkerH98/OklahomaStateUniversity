@@ -5,14 +5,11 @@
 
 struct Info info;
 
-
-
 void playerInfo(){
 
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
-    // char date[64];
-    assert(strftime(info.date, sizeof(info.date), "%c", tm));
+    assert(strftime(info.date, sizeof(info.date), "%A %x - %I:%M%p", tm));
     
     printf("\nPlease input your name.\n");
     fgets(info.playerName, 30, stdin);
