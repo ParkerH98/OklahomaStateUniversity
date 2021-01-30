@@ -7,8 +7,8 @@ int main(){
     readPlayersInformation();
     runGenerations(info.numGenerations);
     endGame();
-}
 
+}
 
 //TODO
 
@@ -17,3 +17,4 @@ int main(){
 // clean up .h file
 // ask joshi is pointer passing is correct
 // implemnet pointer arithmentic
+// print with pointer arith

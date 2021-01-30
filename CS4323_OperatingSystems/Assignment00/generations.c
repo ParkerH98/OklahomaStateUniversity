@@ -93,13 +93,14 @@ void rule1(){
         for(j = 0; j < width; j++){
 
             if (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(i, j) < 2){
-                gameBoard[i][j] = '-';
+                // gameBoard[i][j] = '-';
 
-                // *(*(gameBoard + i) + j)) = 4;
+                *(*(gameBoard + i) + j) = '-';
             }
         }
     }
 }
+
 
 void rule2(){
 
@@ -111,7 +112,9 @@ void rule2(){
         for(j = 0; j < width; j++){
 
             if (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(i, j) > 3){
-                gameBoard[i][j] = '-';
+                // gameBoard[i][j] = '-';
+                *(*(gameBoard + i) + j) = '-';
+
             }
         }
     }
@@ -127,7 +130,9 @@ void rule3(){
         for(j = 0; j < width; j++){
 
             if ((isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(i, j) == 2) || (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(i, j) == 3)){
-                gameBoard[i][j] = 'X';
+                // gameBoard[i][j] = 'X';
+                *(*(gameBoard + i) + j) = 'X';
+
             }
         }
     }
@@ -144,6 +149,8 @@ void rule4(){
 
             if (isActive(arrayCopy[i][j]) == 0 && countActiveNeighbors(i, j) == 3){
                 gameBoard[i][j] = 'X';
+                *(*(gameBoard + i) + j) = 'X';
+
             }
         }
     }
@@ -287,6 +294,7 @@ void test(){
         // iterates over columns
         for (j = 0; j < width ; j++){
 
+            *(*(gameBoard + i) + j) = 'X';
             printf("%c", *(*(gameBoard + i) + j));
         }
     }
