@@ -32,7 +32,7 @@ void readPlayersInformation(){
     FILE *f;
 
     // reads file and stores into pointer f
-    f = fopen("state.txt", "r");
+    f = fopen("bigtest.txt", "r");
 
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
@@ -50,7 +50,7 @@ void readPlayersInformation(){
         for (j = 0; j < (width * 2) + 2; j++){
 
             // keeps jCount from going over 4
-            if (jCount == 5){
+            if (jCount == width){
                 break;
             }
 

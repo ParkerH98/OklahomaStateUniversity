@@ -35,7 +35,9 @@ void displayGameLog(){
     // reads file and stores into pointer f
     fptr = fopen("GameLog.txt", "r");
 
-    // Read contents from file 
+    printf("\n");
+    
+    // Read contents from file
     char c = fgetc(fptr); 
     while (c != EOF) 
     { 
