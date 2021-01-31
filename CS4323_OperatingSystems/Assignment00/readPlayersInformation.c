@@ -1,5 +1,5 @@
 /*
-Filename: FamilyMember.java
+Filename: readPlayersInformation.c
 Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
@@ -32,7 +32,7 @@ void readPlayersInformation(){
     FILE *f;
 
     // reads file and stores into pointer f
-    f = fopen("test.txt", "r");
+    f = fopen("state.txt", "r");
 
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);
@@ -73,4 +73,4 @@ void readPlayersInformation(){
 
     // closes the file stream
     fclose(f);
-}
+} 

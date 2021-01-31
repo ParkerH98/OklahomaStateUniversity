@@ -1,7 +1,20 @@
+/*
+Filename: displayGeneration.c
+Author: Parker Hague
+Course: Operating Systems - CS4323
+Assignment: Assignment00
+Due: Feb. 4th, 2021, 11:59 PM
+Submitted: Nov. 30th, 2020
+
+This file contains functions for printing the game board including 
+printing the board and printing the board with the counts of active
+neighbors.
+*/
+
 // header file containing program function definitions and library imports
 #include "functions.h"
 
-// prints the gameboard as it's formatted in the .txt file
+// prints the current game board to the console
 void displayGeneration(){
 
     int i, j;
@@ -20,7 +33,7 @@ void displayGeneration(){
     printf("\n");
 }
 
-//debug function no actual use
+// prints a 2d array of the number of active neighbors for each cell
 void printActiveCount(){
 
     int i, j;

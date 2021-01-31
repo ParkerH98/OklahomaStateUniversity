@@ -5,6 +5,8 @@
         "cwchar": "c",
         "locale": "c",
         "memory": "c",
-        "new": "c"
+        "new": "c",
+        "__config": "c",
+        "string_view": "c"
     }
 }
