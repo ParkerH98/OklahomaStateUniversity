@@ -25,7 +25,7 @@ void displayGeneration(){
         for(j = 0; j < width; j++){
 
             // prints each char in gameBoard
-            printf ("%c", gameBoard[i][j]);
+            printf ("%c", *(*(gameBoard + i) + j));
         }
 
         printf("\n");

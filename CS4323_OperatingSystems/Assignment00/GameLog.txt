@@ -50,3 +50,7 @@ PLAYER NAME: hgh
 DATE: Sunday, January 31, 2021 - 01:27 AM
 NUMBER OF GENERATIONS: 20
 ---------------------------------------------------
+PLAYER NAME: jerry
+DATE: Sunday, January 31, 2021 - 02:01 AM
+NUMBER OF GENERATIONS: 18
+---------------------------------------------------

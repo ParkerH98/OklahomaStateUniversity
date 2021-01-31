@@ -21,12 +21,5 @@ int main(){
 }
 
 //TODO
-
-//add comments
-//clean up code
-// clean up .h file
 // ask joshi is pointer passing is correct
-// implemnet pointer arithmentic
-// print with pointer arith
-
 // memory leak detectoin 
