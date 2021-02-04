@@ -14,23 +14,23 @@ PLAYER NAME: Bob Stoops
 DATE: Saturday, January 30, 2021 - 11:38 PM
 NUMBER OF GENERATIONS: 9
 ---------------------------------------------------
-PLAYER NAME: kk
-DATE: Sunday, January 31, 2021 - 02:22 AM
-NUMBER OF GENERATIONS: 9
----------------------------------------------------
 PLAYER NAME: Parker
 DATE: Sunday, January 31, 2021 - 02:30 AM
 NUMBER OF GENERATIONS: 8
 ---------------------------------------------------
-PLAYER NAME: berry
-DATE: Sunday, January 31, 2021 - 02:34 AM
-NUMBER OF GENERATIONS: 5
+PLAYER NAME: Parker Hague
+DATE: Wednesday, February 03, 2021 - 03:27 PM
+NUMBER OF GENERATIONS: 12
 ---------------------------------------------------
-PLAYER NAME: Hungry
-DATE: Sunday, January 31, 2021 - 02:35 AM
+PLAYER NAME: Joshi Shital
+DATE: Thursday, February 04, 2021 - 02:04 PM
 NUMBER OF GENERATIONS: 10
 ---------------------------------------------------
-PLAYER NAME: paek
-DATE: Sunday, January 31, 2021 - 02:37 AM
-NUMBER OF GENERATIONS: 24
+PLAYER NAME: Parker
+DATE: Thursday, February 04, 2021 - 04:43 PM
+NUMBER OF GENERATIONS: 6
+---------------------------------------------------
+PLAYER NAME: P
+DATE: Thursday, February 04, 2021 - 05:45 PM
+NUMBER OF GENERATIONS: 6
 ---------------------------------------------------

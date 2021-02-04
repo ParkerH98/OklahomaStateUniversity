@@ -32,7 +32,7 @@ void readPlayersInformation(){
     FILE *f;
 
     // reads file and stores into pointer f
-    f = fopen("bigtest.txt", "r");
+    f = fopen("state.txt", "r");
 
     // gets height and width from first line of state.txt
     fscanf(f, "%d%d", &height, &width);

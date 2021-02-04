@@ -27,6 +27,8 @@ struct Info{
 // instantiates Info object to store player info
 extern struct Info info;
 
+// *info;
+
 // makes members of the struct global
 extern char playerName[30];
 extern char date[64];

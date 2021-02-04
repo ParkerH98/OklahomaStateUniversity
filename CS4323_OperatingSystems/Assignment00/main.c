@@ -19,7 +19,3 @@ int main(){
     runGenerations(info.numGenerations);
     endGame();
 }
-
-//TODO
-// ask joshi is pointer passing is correct
-// memory leak detectoin 
