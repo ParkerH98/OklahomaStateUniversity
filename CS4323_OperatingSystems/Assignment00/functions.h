@@ -18,21 +18,21 @@ external variable declarations, and library imports.
 #include <ctype.h>
 
 // struct to hold player information
-struct Info{
-    char playerName[30];
-    char date[64];
-    int numGenerations;
-};
+// struct Info{
+//     char playerName[30];
+//     char date[64];
+//     int numGenerations;
+// };
 
 // instantiates Info object to store player info
-extern struct Info info;
+// extern struct Info info;
 
 // *info;
 
 // makes members of the struct global
-extern char playerName[30];
-extern char date[64];
-extern int numGenerations;
+// extern char playerName[30];
+// extern char date[64];
+// extern int numGenerations;
 
 // playerInfo.c
 void playerInfo();
