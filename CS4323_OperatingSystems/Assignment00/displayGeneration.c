@@ -15,7 +15,7 @@ neighbors.
 #include "functions.h"
 
 // prints the current game board to the console
-void displayGeneration(){
+void displayGeneration(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i, j;
 
@@ -34,7 +34,7 @@ void displayGeneration(){
 }
 
 // prints a 2d array of the number of active neighbors for each cell
-void printActiveCount(){
+void printActiveCount(char **arrayCopy, int height, int width){
 
     int i, j;
 
@@ -44,7 +44,7 @@ void printActiveCount(){
         for(j = 0; j < height; j++){
 
             // prints each char in gameBoard
-            printf ("%d", countActiveNeighbors(i, j));
+            printf ("%d", countActiveNeighbors(arrayCopy, height, width, i, j));
         }
 
         printf("\n");

@@ -1,36 +1,35 @@
-PLAYER NAME: Parker Hague
-DATE: Saturday, January 30, 2021 - 04:46 AM
-NUMBER OF GENERATIONS: 4
+
+
+
+PLAYER NAME: 
+DATE: 
+NUMBER OF GENERATIONS: 0
 ---------------------------------------------------
-PLAYER NAME: Robert Hague
-DATE: Saturday, January 30, 2021 - 05:02 AM
-NUMBER OF GENERATIONS: 4
+PLAYER NAME: 
+DATE: 
+NUMBER OF GENERATIONS: 0
 ---------------------------------------------------
-PLAYER NAME: Adyson Poe
-DATE: Saturday, January 30, 2021 - 06:04 PM
-NUMBER OF GENERATIONS: 3
----------------------------------------------------
-PLAYER NAME: Bob Stoops
-DATE: Saturday, January 30, 2021 - 11:38 PM
-NUMBER OF GENERATIONS: 9
----------------------------------------------------
-PLAYER NAME: Parker
-DATE: Sunday, January 31, 2021 - 02:30 AM
-NUMBER OF GENERATIONS: 8
----------------------------------------------------
-PLAYER NAME: Parker Hague
-DATE: Wednesday, February 03, 2021 - 03:27 PM
-NUMBER OF GENERATIONS: 12
----------------------------------------------------
-PLAYER NAME: Joshi Shital
-DATE: Thursday, February 04, 2021 - 02:04 PM
-NUMBER OF GENERATIONS: 10
----------------------------------------------------
-PLAYER NAME: Parker
-DATE: Thursday, February 04, 2021 - 04:43 PM
+PLAYER NAME: 
+DATE: 
 NUMBER OF GENERATIONS: 6
 ---------------------------------------------------
-PLAYER NAME: P
-DATE: Thursday, February 04, 2021 - 05:45 PM
+PLAYER NAME: 
+DATE: 
 NUMBER OF GENERATIONS: 6
+---------------------------------------------------
+PLAYER NAME: 
+DATE: 
+NUMBER OF GENERATIONS: 6
+---------------------------------------------------
+PLAYER NAME: 
+DATE: 
+NUMBER OF GENERATIONS: 4
+---------------------------------------------------
+PLAYER NAME: 
+DATE: 
+NUMBER OF GENERATIONS: 0
+---------------------------------------------------
+PLAYER NAME: k
+DATE: Friday, February 05, 2021 - 01:55 AM
+NUMBER OF GENERATIONS: 21
 ---------------------------------------------------

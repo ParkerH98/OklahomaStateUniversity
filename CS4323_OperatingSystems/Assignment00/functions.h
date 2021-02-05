@@ -38,10 +38,12 @@ extern int numGenerations;
 void playerInfo();
 
 // boardInitialization.c
-extern char **gameBoard;
-extern char **arrayCopy;
-void boardInitialization();
-void freeBoard();
+// extern char **gameBoard;
+// extern char **arrayCopy;
+char ** boardInitialization();
+char ** boardCopyInitialization();
+
+void freeBoard(char **gameBoard, char **arrayCopy, int height, int width);
 
 // generations.c
 // int isActive(char cellContents);
@@ -53,20 +55,20 @@ void freeBoard();
 // void rule4();
 // void generations();
 // void copyArray();
-void runGenerations(int numGenerations);
+void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, int numGenerations);
 // void runAdditionalGenerations();
 // void runGenerationsAdditionally(int numGenerations);
-void checkIfAllInactive();
+void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int width);
 // int checkIfAllInactiveHelper();
-void endGame();
+void endGame(char **gameBoard, char **arrayCopy, int height, int width);
 
 // displayGenerations.c
-void displayGeneration();
-int countActiveNeighbors(int rowIndex, int colIndex);
+void displayGeneration(char ** gameBoard, char **arrayCopy, int height, int width);
+int countActiveNeighbors(char **arrayCopy, int height, int width, int rowIndex, int colIndex);
 
 // readPlayersInformation.c
-extern int height;
-extern int width;
+// extern int height;
+// extern int width;
 void readPlayersInformation();
 
 // displayGameSummary.c

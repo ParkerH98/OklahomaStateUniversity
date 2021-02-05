@@ -15,7 +15,7 @@ This file runs the program and only consists of function calls.
 int main(){
 
     playerInfo();
+
     readPlayersInformation();
-    runGenerations(info.numGenerations);
-    endGame();
+    
 }

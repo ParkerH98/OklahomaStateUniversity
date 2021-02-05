@@ -38,7 +38,8 @@ void readPlayersInformation(){
     fscanf(f, "%d%d", &height, &width);
 
     // dynamically allocates the 2d array as the game board
-    boardInitialization();
+    char ** gameBoard = boardInitialization(height, width);
+    char ** arrayCopy = boardCopyInitialization(height, width);
 
     // iterates through file and writes to gameBoard array
     for(i = 0; i < height; i++){
@@ -73,4 +74,6 @@ void readPlayersInformation(){
 
     // closes the file stream
     fclose(f);
+
+    runGenerations(gameBoard, arrayCopy, height, width, info.numGenerations);
 } 

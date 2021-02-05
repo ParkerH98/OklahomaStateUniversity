@@ -12,28 +12,44 @@ This file creates and frees the arrays needed in this program.
 // header file containing program function definitions and library imports
 #include "functions.h"
 
-// double pointers to arrays
-char **gameBoard;
-char **arrayCopy;
-
 // dynamically allocates a 2d array with the size of [height][width]
-void boardInitialization(){
+char ** boardInitialization(int height, int width){
+
+    // double pointers to arrays
+    char **gameBoard;
 
     // allocates an array for each row of the board
     gameBoard = malloc(sizeof(char *) * height);
-    arrayCopy = malloc(sizeof(char *) * height);
 
     int i;
     for (i = 0; i < height; i++){
 
         // allocates column elements for each row array of the board
         gameBoard[i] = malloc(sizeof(char) * width);
+    }
+    return gameBoard;
+}
+
+char ** boardCopyInitialization(int height, int width){
+
+    // double pointers to arrays
+    char **arrayCopy;
+
+    // allocates an array for each row of the board
+    arrayCopy = malloc(sizeof(char *) * height);
+
+    int i;
+    for (i = 0; i < height; i++){
+
+        // allocates column elements for each row array of the board
         arrayCopy[i] = malloc(sizeof(char) * width);
     }
+
+    return arrayCopy;
 }
 
 // frees dynamically allocated arrays from memory
-void freeBoard(){
+void freeBoard(char **gameBoard, char **arrayCopy, int height, int width){
 
     int i;
     // frees column elements first
