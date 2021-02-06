@@ -4,7 +4,7 @@ Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
 Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Submitted: Feb. 4th, 2021
 
 This file handles the application of the rules and the iteration of generations. 
 Most of the flow of the program is handled in this file. 
@@ -18,6 +18,7 @@ Most of the flow of the program is handled in this file.
 int currGenCount = 0;
 
 // Checks whether a given cell is active by checking for the presence of a 'X'.
+// Arguments: a char that is the contents of a cell
 int isActive(char cellContents){
     if (cellContents == 'X'){
         return 1;
@@ -26,6 +27,7 @@ int isActive(char cellContents){
 }
 
 // Checks whether a given cell is in bounds 
+// Arguments: ints height and width for the gameboard and the row and col index to check 
 int inBounds(int height, int width, int rowIndex, int colIndex){
 
     int bounds = 1;
@@ -39,6 +41,7 @@ int inBounds(int height, int width, int rowIndex, int colIndex){
 }
 
 // checks the cells surrounding a given cell and returns the count of active neighbors
+// Arguments: double char pointer to the array copy, ints height and width of the gameboard and the row and col index of the cell to check
 int countActiveNeighbors(char **arrayCopy, int height, int width, int rowIndex, int colIndex){
 
     int count = 0;
@@ -70,6 +73,7 @@ int countActiveNeighbors(char **arrayCopy, int height, int width, int rowIndex, 
 }
 
 // implementation of rule 1
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
 void rule1(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i,j;
@@ -89,6 +93,7 @@ void rule1(char ** gameBoard, char **arrayCopy, int height, int width){
 }
 
 // implementation of rule 2
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
 void rule2(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i, j;
@@ -108,6 +113,7 @@ void rule2(char ** gameBoard, char **arrayCopy, int height, int width){
 }
 
 // implementation of rule 3
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
 void rule3(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i, j;
@@ -127,6 +133,7 @@ void rule3(char ** gameBoard, char **arrayCopy, int height, int width){
 }
 
 // implementation of rule 4
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
 void rule4(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i, j;
@@ -140,7 +147,6 @@ void rule4(char ** gameBoard, char **arrayCopy, int height, int width){
                 
                 // sets value using pointers
                 *(*(gameBoard + i) + j) = 'X';
-
             }
         }
     }
@@ -148,6 +154,7 @@ void rule4(char ** gameBoard, char **arrayCopy, int height, int width){
 
 // makes a copy of the gameboard so the copy can be used as a 
 // reference and the actual gameboard can be altered with each rule
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
 void copyArray(char ** gameBoard, char **arrayCopy, int height, int width){
 
     // char arrayCopy[height][width];
@@ -164,7 +171,8 @@ void copyArray(char ** gameBoard, char **arrayCopy, int height, int width){
 // makes a copy of the gameboard and then executes the 4 rules:
 // then, checks if the board is all inactive to decide to continue 
 // execution or to start the end game process
-void generations(char ** gameBoard, char **arrayCopy, int height, int width){
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and a pointer to the Info struct
+void generations(char ** gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr){
 
     copyArray(gameBoard, arrayCopy, height, width);
 
@@ -173,11 +181,12 @@ void generations(char ** gameBoard, char **arrayCopy, int height, int width){
     rule3(gameBoard, arrayCopy, height, width);
     rule4(gameBoard, arrayCopy, height, width);
 
-    checkIfAllInactive(gameBoard, arrayCopy, height, width);
+    checkIfAllInactive(gameBoard, arrayCopy, height, width, infoPtr);
 }
 
 // runs the game the number of generations specified by the user
-void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, int numGenerations){
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard, an int of number of generations and a pointer to the Info struct
+void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, int numGenerations, struct Info *infoPtr){
 
     // prints intital generation
     printf("Initial Generation 0:\n");
@@ -186,21 +195,22 @@ void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, 
     // prints the generations until numGenerations is reached
     for (int i = 0; i < numGenerations; i++){
 
-        generations(gameBoard, arrayCopy, height, width);
+        generations(gameBoard, arrayCopy, height, width, infoPtr);
         printf("Generation %d:\n", i + 1);
         displayGeneration(gameBoard, arrayCopy, height, width);
         currGenCount++;
     }
-    endGame(gameBoard, arrayCopy, height, width);
+    endGame(gameBoard, arrayCopy, height, width, infoPtr);
 }
 
 // runs the game generations if the user answers 'yes' to the
 // prompt to continue the game
-void runGenerationsAdditionally(char ** gameBoard, char **arrayCopy, int height, int width, int additionalGens){
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard, an int of additional number of generations and a pointer to the Info struct
+void runGenerationsAdditionally(char ** gameBoard, char **arrayCopy, int height, int width, int additionalGens, struct Info *infoPtr){
+    
+    for (int i = (*infoPtr).numGenerations - additionalGens; i < (*infoPtr).numGenerations; i++){
 
-    for (int i = info.numGenerations - additionalGens; i < info.numGenerations; i++){
-
-        generations(gameBoard, arrayCopy, height, width);
+        generations(gameBoard, arrayCopy, height, width, infoPtr);
         printf("Generation %d:\n", i + 1);
         displayGeneration(gameBoard, arrayCopy, height, width);
         currGenCount++;
@@ -208,11 +218,12 @@ void runGenerationsAdditionally(char ** gameBoard, char **arrayCopy, int height,
 
     // calls endGame to determine if the program should write and terminate
     // or continue to the addition games prompt to keep playing
-    endGame(gameBoard, arrayCopy, height, width);
+    endGame(gameBoard, arrayCopy, height, width, infoPtr);
 }
 
 // asks user how many additional generations to run
-void runAdditionalGenerations(char **gameBoard, char **arrayCopy, int height, int width){
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard, and a pointer to the Info struct
+void runAdditionalGenerations(char **gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr){
 
     int additional;
 
@@ -221,15 +232,16 @@ void runAdditionalGenerations(char **gameBoard, char **arrayCopy, int height, in
     scanf("%d", &additional);
 
     // now sets the value of numGenerations to reflect the additional generations
-    info.numGenerations = info.numGenerations + additional;
+    infoPtr->numGenerations = infoPtr->numGenerations + additional;
 
     // passes the number of additional generations to runGenerationsAdditionally to run the generations
-    runGenerationsAdditionally(gameBoard, arrayCopy, height, width, additional);
+    runGenerationsAdditionally(gameBoard, arrayCopy, height, width, additional, infoPtr);
 }
 
 // iterates through the game board and returns a 1 if the presence 
 // of an 'X' is detected and a 0 if the whole board is inactive :
 // function is called and used by checkIfAllInactive
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard
 int checkIfAllInactiveHelper(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int allInactive = 0;
@@ -251,7 +263,8 @@ int checkIfAllInactiveHelper(char ** gameBoard, char **arrayCopy, int height, in
 
 // uses checkIfAllInactiveHelper to decide if the game needs to 
 // terminate after execution of the rules or continue running
-void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int width){
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard, and a pointer to the Info struct
+void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr){
 
     int active = checkIfAllInactiveHelper(gameBoard, arrayCopy, height, width);
 
@@ -263,22 +276,24 @@ void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int wid
         printf("After %d generation, all cells in the board are inactive.\n\n", currGenCount + 1);
 
         // this only needs to be done when the generation is all inactive and terminates early
-        info.numGenerations = currGenCount + 1;
+        (*infoPtr).numGenerations = currGenCount + 1;
 
         // calls endGame and begins process of writing to file and displaying game log
-        endGame(gameBoard, arrayCopy, height, width);
+        endGame(gameBoard, arrayCopy, height, width, infoPtr);
     }
 }
 
-void endGame(char **gameBoard, char **arrayCopy, int height, int width){
+// function is called to start to end game process
+// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard, and a pointer to the Info struct
+void endGame(char **gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr){
 
     // is it better to have an int rep the active state or just do another function call to get the state
 
     // checks if the whole board is inactive : if so, write to file, 
     // display the game log, and then terminate the program
     if (checkIfAllInactiveHelper(gameBoard, arrayCopy, height, width) == 0){
-        writeToGameLog();
-        displayGameLog();
+        writeToGameLog(infoPtr);
+        readPlayersInformation(infoPtr);
         exit(0);
     }
 
@@ -289,14 +304,14 @@ void endGame(char **gameBoard, char **arrayCopy, int height, int width){
 
     // run the additional generations if the user wants to
     if (strcmp(answer, "yes") == 0){
-        runAdditionalGenerations(gameBoard, arrayCopy, height, width);
+        runAdditionalGenerations(gameBoard, arrayCopy, height, width, infoPtr);
     }
 
     // starts the end game process of writing to file and displaying game log
     else{
-        writeToGameLog();
+        writeToGameLog(infoPtr);
         freeBoard(gameBoard, arrayCopy, height, width);
-        displayGameLog();
+        readPlayersInformation(infoPtr);
         exit(0);
     }
 }

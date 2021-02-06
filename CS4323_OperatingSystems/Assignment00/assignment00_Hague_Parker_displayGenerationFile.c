@@ -4,7 +4,7 @@ Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
 Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Submitted: Feb. 4th, 2021
 
 This file contains functions for printing the game board including 
 printing the board and printing the board with the counts of active
@@ -15,6 +15,7 @@ neighbors.
 #include "functions.h"
 
 // prints the current game board to the console
+// Arguments: a pointer to the gameboard and arraycopy and ints for the height and width of the gameboard
 void displayGeneration(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i, j;
@@ -34,6 +35,7 @@ void displayGeneration(char ** gameBoard, char **arrayCopy, int height, int widt
 }
 
 // prints a 2d array of the number of active neighbors for each cell
+// Arguments: a pointer to the arraycopy and ints for the height and width of the gameboard
 void printActiveCount(char **arrayCopy, int height, int width){
 
     int i, j;

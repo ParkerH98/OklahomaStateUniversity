@@ -4,15 +4,17 @@ Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
 Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Submitted: Feb. 4th, 2021
 
-This file creates and frees the arrays needed in this program.
+This file dynamically and frees the arrays needed in this program.
 */
 
 // header file containing program function definitions and library imports
 #include "functions.h"
 
 // dynamically allocates a 2d array with the size of [height][width]
+// Arguments: an int that's the height and width of the board
+// Return: a double pointer pointing to the 2d gameboard
 char ** boardInitialization(int height, int width){
 
     // double pointers to arrays
@@ -30,6 +32,10 @@ char ** boardInitialization(int height, int width){
     return gameBoard;
 }
 
+// dynamically allocates a 2d array with the size of [height][width]
+// this is used for applying the rules to the generations
+// Arguments: an int that's the height and width of the board
+// Return: a double pointer pointing to the 2d gameboard
 char ** boardCopyInitialization(int height, int width){
 
     // double pointers to arrays
@@ -49,6 +55,9 @@ char ** boardCopyInitialization(int height, int width){
 }
 
 // frees dynamically allocated arrays from memory
+// dynamically allocates a 2d array with the size of [height][width]
+// this is used for applying the rules to the generations
+// Arguments: a double pointer to the gameboard, double pointer to the array copy, and ints for the height and width
 void freeBoard(char **gameBoard, char **arrayCopy, int height, int width){
 
     int i;

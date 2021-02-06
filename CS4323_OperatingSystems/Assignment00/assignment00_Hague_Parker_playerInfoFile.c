@@ -4,7 +4,7 @@ Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
 Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Submitted: Feb. 4th, 2021
 
 This file serves to get the user information for the game
 including their name, the date, and the number of generations desired
@@ -13,11 +13,14 @@ including their name, the date, and the number of generations desired
 // header file containing program function definitions and library imports
 #include "functions.h"
 
-// instantiates an Info object to store player info
-struct Info info;
 
-// gets player info
+// gets player info and saves into a Info struct
 void playerInfo(){
+    // instantiates an Info object to store player info
+    struct Info info;
+    struct Info *infoPtr;
+
+    infoPtr = &info;
 
     // gets and formats the date and then saves into a char[]
     time_t t = time(NULL);
@@ -26,10 +29,12 @@ void playerInfo(){
     
     // gets player name from input
     printf("\nPlease input your name.\n");
-    fgets(info.playerName, 30, stdin);
-    strtok(info.playerName, "\n");
+    fgets((*infoPtr).playerName, 30, stdin);
+    strtok((*infoPtr).playerName, "\n");
 
     // gets the number of generations from input
     printf("\nHow many generations would you like to see initially?.\n");
-    scanf("%d", &info.numGenerations);
+    scanf("%d", &(infoPtr -> numGenerations));
+
+    readInGameFile(infoPtr);
 }

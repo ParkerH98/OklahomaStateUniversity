@@ -4,9 +4,10 @@ Author: Parker Hague
 Course: Operating Systems - CS4323
 Assignment: Assignment00
 Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Submitted: Feb. 4th, 2021
 
-This file reads in the input file 'state.txt' and assigns the information to the necessary variables. 
+This file reads the GameLog.txt file and stores the contents into a Info
+struct array. 
 */
 
 // header file containing program function definitions and library imports
@@ -23,7 +24,8 @@ char gameBoardTemp[HEIGHT][WIDTH];
 int height, width, i, j;
 
 // reads the state.txt file to initialize the gameBoard
-void readPlayersInformation(){
+// Arguments: an Info pointer to the info struct
+void readInGameFile(struct Info *infoPtr){
 
     // used to keep track of index for copying over temp gameboard to actual gameboard
     int iCount, jCount = 0;
@@ -75,5 +77,46 @@ void readPlayersInformation(){
     // closes the file stream
     fclose(f);
 
-    runGenerations(gameBoard, arrayCopy, height, width, info.numGenerations);
+    runGenerations(gameBoard, arrayCopy, height, width, infoPtr->numGenerations, infoPtr);
 } 
+
+// this function reads the GameLog.txt file and stores its contents into a Info struct array
+// Arguments: an Info pointer to the info struct
+void readPlayersInformation(struct Info *infoPtr){
+
+    struct Info players[100];
+    FILE *f;
+    f = fopen("GameLog.txt", "r");
+
+    char line[256];
+
+    int index = 0;
+    int marker = 0;
+
+    // goes through each line of the file and assigns it to the appropriate variables
+    while(fgets(line, 256, f) != NULL)
+    {
+        if (marker == 0){
+
+            strcpy(players[index].playerName, line);
+            marker++;
+        }
+
+        else if (marker == 1){
+
+            strcpy(players[index].date, line);
+            marker++;
+        }
+
+        else if (marker == 2){
+      
+            players[index].numGenerations = atoi(line);
+
+            marker = 0;
+            index++;
+        }
+    }
+
+    // passes in pointer to Info[] that contains all of the player info to print
+    displayGameSummary(players);
+}

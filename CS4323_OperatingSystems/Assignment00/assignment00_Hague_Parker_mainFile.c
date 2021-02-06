@@ -1,10 +1,8 @@
 /*
-Filename: main.c
-Author: Parker Hague
-Course: Operating Systems - CS4323
-Assignment: Assignment00
-Due: Feb. 4th, 2021, 11:59 PM
-Submitted: Nov. 30th, 2020
+Author Name: Parker Hague
+Email: phague@okstate.edu
+Date: 1/27/21
+Program Description: This program produces board generations based on an input file given to the program.
 
 This file runs the program and only consists of function calls.
 */
@@ -15,7 +13,5 @@ This file runs the program and only consists of function calls.
 int main(){
 
     playerInfo();
-
-    readPlayersInformation();
-    
+    readInGameFile();
 }

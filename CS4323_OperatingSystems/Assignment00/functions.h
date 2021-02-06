@@ -18,59 +18,34 @@ external variable declarations, and library imports.
 #include <ctype.h>
 
 // struct to hold player information
-// struct Info{
-//     char playerName[30];
-//     char date[64];
-//     int numGenerations;
-// };
-
-// instantiates Info object to store player info
-// extern struct Info info;
-
-// *info;
-
-// makes members of the struct global
-// extern char playerName[30];
-// extern char date[64];
-// extern int numGenerations;
+struct Info{
+    char playerName[256];
+    char date[256];
+    int numGenerations;
+};
 
 // playerInfo.c
 void playerInfo();
 
 // boardInitialization.c
-// extern char **gameBoard;
-// extern char **arrayCopy;
 char ** boardInitialization();
 char ** boardCopyInitialization();
-
 void freeBoard(char **gameBoard, char **arrayCopy, int height, int width);
 
 // generations.c
-// int isActive(char cellContents);
-// void printActiveCount();
-// int inBounds(int row, int col);
-// void rule1();
-// void rule2();
-// void rule3();
-// void rule4();
-// void generations();
-// void copyArray();
-void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, int numGenerations);
-// void runAdditionalGenerations();
-// void runGenerationsAdditionally(int numGenerations);
-void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int width);
-// int checkIfAllInactiveHelper();
-void endGame(char **gameBoard, char **arrayCopy, int height, int width);
+void runGenerations(char ** gameBoard, char **arrayCopy, int height, int width, int numGenerations, struct Info *infoPtr);
+void checkIfAllInactive(char ** gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr);
+void endGame(char **gameBoard, char **arrayCopy, int height, int width, struct Info *infoPtr);
 
 // displayGenerations.c
 void displayGeneration(char ** gameBoard, char **arrayCopy, int height, int width);
 int countActiveNeighbors(char **arrayCopy, int height, int width, int rowIndex, int colIndex);
 
 // readPlayersInformation.c
-// extern int height;
-// extern int width;
-void readPlayersInformation();
+
+void readInGameFile();
+void readPlayersInformation(struct Info *infoPtr);
 
 // displayGameSummary.c
 void writeToGameLog();
-void displayGameLog();
+void displayGameSummary(struct Info *players);

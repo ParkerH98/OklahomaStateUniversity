@@ -1,39 +1,12 @@
-
-
-
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 0
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 0
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 6
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 6
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 6
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 4
----------------------------------------------------
-PLAYER NAME: 
-DATE: 
-NUMBER OF GENERATIONS: 0
----------------------------------------------------
-PLAYER NAME: k
-DATE: Friday, February 05, 2021 - 01:55 AM
-NUMBER OF GENERATIONS: 21
----------------------------------------------------
-PLAYER NAME: r
-DATE: Friday, February 05, 2021 - 01:37 PM
-NUMBER OF GENERATIONS: 10
----------------------------------------------------
+Joshi Shital
+Friday, February 05, 2021 - 03:16 PM
+11
+Bryson Fields
+Friday, February 05, 2021 - 06:56 PM
+52
+Parker Hague
+Friday, February 05, 2021 - 08:41 PM
+8
+Peter Parker
+Friday, February 05, 2021 - 08:57 PM
+3
