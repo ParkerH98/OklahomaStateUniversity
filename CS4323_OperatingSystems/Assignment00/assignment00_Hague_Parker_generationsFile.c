@@ -72,9 +72,9 @@ int countActiveNeighbors(char **arrayCopy, int height, int width, int rowIndex, 
     return count;
 }
 
-// implementation of rule 1
+// applying the specified rules to the gameboard
 // Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
-void rule1(char ** gameBoard, char **arrayCopy, int height, int width){
+void rules(char ** gameBoard, char **arrayCopy, int height, int width){
 
     int i,j;
 
@@ -83,66 +83,28 @@ void rule1(char ** gameBoard, char **arrayCopy, int height, int width){
 
         for(j = 0; j < width; j++){
 
+            // applies rule 1
             if (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(arrayCopy, height, width, i, j) < 2){
                 
                 // sets value using pointers
                 *(*(gameBoard + i) + j) = '-';
             }
-        }
-    }
-}
 
-// implementation of rule 2
-// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
-void rule2(char ** gameBoard, char **arrayCopy, int height, int width){
-
-    int i, j;
-
-    // nested loop to iterate through the board
-    for(i = 0; i < height; i++){ 
-
-        for(j = 0; j < width; j++){
-
+            // applies rule 2
             if (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(arrayCopy, height, width, i, j) > 3){
                 
                 // sets value using pointers
                 *(*(gameBoard + i) + j) = '-';
             }
-        }
-    }
-}
 
-// implementation of rule 3
-// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
-void rule3(char ** gameBoard, char **arrayCopy, int height, int width){
-
-    int i, j;
-
-    // nested loop to iterate through the board
-    for(i = 0; i < height; i++){ 
-
-        for(j = 0; j < width; j++){
-
+            // applies rule 3
             if ((isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(arrayCopy, height, width, i, j) == 2) || (isActive(arrayCopy[i][j]) == 1 && countActiveNeighbors(arrayCopy, height, width, i, j) == 3)){
                 
                 // sets value using pointers
                 *(*(gameBoard + i) + j) = 'X';
             }
-        }
-    }
-}
 
-// implementation of rule 4
-// Arguments: double char pointer to the gameboard and array copy, ints height and width of the gameboard and the row and col index of the cell to check
-void rule4(char ** gameBoard, char **arrayCopy, int height, int width){
-
-    int i, j;
-
-    // nested loop to iterate through the board
-    for(i = 0; i < height; i++){ 
-
-        for(j = 0; j < width; j++){
-
+            // applies rule 4
             if (isActive(arrayCopy[i][j]) == 0 && countActiveNeighbors(arrayCopy, height, width, i, j) == 3){
                 
                 // sets value using pointers
@@ -176,10 +138,7 @@ void generations(char ** gameBoard, char **arrayCopy, int height, int width, str
 
     copyArray(gameBoard, arrayCopy, height, width);
 
-    rule1(gameBoard, arrayCopy, height, width);
-    rule2(gameBoard, arrayCopy, height, width);
-    rule3(gameBoard, arrayCopy, height, width);
-    rule4(gameBoard, arrayCopy, height, width);
+    rules(gameBoard, arrayCopy, height, width);
 
     checkIfAllInactive(gameBoard, arrayCopy, height, width, infoPtr);
 }
