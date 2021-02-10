@@ -8,6 +8,8 @@ Repository includes code from the following courses:
 
 Computer Science I - Fall 2018
 
+Business Computer Concepts - Fall 2018
+
 Computer Science II - Fall 2019
 
 Data Structures and Algorithm Analysis - Spring 2020
