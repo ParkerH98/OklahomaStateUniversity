@@ -1,7 +1,7 @@
 #include "header.h"
 #include "stringOps.c"
 
-#define NUM_ITEMS 100
+void initializeStructure(int *serialNums, char **items, char **prices, char **stores);
 
 void removeFirst(char *str, const char toRemove);
 
@@ -14,8 +14,8 @@ void readFile(){
   char lines[NUM_ITEMS][256];
 
   // arrays to store serial number, item, price, and location
-  int nums[NUM_ITEMS];
-  char items[NUM_ITEMS][256];
+  int serialNums[NUM_ITEMS];
+  char **items[NUM_ITEMS][256];
   char details[NUM_ITEMS][256];
   char prices[NUM_ITEMS][256];
   char stores[NUM_ITEMS][256];
@@ -36,8 +36,8 @@ void readFile(){
     // creates copies of the original line for string manipulation
     strcpy(temp, lines[index]);
 
-    // splits whole line by '.' and assigns the serial number to nums[]
-    nums[index] = atoi(strtok(temp, "."));
+    // splits whole line by '.' and assigns the serial number to serialNums[]
+    serialNums[index] = atoi(strtok(temp, "."));
 
 
     // ITEMS
@@ -110,9 +110,9 @@ void readFile(){
     strcpy(stores[index], store);
 
     // DEBUG
-    printf("%d %s %s %s\n", nums[index], items[index], prices[index], stores[index]);
+    // printf("%d %s %s %s\n", serialNums[index], items[index], prices[index], stores[index]);
 
-    // printf("%d ", nums[index]);
+    // printf("%d ", serialNums[index]);
     // printf("%s ", items[index]);
     // printf("%s ", details[index]);
     // printf("%s ", prices[index]);
@@ -120,4 +120,37 @@ void readFile(){
     // printf("\n");
     index++;
   }
+
+  int *serialNumsPtr;
+  char **itemsPtr;
+  char **pricesPtr;
+  char **storesPtr;
+
+  // char(*itemsPtr)[100];
+  // char(*pricesPtr)[100];
+  // char(*storesPtr)[100];
+
+
+  serialNumsPtr = serialNums;
+  itemsPtr = &items[0][0];
+  pricesPtr = &prices;
+  storesPtr = &stores;
+
+  initializeStructure(serialNumsPtr, itemsPtr, pricesPtr, storesPtr);
+}
+
+void initializeStructure(int *serialNums, char **items, char **prices, char **stores){
+
+  struct Item itemsList[100];
+
+  int i;
+  for (int i = 0; i < 100; i++){
+
+    itemsList[i].serialNum = serialNums[i];
+    strcpy(itemsList[i].item, items[i]);
+    strcpy(itemsList[i].price, prices[i]);
+    strcpy(itemsList[i].store, stores[i]);
+  }
+
+  printf("%d %s %s %s", itemsList[67].serialNum, itemsList[67].item, itemsList[67].price, itemsList[67].store);
 }
