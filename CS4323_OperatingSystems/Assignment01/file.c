@@ -1,11 +1,14 @@
 #include "header.h"
+#include "stringOps.c"
+
+
 #define NUM_ITEMS 100
 
-char lines[NUM_ITEMS][256];
-char items[NUM_ITEMS][256];
+
 
 char *trim(char *str);
 // void test(char *sample_strings[]);
+void removeFirst(char *str, const char toRemove);
 
 void readFile(){
 
@@ -13,17 +16,17 @@ void readFile(){
   f = fopen("items.txt", "r");
 
   // for storing each line of items.txt 
-  
+  char lines[NUM_ITEMS][256];
+
+  // arrays to store serial number, item, price, and location
   int nums[NUM_ITEMS];
-  // char items[NUM_ITEMS][256];
+  char items[NUM_ITEMS][256];
   char details[NUM_ITEMS][256];
   char prices[NUM_ITEMS][256];
   char stores[NUM_ITEMS][256];
 
   // temp strings for string manipulation
-  char temp1[256];
-  char temp2[256];
-  char temp3[256];
+  char temp[256];
 
   int index = 0;
 
@@ -32,21 +35,30 @@ void readFile(){
     /* get rid of ending \n from fgets */
     lines[index][strlen(lines[index]) - 1] = '\0';
 
+
+    // SERIAL NUMBERS
+    // =============================================================================================
     // creates copies of the original line for string manipulation
-    strcpy(temp1, lines[index]);
-    strcpy(temp2, lines[index]);
-    strcpy(temp3, lines[index]);
+    strcpy(temp, lines[index]);
 
-    // assigns serial numbers to array
-    nums[index] = atoi(strtok(temp1, "."));
+    // splits whole line by '.' and assigns the serial number to nums[]
+    nums[index] = atoi(strtok(temp, "."));
+    // =============================================================================================
 
 
-    // HANDLES ITEMS & STRIPPING
-    // assigns items to array
-    strtok(temp2, "$");
-    char *sep_at = strchr(temp2, '.');
+    // ITEMS
+    // =============================================================================================
+    // resets the temp string to the original copied string ~ lines[index]
+    strcpy(temp, lines[index]);
+
+    // splits line by the $
+    strtok(temp, "$");
+
+    // gets substring after the serial number ~ after the '.'
+    char *sep_at = strchr(temp, '.');
+
+    // copies items to the items[]
     strcpy(&items[index][0], (sep_at + 1));
-
 
     // variables used when stripping white space from items[]
     char test_buffer[256];
@@ -60,86 +72,61 @@ void readFile(){
 
     // copies final versions of stripped item strings into items[]
     strcpy(&items[index][0], trim(test_buffer));
+    // =============================================================================================
 
 
+    // PRICES
+    // =============================================================================================
+    // resets the temp string to the original copied string ~ lines[index]
+    strcpy(temp, lines[index]);
 
-    // HANDLES PRICE & STORE
-    // assigns details to array
-    char *sep_at2 = strchr(temp3, '$');
+    // seprates main line by $
+    char *sep_at2 = strchr(temp, '$');
+
+    // stores separation into details[]
     strcpy(&details[index][0], (sep_at2));
-    strcpy(temp3, details[index]);
 
-    
+    // stores details into temp3
+    strcpy(temp, details[index]);
 
-    // separates price from store
-    strtok(temp3, "at");
+    // splits the price and store by 'on' or 'at' --- used to extract the price
+    if (index == 46) {strtok(temp, "on");}
+    else {strtok(temp, "at");}
 
-    strcpy(prices[index], temp3);
-
-
-
-
-    // printf("NUM: %d ", nums[index]);
-    // printf("%s\n", items[index]);
-    // printf("DETAILS: %s\n", details[index]);
-    printf("PRICE: %s\n", prices[index]);
+    // copies price from split into prices[]
+    strcpy(prices[index], temp);
+    // =============================================================================================
 
 
-    // printf("TEMP1: %s\n", temp1);
-    // printf("TEMP2: %s\n", temp2);
-    // printf("TEMP3: %s\n", temp3);
+    // STORES
+    // =============================================================================================
+    char* store;
 
+    // removes the hanging t or n in the second token from the strtok() call
+    if (index == 46) {
+      store = strtok(NULL, "");
+      removeFirst(store, 'n');
+      removeFirst(store, ' ');
+    }
+    else {
+      store = strtok(NULL, "");
+      removeFirst(store, 't');
+      removeFirst(store, ' ');
+    }
+
+    // stores the result of the strtok split into the stores[]
+    strcpy(stores[index], store);
+    // =============================================================================================
+
+    printf("%d %s %s %s\n", nums[index], items[index], prices[index], stores[index]);
+
+    // printf("%d ", nums[index]);
+    // printf("%s ", items[index]);
+    // printf("%s ", details[index]);
+    // printf("%s ", prices[index]);
+    // printf("%s\n", stores[index]);
+    // printf("\n");
     index++;
   }
 }
 
-
-void print(){
-
-  int i;
-  for (i = 0; i < NUM_ITEMS; ++i){
-
-    printf("%s\n", lines[i]);
-  }
-}
-
-char *trim(char *str){
-
-  int len = 0;
-  char *frontp = str;
-  char *endp = NULL;
-
-  if( str == NULL ) { return NULL; }
-  if( str[0] == '\0' ) { return str; }
-
-  len = strlen(str);
-  endp = str + len;
-
-  /* Move the front and back pointers to address the first non-whitespace
-    * characters from each end.
-    */
-  while( isspace((unsigned char) *frontp) ) { ++frontp; }
-
-  if( endp != frontp ){
-
-    while( isspace((unsigned char) *(--endp)) && endp != frontp ) {}
-  }
-
-  if( frontp != str && endp == frontp ){*str = '\0';}
-          
-  else if( str + len - 1 != endp ){*(endp + 1) = '\0';}
-          
-
-  /* Shift the string so that it starts at str so that if it's dynamically
-    * allocated, we can still free it on the returned pointer.  Note the reuse
-    * of endp to mean the front of the string buffer now.
-    */
-  endp = str;
-  if( frontp != str ){
-    
-    while( *frontp ) { *endp++ = *frontp++; }
-    *endp = '\0';
-  }
-
-  return str;
-}
