@@ -18,7 +18,7 @@ void readFile(){
   // char items[NUM_ITEMS][256];
   char details[NUM_ITEMS][256];
   char prices[NUM_ITEMS][256];
-  char locations[NUM_ITEMS][256];
+  char stores[NUM_ITEMS][256];
 
   // temp strings for string manipulation
   char temp1[256];
@@ -40,6 +40,8 @@ void readFile(){
     // assigns serial numbers to array
     nums[index] = atoi(strtok(temp1, "."));
 
+
+    // HANDLES ITEMS & STRIPPING
     // assigns items to array
     strtok(temp2, "$");
     char *sep_at = strchr(temp2, '.');
@@ -59,13 +61,29 @@ void readFile(){
     // copies final versions of stripped item strings into items[]
     strcpy(&items[index][0], trim(test_buffer));
 
+
+
+    // HANDLES PRICE & STORE
     // assigns details to array
     char *sep_at2 = strchr(temp3, '$');
-    strcpy(&details[index][0], (sep_at2 + 1));
+    strcpy(&details[index][0], (sep_at2));
+    strcpy(temp3, details[index]);
+
+    
+
+    // separates price from store
+    strtok(temp3, "at");
+
+    strcpy(prices[index], temp3);
+
+
+
 
     // printf("NUM: %d ", nums[index]);
     // printf("%s\n", items[index]);
     // printf("DETAILS: %s\n", details[index]);
+    printf("PRICE: %s\n", prices[index]);
+
 
     // printf("TEMP1: %s\n", temp1);
     // printf("TEMP2: %s\n", temp2);
