@@ -1,13 +1,8 @@
 #include "header.h"
 #include "stringOps.c"
 
-
 #define NUM_ITEMS 100
 
-
-
-char *trim(char *str);
-// void test(char *sample_strings[]);
 void removeFirst(char *str, const char toRemove);
 
 void readFile(){
@@ -30,11 +25,11 @@ void readFile(){
 
   int index = 0;
 
+  // reads items.txt line by line and stores string into lines[]
   while(fgets(lines[index], 256, f)) {
 
     /* get rid of ending \n from fgets */
     lines[index][strlen(lines[index]) - 1] = '\0';
-
 
     // SERIAL NUMBERS
     // =============================================================================================
@@ -43,7 +38,6 @@ void readFile(){
 
     // splits whole line by '.' and assigns the serial number to nums[]
     nums[index] = atoi(strtok(temp, "."));
-    // =============================================================================================
 
 
     // ITEMS
@@ -72,7 +66,6 @@ void readFile(){
 
     // copies final versions of stripped item strings into items[]
     strcpy(&items[index][0], trim(test_buffer));
-    // =============================================================================================
 
 
     // PRICES
@@ -95,7 +88,6 @@ void readFile(){
 
     // copies price from split into prices[]
     strcpy(prices[index], temp);
-    // =============================================================================================
 
 
     // STORES
@@ -116,8 +108,8 @@ void readFile(){
 
     // stores the result of the strtok split into the stores[]
     strcpy(stores[index], store);
-    // =============================================================================================
 
+    // DEBUG
     printf("%d %s %s %s\n", nums[index], items[index], prices[index], stores[index]);
 
     // printf("%d ", nums[index]);
@@ -129,4 +121,3 @@ void readFile(){
     index++;
   }
 }
-
