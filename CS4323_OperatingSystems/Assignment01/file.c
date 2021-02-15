@@ -1,93 +1,28 @@
 #include "header.h"
 #include "stringOps.c"
 
-// void initializeStructure(int *serialNums, char **items, char **prices, char **stores);
-
-// void removeFirst(char *str, const char toRemove);
-
-
-
-void initializeStructure(int *serialNums, char **items, char **prices, char **stores){
+void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][256], char stores[NUM_ITEMS][256]){
 
   struct Item itemsList[100];
 
   int i;
   for (int i = 0; i < 100; i++){
 
+    printf("%d ", serialNums[i]);
+    printf("%s ", items[i]);
+    // printf("%s ", details[i]);
+    printf("%s ", prices[i]);
+    printf("%s\n", stores[i]);
 
     itemsList[i].serialNum = serialNums[i];
     strcpy(itemsList[i].item, items[i]);
     strcpy(itemsList[i].price, prices[i]);
     strcpy(itemsList[i].store, stores[i]);
-  }
+    // printf("%d %s %s %s", itemsList[i].serialNum, itemsList[i].item, itemsList[i].price, itemsList[i].store);
 
+  }
   printf("%d %s %s %s", itemsList[67].serialNum, itemsList[67].item, itemsList[67].price, itemsList[67].store);
 }
-
-int* initializeSerial(){
-
-  // double pointers to arrays
-  int *serialNumsPtr;
-
-  // allocates an array for each row of the data
-  serialNumsPtr = malloc(sizeof(int *) * NUM_ITEMS);
-
-
-  return serialNumsPtr;
-}
-
-char** initializeItems(){
-
-  // double pointers to arrays
-  char **itemsPtr;
-
-
-  // allocates an array for each row of the data
-  itemsPtr = malloc(sizeof(char *) * NUM_ITEMS);
-
-  int i;
-  for (i = 0; i < NUM_ITEMS; i++){
-
-    // allocates column elements for each row array
-    itemsPtr[i] = malloc(sizeof(char) * 256);
-  }
-  return itemsPtr;
-}
-
-char** initializePrices(){
-
-  // double pointers to arrays
-  char **pricesPtr;
-
-  // allocates an array for each row of the data
-  pricesPtr = malloc(sizeof(char *) * NUM_ITEMS);
-
-  int i;
-  for (i = 0; i < NUM_ITEMS; i++){
-
-    // allocates column elements for each row array
-    pricesPtr[i] = malloc(sizeof(char) * 256);
-  }
-  return pricesPtr;
-}
-
-char** initializeStores(){
-
-  // double pointers to arrays
-  char **storesPtr;
-
-  // allocates an array for each row of the data
-  storesPtr = malloc(sizeof(char *) * NUM_ITEMS);
-
-  int i;
-  for (i = 0; i < NUM_ITEMS; i++){
-
-    // allocates column elements for each row array
-    storesPtr[i] = malloc(sizeof(char) * 256);
-  }
-  return storesPtr;
-}
-
 
 
 void readFile(){
@@ -206,11 +141,5 @@ void readFile(){
     index++;
   }
 
-  // dynamically allocates arrays
-  int * serialNumsPtr = initializeSerial();
-  char ** itemsPtr = initializeItems();
-  char ** pricesPtr = initializePrices();
-  char ** storesPtr = initializeStores();
-
-  initializeStructure(serialNumsPtr, itemsPtr, pricesPtr, storesPtr);
+  initializeStructure(serialNums, items, prices, stores);
 }
