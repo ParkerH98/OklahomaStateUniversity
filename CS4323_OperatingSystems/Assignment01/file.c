@@ -1,29 +1,24 @@
 #include "header.h"
 #include "stringOps.c"
 
-void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][256], char stores[NUM_ITEMS][256]){
+void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
 
   struct Item itemsList[100];
 
   int i;
   for (int i = 0; i < 100; i++){
 
-    printf("%d ", serialNums[i]);
-    printf("%s ", items[i]);
-    // printf("%s ", details[i]);
-    printf("%s ", prices[i]);
-    printf("%s\n", stores[i]);
-
     itemsList[i].serialNum = serialNums[i];
     strcpy(itemsList[i].item, items[i]);
     strcpy(itemsList[i].price, prices[i]);
     strcpy(itemsList[i].store, stores[i]);
-    // printf("%d %s %s %s", itemsList[i].serialNum, itemsList[i].item, itemsList[i].price, itemsList[i].store);
 
+    // printf("%d ", itemsList[i].serialNum);
+    // printf("%s ", itemsList[i].item);
+    // printf("%s ", itemsList[i].price);
+    // printf("%s\n", itemsList[i].store);
   }
-  printf("%d %s %s %s", itemsList[67].serialNum, itemsList[67].item, itemsList[67].price, itemsList[67].store);
 }
-
 
 void readFile(){
 
@@ -37,7 +32,7 @@ void readFile(){
   int serialNums[NUM_ITEMS];
   char items[NUM_ITEMS][256];
   char details[NUM_ITEMS][256];
-  char prices[NUM_ITEMS][256];
+  char prices[NUM_ITEMS][16];
   char stores[NUM_ITEMS][256];
 
   // temp strings for string manipulation

@@ -10,10 +10,12 @@
 struct Item{
     int serialNum;
     char item[256];
-    char price[64];
+    char price[16];
     char store[64];
 };
 
-
+extern struct Item itemsList;
 
 void readFile();
+
+void test();
