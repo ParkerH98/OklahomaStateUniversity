@@ -18,7 +18,7 @@ void test(){
     const int SIZE = 4096; 
   
     /* name of the shared memory object */
-    const char* name = "OS"; 
+    const char* name = "items.txt"; 
   
     /* shared memory file descriptor */
     int shm_fd; 
