@@ -19,3 +19,5 @@ extern struct Item itemsList;
 void readFile();
 
 void test();
+void test1();
+
