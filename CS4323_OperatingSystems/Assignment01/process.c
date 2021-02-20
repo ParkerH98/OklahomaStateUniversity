@@ -8,7 +8,6 @@
 #include <errno.h>
 
 
-
 #include <stdio.h>		// for printf
 #include <time.h>		// for clock()
 #include <unistd.h>		// for fork
@@ -32,99 +31,68 @@ void helperOrder();
 
 
 
+// void test(){
 
-void test(){
-
-
-
-
-
-
-
-
-
-	/* size (in bytes) of shared memory object */
-	const int SIZE = 10240;
+// 	/* size (in bytes) of shared memory object */
+// 	const int SIZE = 1024;
 		
-	/* name of the shared memory object */
-	const char *name = "CS4323";
+// 	/* name of the shared memory object */
+// 	const char *name = "CS4323";
 	
-    // int pid = fork();	// make two processes
-
-	/* shared memory file descriptor */
-	int shm_fd;
+// 	/* shared memory file descriptor */
+// 	int shm_fd;
 		
-	/* pointer to shared memory object */
-	struct Item *ptr;
+// 	/* pointer to shared memory object */
+// 	struct Item *ptr;
+// 	struct Item itemsList;
 
+// 	/* Create or open a shared memory object */
+// 	shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666); 
+
+// 	/* Set the shared memory object size */
+// 	ftruncate(shm_fd, SIZE);
+
+// 	/* Map the shared memory object into the current address space */
+// 	ptr = mmap(0, SIZE,  PROT_WRITE, MAP_SHARED, shm_fd, 0);
+
+// 	for (int i = 0; i < 100; i++){
+	
+// 		/* Write to the shared memory object */
+// 		ptr = &itemsList;
+// 		ptr++;
+// 	}
+
+// 	pid_t pid = fork();
+
+// 	if (pid > 0){
+// 		printf("IM A APRNET");
+// 	}
+
+// 	if (pid == 0)
+// 	{
+// 		/* open the shared memory object */
+// 		shm_fd = shm_open(name, O_RDONLY, 0666);
+
+// 		wait(NULL);
+
+// 		/* memory map the shared memory object */
+// 		ptr = (struct Item *) mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+
+// 		// printf("IM A CHILD");
+
+// 		printf("%s", (*ptr).item);
+// 		// printf("PRINTED%d", *ptr);
+
+// 		/* Unmap the shared memory */
+// 		munmap(ptr, SIZE);
 		
-	// if (pid < 0){	// fork failed
-	// 	fprintf(stderr, "fork failed..\n");
-	// 	exit(1);
-	// }
+// 		/* Close the shared memory object */ 
+// 		close(shm_fd);
 
-	// printf("%s", itemsList.item);
-
-	/* Create or open a shared memory object */
-	shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666); 
-
-	/* Set the shared memory object size */
-	ftruncate(shm_fd, SIZE);
-
-	/* Map the shared memory object into the current address space */
-	ptr = mmap(0, SIZE,  PROT_WRITE, MAP_SHARED, shm_fd, 0);
-
-	for (int i = 0; i < 100; i++){
-
-		/* Write to the shared memory object */
-		*ptr = itemsList;
-
-	}
-
-	pid_t pid;
-
-	pid = fork();
-
-	if (pid == 0){
-
-		/* open the shared memory object */
-		shm_fd = shm_open(name, O_RDONLY, 0666);
-
-		wait(NULL);
-
-		/* memory map the shared memory object */
-		ptr = (struct Item *) mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
-
-		printf("%s", ptr->item);
-
-		// /* read from the shared memory object and compute the final answer */
-		// finalResult = result + *ptr;
-
-		/* Unmap the shared memory */
-		munmap(ptr, SIZE);
-		
-		/* Close the shared memory object */ 
-		close(shm_fd);
-
-		/* Delete the shared memory object */
-		shm_unlink(name);
-	}
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
+// 		/* Delete the shared memory object */
+// 		shm_unlink(name);
+// 	}
+// }
 
 
 

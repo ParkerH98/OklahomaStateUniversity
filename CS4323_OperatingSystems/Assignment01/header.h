@@ -5,7 +5,6 @@
 
 #define NUM_ITEMS 100
 
-
 // struct to hold player information
 struct Item{
     int serialNum;
@@ -14,10 +13,13 @@ struct Item{
     char store[64];
 };
 
-extern struct Item itemsList;
 
+// extern struct Item itemsList[100];
+
+// void foo(struct Item itemsList);
 void readFile();
 
 void test();
 void test1();
+
 

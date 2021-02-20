@@ -1,7 +1,127 @@
 #include "header.h"
 #include "stringOps.c"
 
+#include <stdio.h>		// for printf
+#include <time.h>		// for clock()
+#include <unistd.h>		// for fork
+#include <stdlib.h>		// for exit(1)
+#include <sys/ipc.h> 	// Used by IPC maechanisms: messages, shared memory and semaphores
+#include <string.h>		// for string operation: strlen
+#include<sys/wait.h>
+#include <fcntl.h>
+#include <sys/shm.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <assert.h>
+
+
+
+
 void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
+
+
+
+
+
+
+
+
+
+
+  struct Item {
+  int serialNum;
+    char item[256];
+    char price[16];
+    char store[64];
+    };
+
+
+
+    int shmfd = shm_open ("/OpenCSF_SHM", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
+    assert (shmfd != -1);
+
+  /* Resize the region to store 1 struct instance */
+  assert (ftruncate (shmfd, sizeof (struct Item) * 100) != -1);
+
+  /* Map the object into memory so file operations aren't needed */
+  struct Item *perm = mmap (NULL, sizeof (struct Item) * 100,
+                                  PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0);
+  assert (perm != MAP_FAILED);
+
+  /* Create a child process and write to the mapped/shared region */
+  pid_t child_pid = fork();
+  if (child_pid == 0)
+    {
+
+      int i;
+      for (int i = 0; i < 100; i++){
+
+            perm->serialNum = serialNums[i];
+
+            strcpy(perm->item, items[i]);
+            strcpy(perm->store, stores[i]);
+            strcpy(perm->price, prices[i]);
+
+            perm++;
+      }
+
+
+
+
+  
+
+
+      /* Unmap and close the child's shared memory access */
+      munmap (perm, sizeof (struct Item) * 100);
+      close (shmfd);
+      exit(0);
+    }
+
+  /* Make the parent wait until the child has exited */
+  wait (NULL);
+
+
+      for (int i = 0; i < 100; i++){
+
+          /* Read from the mapped/shared memory region */
+          printf ("%d %s %s %s\n", perm->serialNum, perm->item, perm->price, perm->store);
+
+          perm++;
+      }
+
+
+  /* Unmap, close, and delete the shared memory object */
+  munmap (perm, sizeof (struct Item) * 100);
+  close (shmfd);
+  shm_unlink ("/OpenCSF_SHM");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   struct Item itemsList[100];
 
@@ -18,6 +138,50 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
     // printf("%s ", itemsList[i].price);
     // printf("%s\n", itemsList[i].store);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// if (pid == 0)
+	// {
+	// 	/* open the shared memory object */
+	// 	shm_fd = shm_open(name, O_RDONLY, 0666);
+
+	// 	wait(NULL);
+
+	// 	/* memory map the shared memory object */
+	// 	ptr = (struct Item *) mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+
+	// 	// printf("IM A CHILD");
+
+	// 	// printf("%s", (*ptr).item);
+	// 	// printf("PRINTED%d", *ptr);
+
+	// 	/* Unmap the shared memory */
+	// 	munmap(ptr, SIZE);
+		
+	// 	/* Close the shared memory object */ 
+	// 	close(shm_fd);
+
+	// 	/* Delete the shared memory object */
+	// 	shm_unlink(name);
+	// }
+
+
+
 }
 
 void readFile(){

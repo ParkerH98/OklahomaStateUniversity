@@ -5,6 +5,7 @@ int main(){
 
     readFile();
 
-    test();
+    // test();
     // test1();
+
 }
