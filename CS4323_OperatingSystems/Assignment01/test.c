@@ -36,12 +36,12 @@ int main()
         exit(1);
     }
 
-    // pid_t pid = fork();
+    pid_t pid = fork();
 
-    // if(pid == 0)
-    // {
-    //     helper(msgid);
-    // }
+    if(pid == 0)
+    {
+        helper(msgid);
+    }
     
     struct message_buffer message;
     message.msg_type = 1;
@@ -96,7 +96,7 @@ void helper(int msgid)
         perror("msgrcv");
         exit(1);
     }
-
+    printf("\nI got: %d", recieve.text);
 
     if(msgctl(msgid, IPC_RMID, NULL) == -1)
     {
