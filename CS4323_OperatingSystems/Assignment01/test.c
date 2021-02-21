@@ -17,17 +17,10 @@ struct message_buffer{
     char text;
 };
 
-int main()
-{
-//    int *n = mmap(NULL, 10 * sizeof(int), 
-//                             PROT_READ | PROT_WRITE, 
-//                             MAP_SHARED | MAP_ANONYMOUS, 
-//                             0, 0);
-   
+int main(){
    
     int i = 0;
     char letter = 'A';
-
 
     int msgid;
     if((msgid = msgget(IPC_PRIVATE, 0600 | IPC_CREAT)) == -1)
