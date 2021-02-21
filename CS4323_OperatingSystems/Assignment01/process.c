@@ -17,15 +17,15 @@ void test(struct Item *perm){
     printf("How many Customer processes would you like?\n");
     scanf("%d", &numCustomers);
 
-    // printf("Please specify a customer order.\n");
-    // scanf("%s", order);
+    printf("Please specify a customer order.\n");
+    scanf("%s", order);
 
     pid_t pid = fork();
 
     // "Helper" process will execute
     if (pid == 0){
 
-		helperOrder(NULL);
+		helperOrder(NULL, NULL, NULL, NULL, NULL);
 	}
     else if (pid > 0){
 
@@ -47,8 +47,6 @@ void test(struct Item *perm){
 	// "Customer" processes will execute
 	if (pid == 0){
 
-        // printf("%d has letter %c\n", getpid(), letter);
-
 		printf("Customer %c wants to know how many items you want.\n", letter);
 		scanf("%d", &numItems);
 
@@ -59,21 +57,19 @@ void test(struct Item *perm){
         for (i = 0; i < numItems; i++)
         {
 
-            randomItem = getRandom(getpid() * time(NULL));
+            randomItem = getRandom(getpid());
 
             itemsToGet[i] = randomItem;
-
-            // printf("Cust: %c is getting item %d\n", letter, randomItem);
         }
 
-        // helperOrder(itemsToGet);
+        helperOrder(itemsToGet, order, letter, numItems);
 
-        printf("Customer %c is getting items ", letter);
-        for (int i = 0; i < numItems; i++)
-        {
-            printf("%d ", itemsToGet[i]);
-        }
-        printf("\n");
+        // printf("Customer %c is getting items ", letter);
+        // for (int i = 0; i < numItems; i++)
+        // {
+        //     printf("%d ", itemsToGet[i]);
+        // }
+        // printf("\n");
     }
 
     // "Server" process will execute this 
@@ -90,17 +86,30 @@ void test(struct Item *perm){
 }
 
 
-void helperOrder(int itemsToGet[]){
+void helperOrder(int itemsToGet[], int order[], int letter, int numItems){
+
+    int i = 0;
+
+    while (1){
+
+        if (isalpha(order[i]) == 0){
+            break;
+        }
 
 
 
+        if (letter == order[i]){
 
+            printf("Customer %c needs: ", letter);
+            for (int i = 0; i < numItems; i++){
+                printf("%d ", itemsToGet[i]);
+            }
+            printf("\n");
+        }
 
-
-
+        i++;
+    }
 	exit(0);
-
-
 }
 
 
@@ -113,9 +122,9 @@ int getRandom(int pid){
 
     int lower = 1, upper = 100;
 
-    srand(pid);
+    srand(pid * time(0));
 
-    // sleep(1);
+    sleep(1);
 
     int num = (rand() % (upper - lower + 1)) + lower;
 

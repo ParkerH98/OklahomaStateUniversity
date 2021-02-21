@@ -13,7 +13,7 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
   };
 
 
-  int shmfd = shm_open ("SharedMemor", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
+  int shmfd = shm_open ("SharedMemo", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
   assert (shmfd != -1);
 
   /* Resize the region to store 1 struct instance */
@@ -68,7 +68,7 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
   /* Unmap, close, and delete the shared memory object */
   munmap (perm, sizeof (struct Item) * 100);
   close (shmfd);
-  shm_unlink ("SharedMemor");
+  shm_unlink ("SharedMemo");
 
 
 
