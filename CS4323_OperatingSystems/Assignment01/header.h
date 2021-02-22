@@ -7,7 +7,7 @@
 #include <string.h>		// for string operation: strlen
 #include <sys/msg.h>	// for message queue structures
 #include<sys/wait.h>	// for wait
-#include <fcntl.h>		// for file control options
+#include <sys/fcntl.h>		// for file control options
 #include <errno.h>		// for system error numbers
 #include <mqueue.h>		// for mq_close, mq_unlink, ...
 #include <sys/shm.h>
