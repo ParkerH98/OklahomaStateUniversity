@@ -5,6 +5,13 @@ void customerProcess(int letter, int msgID);
 int getRandom();
 void recMsg(int msgID);
 
+#define QUEUE_NAME "parker"
+#define PERMISSIONS 0660
+#define MAX_MESSAGES 10
+#define MAX_MSG_SIZE 256
+#define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
+
+
 
 void test(struct Item *perm){
 
@@ -130,14 +137,15 @@ void customerProcess(int letter, int msgID){
     sender.messageType = letter;
     strcpy(sender.message, "HEllO");
 
-    // msgsnd to send message 
-    if(msgsnd(msgID, &sender, sizeof(sender.message), 0) == -1){
+    // msgsnd to send message
+    if (msgsnd(msgID, &sender, sizeof(sender.message), 0) == -1)
+    {
         perror("msgsnd");
         exit(1);
     }
 
-    // display the message 
-    printf("Data send is : %s \n", sender.message); 
+    // display the message
+    printf("Data send is : %s \n", sender.message);
 }
 
 
