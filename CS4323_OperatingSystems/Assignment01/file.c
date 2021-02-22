@@ -1,6 +1,8 @@
 #include "header.h"
 #include "stringOps.c"
 
+#define STRING "Prnorv0eirnvoeinbv[oeiv"
+
 
 void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
 
@@ -13,7 +15,7 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
   };
 
 
-  int shmfd = shm_open ("SharedMemo", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
+  int shmfd = shm_open (STRING, O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
   assert (shmfd != -1);
 
   /* Resize the region to store 1 struct instance */
@@ -40,7 +42,6 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
       perm++;
     }
 
-
     /* Unmap and close the child's shared memory access */
     munmap (perm, sizeof (struct Item) * 100);
     close (shmfd);
@@ -50,45 +51,12 @@ void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], 
   /* Make the parent wait until the child has exited */
   wait (NULL);
 
-  // for (int i = 0; i < 100; i++){
-
-  //   /* Read from the mapped/shared memory region */
-  //   printf ("%d %s %s %s\n", perm->serialNum, perm->item, perm->price, perm->store);
-  //   perm++;
-  // }
-
   test(perm);
-
-
-
-
-
-
 
   /* Unmap, close, and delete the shared memory object */
   munmap (perm, sizeof (struct Item) * 100);
   close (shmfd);
-  shm_unlink ("SharedMemo");
-
-
-
-
-  // my orginal code reading into local struct array
-  // struct Item itemsList[100];
-
-  // int i;
-  // for (int i = 0; i < 100; i++){
-
-  //   itemsList[i].serialNum = serialNums[i];
-  //   strcpy(itemsList[i].item, items[i]);
-  //   strcpy(itemsList[i].price, prices[i]);
-  //   strcpy(itemsList[i].store, stores[i]);
-
-  //   // printf("%d ", itemsList[i].serialNum);
-  //   // printf("%s ", itemsList[i].item);
-  //   // printf("%s ", itemsList[i].price);
-  //   // printf("%s\n", itemsList[i].store);
-  // }
+  shm_unlink (STRING);
 }
 
 void readFile(){
@@ -209,3 +177,24 @@ void readFile(){
 
   initializeStructure(serialNums, items, prices, stores);
 }
+
+
+
+
+
+  // my orginal code reading into local struct array
+  // struct Item itemsList[100];
+
+  // int i;
+  // for (int i = 0; i < 100; i++){
+
+  //   itemsList[i].serialNum = serialNums[i];
+  //   strcpy(itemsList[i].item, items[i]);
+  //   strcpy(itemsList[i].price, prices[i]);
+  //   strcpy(itemsList[i].store, stores[i]);
+
+  //   // printf("%d ", itemsList[i].serialNum);
+  //   // printf("%s ", itemsList[i].item);
+  //   // printf("%s ", itemsList[i].price);
+  //   // printf("%s\n", itemsList[i].store);
+  // }

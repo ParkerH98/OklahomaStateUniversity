@@ -82,14 +82,14 @@ void helper(int msgid)
 {
     printf("Im the helper!\n");
     
-    struct message_buffer recieve;
+    struct message_buffer receive;
 
-    if((msgrcv(msgid, &recieve, sizeof(recieve), 1, 0)) == -1)
+    if((msgrcv(msgid, &receive, sizeof(receive), 1, IPC_NOWAIT)) == -1)
     {
         perror("msgrcv");
         exit(1);
     }
-    printf("\nI got: %d", recieve.text);
+    printf("\nI got: %d", receive.text);
 
     if(msgctl(msgid, IPC_RMID, NULL) == -1)
     {

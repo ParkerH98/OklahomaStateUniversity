@@ -5,15 +5,16 @@
 #include <stdlib.h>		// for exit(1)
 #include <sys/ipc.h> 	// Used by IPC maechanisms: messages, shared memory and semaphores
 #include <string.h>		// for string operation: strlen
-#include<sys/wait.h>
-#include <fcntl.h>
+#include <sys/msg.h>	// for message queue structures
+#include<sys/wait.h>	// for wait
+#include <fcntl.h>		// for file control options
+#include <errno.h>		// for system error numbers
+#include <mqueue.h>		// for mq_close, mq_unlink, ...
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <sys/types.h> 
-#include <errno.h>
 #include <assert.h>
-#include <time.h>
 
 
 #define NUM_ITEMS 100
@@ -25,6 +26,8 @@ struct Item{
     char price[16];
     char store[64];
 };
+
+
 
 
 // extern struct Item itemsList[100];
