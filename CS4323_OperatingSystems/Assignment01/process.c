@@ -1,10 +1,16 @@
 #include "header.h"
 
-void helperProcess(int msgID, char order[]);
+void helperProcess(mqd_t qd);
 void customerProcess(int letter, int msgID);
 int getRandom();
 void recMsg(int msgID);
 
+
+#define QUEUE_NAME   "/addition"
+#define PERMISSIONS 0660
+#define MAX_MESSAGES 10
+#define MAX_MSG_SIZE 256
+#define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
 
 
@@ -15,7 +21,13 @@ void recMsg(int msgID);
 
 void test(struct Item *perm){
 
-   
+    mqd_t qd;   // queue descriptors
+
+	struct mq_attr attr;
+	attr.mq_flags = 0;
+	attr.mq_maxmsg = MAX_MESSAGES;	// The maximum number of messages that can be stored on the queue. 
+	attr.mq_msgsize = MAX_MSG_SIZE;	// The maximum size of each message on the given message queue. 
+	attr.mq_curmsgs = 0;	// This field represents the number of messages currently on the given queue.
 
 
 
@@ -36,7 +48,7 @@ void test(struct Item *perm){
     // "Helper" process will execute
     if (pid == 0){
 
-		// helperProcess(msgID, order);
+		helperProcess(qd);
 	}
 
     else if (pid > 0){
@@ -55,17 +67,80 @@ void test(struct Item *perm){
     // "Customer" processes will execute
     if (pid == 0){
 
+        
+        if (mq_close (qd) == -1) {
+		}
+
+		if (mq_unlink (QUEUE_NAME) == -1) {
+		}
 
 
+		if ((qd = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
+			perror ("Child: mq_open");
+			exit (1);
+		}
 
+        int array[] = {5, 3, 27, 6, 99};
+		char out_buffer [MAX_MSG_SIZE];
 
+        int i;
+        for (int i = 0; i < 5; i++){
+
+            out_buffer[i] = array[i];
+            setvbuf (stdout, NULL, _IONBF, 0);
+            printf("%d\n", (int)out_buffer[i]);
+
+            // sprintf((char)out_buffer[i], "%c", (char)array[i]);
+        }
+		
+		if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
+			perror ("Child: Not able to send message to the parent process..");
+			exit(1);
+		}
+
+        printf("Sent!\n");
 
     }
 
 	while (wait(NULL) != -1 || errno != ECHILD){};
 }
 
-void helperProcess(int msgID, char order[]){
+void helperProcess(mqd_t qd){
+
+
+
+    wait(NULL);		
+		if ((qd = mq_open (QUEUE_NAME, O_RDONLY)) == -1) {
+			perror ("Parent: mq_open");
+			exit (1);
+		}
+
+		char in_buffer [MSG_BUFFER_SIZE];
+
+		if (mq_receive (qd, in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
+			perror ("Parent: mq_receive");
+			exit (1);
+		}
+
+        for (int i = 0; i < 5; i++){
+
+		    printf ("Parent: Result received from child: %d\n\n", in_buffer[i]);
+
+
+        }
+
+		if (mq_close (qd) == -1) {
+			perror ("Parent: mq_close");
+			exit (1);
+		}
+
+		if (mq_unlink (QUEUE_NAME) == -1) {
+			perror ("Parent: mq_unlink");
+			exit (1);
+		}
+		
+		exit(0);
+
 
 
 }
@@ -88,40 +163,13 @@ void customerProcess(int letter, int msgID){
     //     itemsToGet[i] = randomItem;
     // }
 
-    struct Message sender;
-    sender.messageType = letter;
-    strcpy(sender.message, "HEllO");
 
-    // msgsnd to send message
-    if (msgsnd(msgID, &sender, sizeof(sender.message), 0) == -1)
-    {
-        perror("msgsnd");
-        exit(1);
-    }
-
-    // display the message
-    printf("Data send is : %s \n", sender.message);
 }
 
 
 void recMsg(int msgID){
 
-    int i;
 
-    while (1){
-
-        struct Message receiver;
-
-        if((msgrcv(msgID, &receiver, sizeof(receiver), 1, 0)) == -1){
-            perror("msgrcv");
-            exit(1);
-        }
-        printf("\nI got: %s", receiver.message);
-
-        if(msgctl(msgID, IPC_RMID, NULL) == -1){
-            perror("msgctl");
-        }
-    }
 }
 
 

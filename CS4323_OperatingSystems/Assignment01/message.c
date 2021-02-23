@@ -40,7 +40,9 @@ int main()
 		fprintf(stderr, "fork failed..\n");
 		exit(1);
 	}
-	else if(pid == 0){ // Child process
+    
+    // Child process
+	else if(pid == 0){ 
 		if (mq_close (qd) == -1) {
 		}
 
@@ -54,45 +56,27 @@ int main()
 		}
 
         int array[] = {5, 3, 27, 6, 99};
-        char* c_array[5];
-		char out_buffer [MSG_BUFFER_SIZE];
-
-
+		char out_buffer [MAX_MSG_SIZE];
 
         int i;
         for (int i = 0; i < 5; i++){
 
-            // out_buffer[i] = array[i];
+            out_buffer[i] = array[i];
+            setvbuf (stdout, NULL, _IONBF, 0);
+            printf("%d\n", (int)out_buffer[i]);
 
-            /* Linux */
-            // allocate a big enough char to store an int (which is 4bytes, depending on your platform)
-            char c[sizeof(int)];    
-
-            // copy int to char
-            snprintf(c, sizeof(int), "%d", array[i]); //copy those 4bytes
-
-            // allocate enough space on char* array to store this result
-            c_array[i] = malloc(sizeof(c)); 
-            strcpy(c_array[i], c); // copy to the array of results
-
-            printf("c[%d] = %s\n", i, c_array[i]); //print it
-
-
-
+            // sprintf((char)out_buffer[i], "%c", (char)array[i]);
         }
-
-
-            
-
-        
 		
 		if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
 			perror ("Child: Not able to send message to the parent process..");
 			exit(1);
 		}
+
+        printf("Sent!\n");
 	}
-	else{	// Parent process
-		
+    // Parent process
+	else{	
 		
 		wait(NULL);		
 		if ((qd = mq_open (QUEUE_NAME, O_RDONLY)) == -1) {
@@ -106,7 +90,13 @@ int main()
 			perror ("Parent: mq_receive");
 			exit (1);
 		}
-		printf ("Parent: Result received from child: %s\n\n", in_buffer);
+
+        for (int i = 0; i < 5; i++){
+
+		    printf ("Parent: Result received from child: %d\n\n", in_buffer[i]);
+
+
+        }
 
 		if (mq_close (qd) == -1) {
 			perror ("Parent: mq_close");
