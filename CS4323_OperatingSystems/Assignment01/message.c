@@ -62,10 +62,7 @@ int main()
         for (int i = 0; i < 5; i++){
 
             out_buffer[i] = array[i];
-            setvbuf (stdout, NULL, _IONBF, 0);
             printf("%d\n", (int)out_buffer[i]);
-
-            // sprintf((char)out_buffer[i], "%c", (char)array[i]);
         }
 		
 		if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {

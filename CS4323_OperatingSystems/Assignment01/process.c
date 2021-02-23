@@ -1,54 +1,57 @@
 #include "header.h"
 
-void helperProcess(mqd_t qd);
+void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers);
 void customerProcess(int letter, int msgID);
 int getRandom();
-void recMsg(int msgID);
+void shuffle(int *arr, size_t n);
 
+char * recMsg(mqd_t msgID);
 
 #define QUEUE_NAME   "/addition"
 #define PERMISSIONS 0660
 #define MAX_MESSAGES 10
-#define MAX_MSG_SIZE 256
+#define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
-
-
-
-
-
-
-
 void test(struct Item *perm){
+
+    int *count = mmap (NULL, sizeof (int),
+    PROT_READ | PROT_WRITE,
+    MAP_SHARED, -1, 0);
 
     mqd_t qd;   // queue descriptors
 
 	struct mq_attr attr;
-	attr.mq_flags = 0;
+	attr.mq_flags =IPC_NOWAIT;
 	attr.mq_maxmsg = MAX_MESSAGES;	// The maximum number of messages that can be stored on the queue. 
 	attr.mq_msgsize = MAX_MSG_SIZE;	// The maximum size of each message on the given message queue. 
 	attr.mq_curmsgs = 0;	// This field represents the number of messages currently on the given queue.
 
-
-
-
     int numItems;
-    int letter = 64; // root parent gets the letter '@'
+    // int letter = 64; // root parent gets the letter '@'
+
+    char order[100];
+    printf("Please specify a customer order.\n");
+    scanf("%s", order);
+
+    int letterCount = 0;
+    int letter = order[letterCount];
 
     int numCustomers;
     printf("How many Customer processes would you like?\n");
     scanf("%d", &numCustomers);
 
-    char order[100];
-    printf("Please specify a customer order.\n");
-    scanf("%s", order);
+    if ((qd = mq_open (QUEUE_NAME, O_RDWR | O_CREAT, PERMISSIONS, &attr)) == -1) {
+        perror ("Child: mq_open");
+        exit (1);
+    }
 
     pid_t pid = fork();
 
     // "Helper" process will execute
     if (pid == 0){
 
-		helperProcess(qd);
+		helperProcess(qd, attr, numCustomers);
 	}
 
     else if (pid > 0){
@@ -58,120 +61,112 @@ void test(struct Item *perm){
         while (i < numCustomers && pid > 0){
 
             pid = fork();
-            letter++;
+            if(pid > 0) wait(NULL);
+            letter = order[letterCount];
+            letterCount++;
             i++;
         }
     }
 
-
     // "Customer" processes will execute
     if (pid == 0){
 
-        
-        if (mq_close (qd) == -1) {
-		}
+        printf("Customer %c wants to know how many items you want.\n", letter);
+        scanf("%d", &numItems);
 
-		if (mq_unlink (QUEUE_NAME) == -1) {
-		}
+        int i, randomItem;
+        int itemsToGet[100];
 
+        for (i = 0; i < numItems; i++){
+
+            randomItem = getRandom(getpid() + i);
+            itemsToGet[i] = randomItem;
+        }
 
 		if ((qd = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
 			perror ("Child: mq_open");
 			exit (1);
 		}
 
-        int array[] = {5, 3, 27, 6, 99};
-		char out_buffer [MAX_MSG_SIZE];
+		char out_buffer [numItems];
 
-        int i;
+        for (int i = 0; i < numItems; i++){
+
+            out_buffer[i] = itemsToGet[i];
+        }
+
+        if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
+            perror ("Child: Not able to send message to the parent process..");
+            exit(1);
+        }
+        printf("Sent!\n");
+    }
+}
+
+
+void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers){
+
+    sleep(3);
+
+    for (int i = 0; i < 3; i++){
+
+        char *in = recMsg(qd);
+
         for (int i = 0; i < 5; i++){
 
-            out_buffer[i] = array[i];
-            setvbuf (stdout, NULL, _IONBF, 0);
-            printf("%d\n", (int)out_buffer[i]);
-
-            // sprintf((char)out_buffer[i], "%c", (char)array[i]);
+           printf ("Parent: Result received from child: %d\n\n", in[i]);
         }
-		
-		if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
-			perror ("Child: Not able to send message to the parent process..");
-			exit(1);
-		}
-
-        printf("Sent!\n");
-
     }
 
-	while (wait(NULL) != -1 || errno != ECHILD){};
+    if (mq_close (qd) == -1) {
+        perror ("Parent: mq_close");
+        exit (1);
+    }
+
+    if (mq_unlink (QUEUE_NAME) == -1) {
+        perror ("Parent: mq_unlink");
+        exit (1);
+    }
+            
+    exit(0);
 }
 
-void helperProcess(mqd_t qd){
 
+char * recMsg(mqd_t msgID){
 
+    char in_buffer [MSG_BUFFER_SIZE];
+    char *s = malloc(sizeof(char) * 5);
 
-    wait(NULL);		
-		if ((qd = mq_open (QUEUE_NAME, O_RDONLY)) == -1) {
-			perror ("Parent: mq_open");
-			exit (1);
-		}
+    printf("About to recieve\n");
 
-		char in_buffer [MSG_BUFFER_SIZE];
+    if (mq_receive (msgID, in_buffer, MSG_BUFFER_SIZE, 0) == -1) {
+        perror ("Parent: mq_receive");
+        exit (1);
+    }
 
-		if (mq_receive (qd, in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
-			perror ("Parent: mq_receive");
-			exit (1);
-		}
+    for(int j = 0; j < 5; j++){
+        s[j] = in_buffer[j];
+    //    printf("%d\n", (int)s[j]);
+    }
+    
+    return s;
+}
 
-        for (int i = 0; i < 5; i++){
-
-		    printf ("Parent: Result received from child: %d\n\n", in_buffer[i]);
-
-
+void shuffle(int *arr, size_t n)
+{
+    if (n > 1) 
+    {
+        size_t i;
+        srand(time(NULL));
+        for (i = 0; i < n - 1; i++) 
+        {
+          size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+          int t = arr[j];
+          arr[j] = arr[i];
+          arr[i] = t;
         }
-
-		if (mq_close (qd) == -1) {
-			perror ("Parent: mq_close");
-			exit (1);
-		}
-
-		if (mq_unlink (QUEUE_NAME) == -1) {
-			perror ("Parent: mq_unlink");
-			exit (1);
-		}
-		
-		exit(0);
-
-
-
+    }
 }
-
-void customerProcess(int letter, int msgID){
-
-
-    // printf("Customer %c wants to know how many items you want.\n", letter);
-    // scanf("%d", &numItems);
-
-    // int i, randomItem;
-
-    // int itemsToGet[100];
-
-    // for (i = 0; i < numItems; i++)
-    // {
-
-    //     randomItem = getRandom(getpid());
-
-    //     itemsToGet[i] = randomItem;
-    // }
-
-
-}
-
-
-void recMsg(int msgID){
-
-
-}
-
 
 
 int getRandom(int pid){
@@ -179,9 +174,6 @@ int getRandom(int pid){
     int lower = 1, upper = 100;
 
     srand(pid * time(0));
-
-    sleep(1);
-
     int num = (rand() % (upper - lower + 1)) + lower;
 
     return num;
@@ -207,3 +199,24 @@ int getRandom(int pid){
 //     printf ("%d %s %s %s\n", perm->serialNum, perm->item, perm->price, perm->store);
 //     perm++;
 //   }
+
+void customerProcess(int letter, int msgID){
+
+
+    
+
+
+}
+
+
+    //     int zeroToHund[100];
+
+    // for (i = 0; i < 100; i++){
+    //     zeroToHund[i] = i;
+    // }
+
+    // shuffle(zeroToHund, 100);
+
+    // for (i = 0; i < 100; i++){
+    //     printf("%d ", zeroToHund[i]);
+    // }
