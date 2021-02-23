@@ -26,6 +26,10 @@
 
 int main() 
 { 
+	clock_t t;
+	t = clock();
+	double time;
+	
 	mqd_t qd;   // queue descriptors
 
 	struct mq_attr attr;
@@ -34,9 +38,12 @@ int main()
 	attr.mq_msgsize = MAX_MSG_SIZE;	// The maximum size of each message on the given message queue. 
 	attr.mq_curmsgs = 0;	// This field represents the number of messages currently on the given queue.
 
+	long long int result = 0;
+	long long int i;
 
     int pid = fork();	// make two processes
 
+	
 	if (pid < 0){	// fork failed
 		fprintf(stderr, "fork failed..\n");
 		exit(1);
@@ -48,6 +55,10 @@ int main()
 		if (mq_unlink (QUEUE_NAME) == -1) {
 		}
 
+		for (i = 1; i <= MAX/2; i++){
+			result = result + i;
+		}
+		//printf("Child Process %d: %lld\n", getpid(), result);
 
 		if ((qd = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
 			perror ("Child: mq_open");
@@ -80,8 +91,11 @@ int main()
 			perror ("Parent: mq_receive");
 			exit (1);
 		}
-		printf ("Parent: Result received from child: %s\n\n", in_buffer);
+		// printf ("Parent: Result received from child: %s\n\n", in_buffer);
 
+		long long int result1 = atoll(in_buffer);
+		result = result + result1;
+		
 		printf ("\nThe final result is: %lld", result);
 		if (mq_close (qd) == -1) {
 			perror ("Parent: mq_close");
@@ -92,6 +106,11 @@ int main()
 			perror ("Parent: mq_unlink");
 			exit (1);
 		}
+
+		t = clock() - t;
+		time = (double)t/CLOCKS_PER_SEC;
+		
+		printf("\nTime taken: %f sec\n", time);
 		
 		exit(0);
 	}
