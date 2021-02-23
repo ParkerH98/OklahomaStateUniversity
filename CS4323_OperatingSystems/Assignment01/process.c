@@ -1,6 +1,6 @@
 #include "header.h"
 
-void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers);
+void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers, char order[]);
 void customerProcess(int letter, int msgID);
 int getRandom();
 void shuffle(int *arr, size_t n);
@@ -28,14 +28,11 @@ void test(struct Item *perm){
 	attr.mq_curmsgs = 0;	// This field represents the number of messages currently on the given queue.
 
     int numItems;
-    // int letter = 64; // root parent gets the letter '@'
+    int letter = 64; // root parent gets the letter '@'
 
     char order[100];
     printf("Please specify a customer order.\n");
     scanf("%s", order);
-
-    int letterCount = 0;
-    int letter = order[letterCount];
 
     int numCustomers;
     printf("How many Customer processes would you like?\n");
@@ -51,7 +48,7 @@ void test(struct Item *perm){
     // "Helper" process will execute
     if (pid == 0){
 
-		helperProcess(qd, attr, numCustomers);
+		helperProcess(qd, attr, numCustomers, order);
 	}
 
     else if (pid > 0){
@@ -62,8 +59,8 @@ void test(struct Item *perm){
 
             pid = fork();
             if(pid > 0) wait(NULL);
-            letter = order[letterCount];
-            letterCount++;
+            // letter = order[letterCount];
+            letter++;
             i++;
         }
     }
@@ -71,17 +68,29 @@ void test(struct Item *perm){
     // "Customer" processes will execute
     if (pid == 0){
 
+        int priority;
+        for (int i = 0; i < numCustomers; i++){
+
+            if (letter == order[i]){
+                priority = 100 - i;
+            }
+        }
+
         printf("Customer %c wants to know how many items you want.\n", letter);
         scanf("%d", &numItems);
 
         int i, randomItem;
         int itemsToGet[100];
 
+        printf("Customer %c has\n", letter);
         for (i = 0; i < numItems; i++){
 
             randomItem = getRandom(getpid() + i);
             itemsToGet[i] = randomItem;
+            printf("%d ", itemsToGet[i]);
         }
+
+        printf("\n");
 
 		if ((qd = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
 			perror ("Child: mq_open");
@@ -95,7 +104,7 @@ void test(struct Item *perm){
             out_buffer[i] = itemsToGet[i];
         }
 
-        if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
+        if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, priority) == -1) {
             perror ("Child: Not able to send message to the parent process..");
             exit(1);
         }
@@ -104,7 +113,7 @@ void test(struct Item *perm){
 }
 
 
-void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers){
+void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers, char order[]){
 
     sleep(3);
 
