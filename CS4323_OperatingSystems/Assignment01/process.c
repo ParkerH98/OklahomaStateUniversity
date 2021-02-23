@@ -1,11 +1,11 @@
 #include "header.h"
 
-void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers, char order[]);
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[]);
 void customerProcess(int letter, int msgID);
 int getRandom();
 void shuffle(int *arr, size_t n);
 
-char * recMsg(mqd_t msgID);
+char * receiveMessage(mqd_t msgID);
 
 #define QUEUE_NAME   "/addition"
 #define PERMISSIONS 0660
@@ -19,7 +19,7 @@ void test(struct Item *perm){
     PROT_READ | PROT_WRITE,
     MAP_SHARED, -1, 0);
 
-    mqd_t qd;   // queue descriptors
+    mqd_t queueDescriptor;   // queue descriptors
 
 	struct mq_attr attr;
 	attr.mq_flags =IPC_NOWAIT;
@@ -30,15 +30,17 @@ void test(struct Item *perm){
     int numItems;
     int letter = 64; // root parent gets the letter '@'
 
-    char order[100];
-    printf("Please specify a customer order.\n");
-    scanf("%s", order);
-
     int numCustomers;
     printf("How many Customer processes would you like?\n");
     scanf("%d", &numCustomers);
 
-    if ((qd = mq_open (QUEUE_NAME, O_RDWR | O_CREAT, PERMISSIONS, &attr)) == -1) {
+    char order[100];
+    printf("Please specify a customer order.\n");
+    scanf("%s", order);
+
+    
+
+    if ((queueDescriptor = mq_open (QUEUE_NAME, O_RDWR | O_CREAT, PERMISSIONS, &attr)) == -1) {
         perror ("Child: mq_open");
         exit (1);
     }
@@ -48,7 +50,7 @@ void test(struct Item *perm){
     // "Helper" process will execute
     if (pid == 0){
 
-		helperProcess(qd, attr, numCustomers, order);
+		helperProcess(queueDescriptor, attr, numCustomers, order);
 	}
 
     else if (pid > 0){
@@ -92,7 +94,7 @@ void test(struct Item *perm){
 
         printf("\n");
 
-		if ((qd = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
+		if ((queueDescriptor = mq_open (QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1) {
 			perror ("Child: mq_open");
 			exit (1);
 		}
@@ -104,7 +106,7 @@ void test(struct Item *perm){
             out_buffer[i] = itemsToGet[i];
         }
 
-        if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, priority) == -1) {
+        if (mq_send (queueDescriptor, out_buffer, strlen (out_buffer) + 1, priority) == -1) {
             perror ("Child: Not able to send message to the parent process..");
             exit(1);
         }
@@ -113,21 +115,21 @@ void test(struct Item *perm){
 }
 
 
-void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers, char order[]){
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[]){
 
     sleep(3);
 
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < numCustomers; i++){
 
-        char *in = recMsg(qd);
+        char *in = receiveMessage(queueDescriptor);
 
         for (int i = 0; i < 5; i++){
 
-           printf ("Parent: Result received from child: %d\n\n", in[i]);
+           printf ("Helper: Received from Customer: %d\n\n", in[i]);
         }
     }
 
-    if (mq_close (qd) == -1) {
+    if (mq_close (queueDescriptor) == -1) {
         perror ("Parent: mq_close");
         exit (1);
     }
@@ -140,8 +142,7 @@ void helperProcess(mqd_t qd, struct mq_attr attr, int numCustomers, char order[]
     exit(0);
 }
 
-
-char * recMsg(mqd_t msgID){
+char * receiveMessage(mqd_t msgID){
 
     char in_buffer [MSG_BUFFER_SIZE];
     char *s = malloc(sizeof(char) * 5);
@@ -161,23 +162,6 @@ char * recMsg(mqd_t msgID){
     return s;
 }
 
-void shuffle(int *arr, size_t n)
-{
-    if (n > 1) 
-    {
-        size_t i;
-        srand(time(NULL));
-        for (i = 0; i < n - 1; i++) 
-        {
-          size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
-          int t = arr[j];
-          arr[j] = arr[i];
-          arr[i] = t;
-        }
-    }
-}
-
-
 int getRandom(int pid){
 
     int lower = 1, upper = 100;
@@ -189,43 +173,30 @@ int getRandom(int pid){
 }
 
 
-// printf("Customer %c is getting items ", letter);
-// for (int i = 0; i < numItems; i++)
-// {
-//     printf("%d ", itemsToGet[i]);
+//     int zeroToHund[100];
+
+// for (i = 0; i < 100; i++){
+//     zeroToHund[i] = i;
 // }
-// printf("\n");
 
+// shuffle(zeroToHund, 100);
 
-// char *shm_order = mmap(NULL, sizeof(char) * 100,
-// PROT_READ | PROT_WRITE,
-// MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+// for (i = 0; i < 100; i++){
+//     printf("%d ", zeroToHund[i]);
+// }
 
-
-//     for (int i = 0; i < 100; i++){
-
-//     /* Read from the mapped/shared memory region */
-//     printf ("%d %s %s %s\n", perm->serialNum, perm->item, perm->price, perm->store);
-//     perm++;
-//   }
-
-void customerProcess(int letter, int msgID){
-
-
-    
-
-
-}
-
-
-    //     int zeroToHund[100];
-
-    // for (i = 0; i < 100; i++){
-    //     zeroToHund[i] = i;
-    // }
-
-    // shuffle(zeroToHund, 100);
-
-    // for (i = 0; i < 100; i++){
-    //     printf("%d ", zeroToHund[i]);
-    // }
+//     void shuffle(int *arr, size_t n)
+// {
+//     if (n > 1) 
+//     {
+//         size_t i;
+//         srand(time(NULL));
+//         for (i = 0; i < n - 1; i++) 
+//         {
+//           size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+//           int t = arr[j];
+//           arr[j] = arr[i];
+//           arr[i] = t;
+//         }
+//     }
+// }
