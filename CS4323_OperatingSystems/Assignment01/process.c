@@ -1,6 +1,6 @@
 #include "header.h"
 
-void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[]);
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm);
 void customerProcess(int letter, int msgID);
 int getRandom();
 void shuffle(int *arr, size_t n);
@@ -50,7 +50,7 @@ void test(struct Item *perm){
     // "Helper" process will execute
     if (pid == 0){
 
-		helperProcess(queueDescriptor, attr, numCustomers, order);
+		helperProcess(queueDescriptor, attr, numCustomers, order, perm);
 	}
 
     else if (pid > 0){
@@ -115,19 +115,54 @@ void test(struct Item *perm){
 }
 
 
-void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[]){
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm){
 
     sleep(3);
 
+    // initializes file object and assigns a pointer 'f'
+    FILE *f;
+    // reads file and stores into pointer f
+    f = fopen("GameLog.txt", "w+");
+
+    float total = 0;
+    char temp[8];
+
+    for (int i = 0; i < 200; i++){
+
+        printf("%d\n", getRandom(i));
+    }
+
+
     for (int i = 0; i < numCustomers; i++){
+
+        total = 0;
 
         char *in = receiveMessage(queueDescriptor);
 
-        for (int i = 0; i < 5; i++){
 
-           printf ("Helper: Received from Customer: %d\n\n", in[i]);
+
+        fprintf(f, "Customer __  has items:\n");
+        
+        for (int i = 0; i < 5; i++){
+          
+            removeFirst(perm[in[i]].price, '$');
+
+            // printf("FLOAT: %f\n", atof(perm[in[i]].price));
+
+            total = total + atof(perm[in[i]].price);
+            fprintf(f, "%s          $%s at %s\n", perm[in[i]].item, perm[in[i]].price, perm[in[i]].store);
+
+         //    printf ("Helper: Received from Customer: %d\n\n", in[i]);
         }
+        fprintf(f, "\n");
+        fprintf(f, "Total: $%.2f\n\n", total);
+        fprintf(f, "\n");
     }
+
+
+    printf("");
+    fclose(f);
+
 
     if (mq_close (queueDescriptor) == -1) {
         perror ("Parent: mq_close");
@@ -147,7 +182,7 @@ char * receiveMessage(mqd_t msgID){
     char in_buffer [MSG_BUFFER_SIZE];
     char *s = malloc(sizeof(char) * 5);
 
-    printf("About to recieve\n");
+    // printf("About to recieve\n");
 
     if (mq_receive (msgID, in_buffer, MSG_BUFFER_SIZE, 0) == -1) {
         perror ("Parent: mq_receive");
@@ -164,13 +199,30 @@ char * receiveMessage(mqd_t msgID){
 
 int getRandom(int pid){
 
-    int lower = 1, upper = 100;
+    int lower = 1, upper = 99;
 
     srand(pid * time(0));
     int num = (rand() % (upper - lower + 1)) + lower;
 
     return num;
 }
+
+// writes the name, date, and number of generations to an output file
+// Arguments: a pointer to the info struct
+// void writeToGameLog(struct Info *infoPtr){
+
+//     // initializes file object and assigns a pointer 'f'
+//     FILE *f;
+//     // reads file and stores into pointer f
+//     f = fopen("GameLog.txt", "r+");
+
+//     fseek(f, 0, SEEK_END);
+//     // fprintf(f, "PLAYER NAME: %s\nDATE: %s\nNUMBER OF GENERATIONS: %d\n---------------------------------------------------\n", (*infoPtr).playerName, (*infoPtr).date, (*infoPtr).numGenerations);
+//     fprintf(f, "%s\n%s\n%d\n", (*infoPtr).playerName, (*infoPtr).date, (*infoPtr).numGenerations);
+
+//     printf("");
+//     fclose(f);
+// }
 
 
 //     int zeroToHund[100];

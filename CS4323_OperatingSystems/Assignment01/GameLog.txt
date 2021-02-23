@@ -1,0 +1,50 @@
+Customer __  has items:
+Kindle Paperwhite          $149.99  at Amazon
+Classic Bathrobe          $99  at Parachute
+Block Letter Monogram Necklace          $38  at Anthropologie
+Classic Clog          $44.95  at Crocs 
+Roku Streaming Stick+          $49  at Amazon
+
+Total: $380.94
+
+
+Customer __  has items:
+Wet-n-Wild Liquid Catsuit Lipstick          $4.34  at Amazon
+ZZ plant          $44  at The Sill
+Nidra Sleep Mask          $11.95  at Amazon
+Bean Boots          $139  at L.L.Bean
+Winc Wine Subscription Box          $40  at Winc
+
+Total: $239.29
+
+
+Customer __  has items:
+Grafomap Custom Map          $49  at Grafomap
+Wet-n-Wild Liquid Catsuit Lipstick          $4.34  at Amazon
+ZZ plant          $44  at The Sill
+Nidra Sleep Mask          $11.95  at Amazon
+Bean Boots          $139  at L.L.Bean
+
+Total: $248.29
+
+
+Customer __  has items:
+Codenames          $14.88  at Amazon
+Roku Streaming Stick+          $49  at Amazon
+Ninja Fit Personal Blender          $49.99  at Amazon
+Tile Mate          $24.99  at Amazon
+Staub Cast Iron 5.5-Quart Round Cocotte          $259.95  at Amazon
+
+Total: $398.81
+
+
+Customer __  has items:
+Staub Cast Iron 5.5-Quart Round Cocotte          $259.95  at Amazon
+WikkiStix Rainbow Pak at Amazon          $8.94  at Amazon
+Bean Boots          $139  at L.L.Bean
+Rachael Ray Yum-o! Oven Lovin' Loaf Pan          $11.99  at Amazon
+Invisibobble (3-pack)          $7.50  at Amazon
+
+Total: $427.38
+
+

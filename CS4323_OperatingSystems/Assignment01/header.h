@@ -17,6 +17,7 @@
 #include <assert.h>
 
 
+
 #define NUM_ITEMS 100
 
 // struct to hold player information
@@ -35,5 +36,10 @@ struct Item{
 void readFile();
 
 void test(struct Item *perm);
+
+void removeFirst(char * str, const char toRemove);
+
+
+char *trim(char *str);
 
 
