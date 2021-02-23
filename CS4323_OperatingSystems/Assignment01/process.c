@@ -122,7 +122,7 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     // initializes file object and assigns a pointer 'f'
     FILE *f;
     // reads file and stores into pointer f
-    f = fopen("GameLog.txt", "w+");
+    f = fopen("Customer_Receipt.txt", "w+");
 
     float total = 0;
     char temp[8];
