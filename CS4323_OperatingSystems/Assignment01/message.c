@@ -22,7 +22,6 @@
 #define MAX_MSG_SIZE 256
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
-#define MAX 9000000000 // 9 billion times
 
 int main() 
 { 
@@ -53,9 +52,39 @@ int main()
 			perror ("Child: mq_open");
 			exit (1);
 		}
+
+        int array[] = {5, 3, 27, 6, 99};
+        char* c_array[5];
 		char out_buffer [MSG_BUFFER_SIZE];
 
-		sprintf (out_buffer, "%lld", result);
+
+
+        int i;
+        for (int i = 0; i < 5; i++){
+
+            // out_buffer[i] = array[i];
+
+            /* Linux */
+            // allocate a big enough char to store an int (which is 4bytes, depending on your platform)
+            char c[sizeof(int)];    
+
+            // copy int to char
+            snprintf(c, sizeof(int), "%d", array[i]); //copy those 4bytes
+
+            // allocate enough space on char* array to store this result
+            c_array[i] = malloc(sizeof(c)); 
+            strcpy(c_array[i], c); // copy to the array of results
+
+            printf("c[%d] = %s\n", i, c_array[i]); //print it
+
+
+
+        }
+
+
+            
+
+        
 		
 		if (mq_send (qd, out_buffer, strlen (out_buffer) + 1, 0) == -1) {
 			perror ("Child: Not able to send message to the parent process..");
@@ -63,10 +92,7 @@ int main()
 		}
 	}
 	else{	// Parent process
-		for (i = MAX/2 + 1; i <= MAX; i++){
-			result = result + i;
-		}
-		// printf("Parent Process %d: %lld\n", getpid(), result);
+		
 		
 		wait(NULL);		
 		if ((qd = mq_open (QUEUE_NAME, O_RDONLY)) == -1) {
@@ -82,7 +108,6 @@ int main()
 		}
 		printf ("Parent: Result received from child: %s\n\n", in_buffer);
 
-		printf ("\nThe final result is: %lld", result);
 		if (mq_close (qd) == -1) {
 			perror ("Parent: mq_close");
 			exit (1);
