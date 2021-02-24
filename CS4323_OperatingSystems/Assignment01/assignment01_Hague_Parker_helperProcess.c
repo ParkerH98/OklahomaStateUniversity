@@ -56,7 +56,6 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
 
         letter = letter + 1; // increments the Customer letter
         fclose(f); // closes the file
-        // free(in);
     }
 
     if (mq_close(queueDescriptor) == -1){ // closes the message queue
@@ -69,6 +68,7 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
         exit(1);
     }
 
+    printf("Thank you.");
     exit(0); // Helper process exits
 }
 
