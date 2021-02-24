@@ -3,12 +3,10 @@
 // delte copy of struct array
 
 
-
-
 #include "header.h" // header file containing function prototypes and includes statements
 #include "stringOps.c" // link to file containing functions for string manipulations
 
-#define MEMORY_NAME "SharedMemory#####"
+#define MEMORY_NAME "SharedMemory"
 
 /*
 ---------------------------------------------------------
@@ -21,13 +19,13 @@ Return: void
 */
 void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
 
-  struct Item // struct to hold the contents of the items.txt file
-  {
-    int serialNum;
-    char item[256];
-    char price[16];
-    char store[64];
-  };
+  // struct Item // struct to hold the contents of the items.txt file
+  // {
+  //   int serialNum;
+  //   char item[256];
+  //   char price[16];
+  //   char store[64];
+  // };
 
   int shmfd = shm_open (MEMORY_NAME, O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR); // creates file descriptor for shared memory
   assert (shmfd != -1);   // throws error if it fails

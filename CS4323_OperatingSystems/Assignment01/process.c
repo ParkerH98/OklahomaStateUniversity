@@ -8,8 +8,7 @@
 
 void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct);
 void customerProcess(int letter, int msgID);
-int getRandom();
-void shuffleArray(int *arr, size_t n);
+void shuffleArray(int *arr, int n);
 
 char *receiveMessage(mqd_t msgID);
 
@@ -150,22 +149,24 @@ void process(struct Item *shm_struct)
     }
 }
 
+/*
+---------------------------------------------------------
+Function is executed by the Helper process. This process is
+responsible for handling the receiving end of the message 
+queue. After the Helper receives the list of serial numbers, 
+the Helper then writes the items to an ouput file.
+
+Params: the message queue descriptor, message queue struct attributes, the number of Customer processes, a char array of the Customer order, and a shared memory struct Item array
+Return: void
+*/
 void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct)
 {
-    sleep(3); // helps to control the flow and timing of the program
+    sleep(5); // helps to control the flow and timing of the program
 
     float total = 0; // stores total for each Customer
     int letter = 0; // stores each Customer's letter
 
     int numItems; // stores the number of items for a particular Customer
-
-
-
-
-    int pid; // stores the PID for a particular Customer
-
-
-
 
     char filename[17] = "processReceipt"; // output filename
 
@@ -220,6 +221,16 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     exit(0); // Helper process exits
 }
 
+
+/*
+---------------------------------------------------------
+Function handles receiving the main output buffer message 
+in the message queue from the Customer process. Function is
+called in the helperProcess function.
+
+Params: the message queue descriptor
+Return: a char pointer to the received output message buffer
+*/
 char *receiveMessage(mqd_t queueDescriptor)
 {
     char in_buffer[MSG_BUFFER_SIZE]; // stores message sent in message queue
@@ -241,16 +252,6 @@ char *receiveMessage(mqd_t queueDescriptor)
     return s;
 }
 
-int getRandom(int pid)
-{
-    int lower = 1, upper = 99;
-
-    srand(pid * time(0));
-    int num = (rand() % (upper - lower + 1)) + lower;
-
-    return num;
-}
-
 /*
 ---------------------------------------------------------
 Function takes in input array and shuffles the contents
@@ -260,15 +261,15 @@ numbers for the item lists.
 Params: int array to be shuffled and n number of elements in array
 Return: void
 */
-void shuffleArray(int *arrayToShuffle, int n)
+void shuffleArray(int *arrayToShuffle, int numElements)
 {
-    if (n > 1)
+    if (numElements > 1)
     {
         int i;
         srand(time(NULL)); // sets seed for random
-        for (i = 0; i < n - 1; i++)
+        for (i = 0; i < numElements - 1; i++)
         {
-            int j = i + rand() / (RAND_MAX / (n - i) + 1); // gets random element in range
+            int j = i + rand() / (RAND_MAX / (numElements - i) + 1); // gets random element in range
             int temp = arrayToShuffle[j];
             arrayToShuffle[j] = arrayToShuffle[i]; // swaps indices
             arrayToShuffle[i] = temp; // assigns to temp index
