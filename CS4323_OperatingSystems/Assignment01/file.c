@@ -1,71 +1,86 @@
-#include "header.h"
-#include "stringOps.c"
-
-#define STRING "Prnorv0onv[oeiv"
+// move assert
 
 
+
+
+#include "header.h" // header file containing function prototypes and includes statements
+#include "stringOps.c" // link to file containing functions for string manipulations
+
+#define MEMORY_NAME "SharedMemory#####"
+
+/*
+---------------------------------------------------------
+Takes in 4 input arrays and stores the data from each array
+index into a struct array where each index is the information
+for one gift item.
+
+Params: int and 3 char arrays containing the items.txt info
+Return: void
+*/
 void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
 
-  struct Item {
-
+  struct Item // struct to hold the contents of the items.txt file
+  {
     int serialNum;
     char item[256];
     char price[16];
     char store[64];
   };
 
+  int shmfd = shm_open (MEMORY_NAME, O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR); // creates file descriptor for shared memory
+  assert (shmfd != -1);   // throws error if it fails
 
-  int shmfd = shm_open (STRING, O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
-  assert (shmfd != -1);
+  assert (ftruncate (shmfd, sizeof (struct Item) * 100) != -1); // Resize the region to store 100 struct instances
 
-  /* Resize the region to store 1 struct instance */
-  assert (ftruncate (shmfd, sizeof (struct Item) * 100) != -1);
-
-  /* Map the object into memory so file operations aren't needed */
-  struct Item *perm = mmap (NULL, sizeof (struct Item) * 100,
+  struct Item *shm_struct = mmap (NULL, sizeof (struct Item) * 100, // creates shared memory object
                             PROT_READ | PROT_WRITE, MAP_SHARED, shmfd, 0);
-  assert (perm != MAP_FAILED);
 
-  /* Create a child process and write to the mapped/shared region */
-  pid_t child_pid = fork();
-  if (child_pid == 0){
+  assert (shm_struct != MAP_FAILED);
 
+  pid_t child_pid = fork(); // creates child process
+  if (child_pid == 0) // child process executes 
+  {
     int i;
-    for (int i = 0; i < 100; i++){
+    
+    for (int i = 0; i < 100; i++) // loops 100 times and stores arrays into their respective fields of the Item struct
+    {
+      shm_struct->serialNum = serialNums[i];
+      strcpy(shm_struct->item, items[i]);
+      strcpy(shm_struct->store, stores[i]);
+      strcpy(shm_struct->price, prices[i]);
 
-      perm->serialNum = serialNums[i];
-
-      strcpy(perm->item, items[i]);
-      strcpy(perm->store, stores[i]);
-      strcpy(perm->price, prices[i]);
-
-      perm++;
+      shm_struct++;
     }
 
-    /* Unmap and close the child's shared memory access */
-    munmap (perm, sizeof (struct Item) * 100);
-    close (shmfd);
-    exit(0);
+    munmap (shm_struct, sizeof (struct Item) * 100); // Unmap and close the child's shared memory access
+    close (shmfd); // closes file descriptor
+    exit(0); // child exits
   }
 
-  /* Make the parent wait until the child has exited */
-  wait (NULL);
+  wait (NULL); // Make the parent wait until the child has exited
 
-  test(perm);
+  process(shm_struct); // calls the function to execute the processes and passes the shared memory object
 
-  /* Unmap, close, and delete the shared memory object */
-  munmap (perm, sizeof (struct Item) * 100);
-  close (shmfd);
-  shm_unlink (STRING);
+  munmap (shm_struct, sizeof (struct Item) * 100); // Unmap and close the child's shared memory access
+  close (shmfd); // closes file descriptor
+  shm_unlink (MEMORY_NAME); // deletes shared memory space
 }
 
+
+/*
+---------------------------------------------------------
+Reads in the items.txt file line by line and extracts the 
+data and stores into proper arrays.
+
+Params: none
+Return: void
+*/
 void readFile(){
 
-  FILE *f;
-  f = fopen("items.txt", "r");
+  FILE *f; // file pointer
+  f = fopen("items.txt", "r"); // opens file for reading
 
-  // for storing each line of items.txt 
-  char lines[NUM_ITEMS][256];
+  char lines[NUM_ITEMS][256]; // for storing each line of items.txt 
 
   // arrays to store serial number, item, price, and location
   int serialNums[NUM_ITEMS];
@@ -74,39 +89,30 @@ void readFile(){
   char prices[NUM_ITEMS][16];
   char stores[NUM_ITEMS][256];
 
-  // temp strings for string manipulation
-  char temp[256];
+  char temp[256]; // temp strings for string manipulation
 
   int index = 0;
 
-  // reads items.txt line by line and stores string into lines[]
-  while(fgets(lines[index], 256, f)) {
-
-    /* get rid of ending \n from fgets */
-    lines[index][strlen(lines[index]) - 1] = '\0';
+  while(fgets(lines[index], 256, f)) // reads items.txt line by line and stores string into lines[]
+  {
+    lines[index][strlen(lines[index]) - 1] = '\0'; // get rid of ending \n from fgets
 
     // SERIAL NUMBERS
     // =============================================================================================
-    // creates copies of the original line for string manipulation
-    strcpy(temp, lines[index]);
+    strcpy(temp, lines[index]); // creates copies of the original line for string manipulation
 
-    // splits whole line by '.' and assigns the serial number to serialNums[]
-    serialNums[index] = atoi(strtok(temp, "."));
+    serialNums[index] = atoi(strtok(temp, ".")); // splits whole line by '.' and assigns the serial number to serialNums[]
 
 
     // ITEMS
     // =============================================================================================
-    // resets the temp string to the original copied string ~ lines[index]
-    strcpy(temp, lines[index]);
+    strcpy(temp, lines[index]); // resets the temp string to the original copied string ~ lines[index]
 
-    // splits line by the $
-    strtok(temp, "$");
+    strtok(temp, "$"); // splits line by the $
 
-    // gets substring after the serial number ~ after the '.'
-    char *sep_at = strchr(temp, '.');
+    char *sep_at = strchr(temp, '.'); // gets substring after the serial number ~ after the '.'
 
-    // copies items to the items[]
-    strcpy(&items[index][0], (sep_at + 1));
+    strcpy(&items[index][0], (sep_at + 1)); // copies items to the items[]
 
     // variables used when stripping white space from items[]
     char test_buffer[256];
@@ -118,30 +124,24 @@ void readFile(){
     strcpy(test_buffer, items[index]);
     memcpy(comparison_buffer, test_buffer, sizeof(comparison_buffer));
 
-    // copies final versions of stripped item strings into items[]
-    strcpy(&items[index][0], trim(test_buffer));
+    strcpy(&items[index][0], trim(test_buffer)); // copies final versions of stripped item strings into items[]
 
 
     // PRICES
     // =============================================================================================
-    // resets the temp string to the original copied string ~ lines[index]
-    strcpy(temp, lines[index]);
+    strcpy(temp, lines[index]); // resets the temp string to the original copied string ~ lines[index]
 
-    // seprates main line by $
-    char *sep_at2 = strchr(temp, '$');
+    char *sep_at2 = strchr(temp, '$'); // seprates main line by $
 
-    // stores separation into details[]
-    strcpy(&details[index][0], (sep_at2));
+    strcpy(&details[index][0], (sep_at2)); // stores separation into details[]
 
-    // stores details into temp3
-    strcpy(temp, details[index]);
+    strcpy(temp, details[index]); // stores details into temp3
 
     // splits the price and store by 'on' or 'at' --- used to extract the price
     if (index == 46) {strtok(temp, "on");}
     else {strtok(temp, "at");}
 
-    // copies price from split into prices[]
-    strcpy(prices[index], temp);
+    strcpy(prices[index], temp); // copies price from split into prices[]
 
 
     // STORES
@@ -159,42 +159,10 @@ void readFile(){
       removeFirst(store, 't');
       removeFirst(store, ' ');
     }
+    strcpy(stores[index], store); // stores the result of the strtok split into the stores[]
 
-    // stores the result of the strtok split into the stores[]
-    strcpy(stores[index], store);
-
-    // DEBUG
-    // printf("%d %s %s %s\n", serialNums[index], items[index], prices[index], stores[index]);
-
-    // printf("%d ", serialNums[index]);
-    // printf("%s ", items[index]);
-    // printf("%s ", details[index]);
-    // printf("%s ", prices[index]);
-    // printf("%s\n", stores[index]);
-    // printf("\n");
     index++;
   }
 
-  initializeStructure(serialNums, items, prices, stores);
+  initializeStructure(serialNums, items, prices, stores); // passes in arrays to initialize the Item struct
 }
-
-
-
-
-
-  // my orginal code reading into local struct array
-  // struct Item itemsList[100];
-
-  // int i;
-  // for (int i = 0; i < 100; i++){
-
-  //   itemsList[i].serialNum = serialNums[i];
-  //   strcpy(itemsList[i].item, items[i]);
-  //   strcpy(itemsList[i].price, prices[i]);
-  //   strcpy(itemsList[i].store, stores[i]);
-
-  //   // printf("%d ", itemsList[i].serialNum);
-  //   // printf("%s ", itemsList[i].item);
-  //   // printf("%s ", itemsList[i].price);
-  //   // printf("%s\n", itemsList[i].store);
-  // }

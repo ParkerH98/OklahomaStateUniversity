@@ -1,6 +1,6 @@
 #include "header.h"
 
-void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm);
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct);
 void customerProcess(int letter, int msgID);
 int getRandom();
 void shuffle(int *arr, size_t n);
@@ -13,7 +13,7 @@ char *receiveMessage(mqd_t msgID);
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
-void test(struct Item *perm)
+void process(struct Item *shm_struct)
 {
     int *count = mmap(NULL, sizeof(int),
                       PROT_READ | PROT_WRITE,
@@ -58,7 +58,7 @@ void test(struct Item *perm)
 
     if (pid == 0)   //"Helper" process will execute
     {
-        helperProcess(queueDescriptor, attr, numCustomers, order, perm);
+        helperProcess(queueDescriptor, attr, numCustomers, order, shm_struct);
     }
 
     else if (pid > 0)
@@ -130,7 +130,7 @@ void test(struct Item *perm)
     }
 }
 
-void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm)
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct)
 {
     sleep(3);
 
@@ -172,10 +172,10 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
 
         for (int i = 0; i < numItems; i++)
         {
-            removeFirst(perm[in[i]].price, '$');
-            total = total + atof(perm[in[i]].price);
+            removeFirst(shm_struct[in[i]].price, '$');
+            total = total + atof(shm_struct[in[i]].price);
 
-            fprintf(f, "%s          $%s at %s\n", perm[in[i]].item, perm[in[i]].price, perm[in[i]].store);
+            fprintf(f, "%s          $%s at %s\n", shm_struct[in[i]].item, shm_struct[in[i]].price, shm_struct[in[i]].store);
         }
         fprintf(f, "\n");
         fprintf(f, "Total: $%.2f\n\n", total);

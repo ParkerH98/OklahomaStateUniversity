@@ -35,7 +35,7 @@ struct Item{
 
 void readFile();
 
-void test(struct Item *perm);
+void process(struct Item *shm_struct);
 
 void removeFirst(char * str, const char toRemove);
 
