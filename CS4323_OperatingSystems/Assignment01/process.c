@@ -102,7 +102,7 @@ void test(struct Item *perm)
             itemsToGet[i + 1] = randomItem;
 
             printf("%d ", itemsToGet[i + 1]);
-            
+
             *count = *count + 1;
         }
 
@@ -135,9 +135,9 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     sleep(3);
 
     // initializes file object and assigns a pointer 'f'
-    FILE *f;
+    // FILE *f;
     // reads file and stores into pointer f
-    f = fopen("Customer_Receipt.txt", "w+");
+    // f = fopen("Customer_Receipt.txt", "w+");
 
     float total = 0;
     int letter = 0;
@@ -145,8 +145,16 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     int numItems;
     int pid;
 
+    char filename[17] = "processReceipt";
+
     for (int i = 0; i < numCustomers; i++)
     {
+        filename[14] = order[i];
+
+        FILE *f;
+
+        f = fopen(filename, "w+");
+
         char in_pid[10];
 
         if (mq_receive(queueDescriptor, in_pid, MSG_BUFFER_SIZE, 0) == -1)
@@ -174,10 +182,12 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
         fprintf(f, "\n");
 
         letter = letter + 1;
+    fclose(f);
+
     }
 
     printf("");
-    fclose(f);
+    // fclose(f);
 
     if (mq_close(queueDescriptor) == -1){
         perror("Parent: mq_close");
