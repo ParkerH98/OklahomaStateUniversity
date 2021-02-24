@@ -6,7 +6,6 @@ Function is executed by the Helper process. This process is
 responsible for handling the receiving end of the message 
 queue. After the Helper receives the list of serial numbers, 
 the Helper then writes the items to an ouput file.
-
 Params: the message queue descriptor, message queue struct attributes, the number of Customer processes, a char array of the Customer order, and a shared memory struct Item array
 Return: void
 */
@@ -79,7 +78,6 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
 Function handles receiving the main output buffer message 
 in the message queue from the Customer process. Function is
 called in the helperProcess function.
-
 Params: the message queue descriptor
 Return: a char pointer to the received output message buffer
 */

@@ -1,7 +1,8 @@
 #include "header.h"
 
-void customerProcess(mqd_t queueDescriptor, int numCustomers, int letter, int numItems, char order[], int *count, int zeroToHund[])
-{
+void customerProcess(mqd_t queueDescriptor, int numCustomers, int letter, int numItems, char order[], int *count, int zeroToHund[]){
+
+
     int priority; // priority used for message queue to specify order
     for (int i = 0; i < numCustomers; i++)
     {

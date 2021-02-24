@@ -1,3 +1,4 @@
+#include "header.h"
 
 /*
 ---------------------------------------------------------
@@ -47,8 +48,8 @@ Removes the first occurrence of a specified character
 Params: pointer to string to manipulate and the char to remove
 Return: void
 */
-void removeFirst(char * string, const char toRemove){
-
+void removeFirst(char * string, const char toRemove)
+{
   int i = 0;
   int length = strlen(string);
 
