@@ -18,7 +18,6 @@ char * trim(char *string){
 
   length = strlen(string); // length equals the length of the string
   endPointer = string + length;
-
     
   while( isspace((unsigned char) *frontPointer) ) { ++frontPointer; } // Move the front and back pointers to address the first non-whitespace characters from each end.
 
@@ -55,12 +54,12 @@ void removeFirst(char * string, const char toRemove){
 
   /* Run loop till the first occurrence of the character is not found */
   while(i<length && string[i]!=toRemove)
-      i++;
+    i++;
 
   /* Shift all characters right to the position found above, to one place left */
   while(i < length)
   {
-      string[i] = string[i+1];
-      i++;
+    string[i] = string[i+1];
+    i++;
   }
 }
