@@ -1,33 +1,50 @@
 Customer __  has items:
-Popsockets          $9.99  at Amazon
-Peloton Bike—starting          $1,895  at Peloton
 TheraFlow Foot Massager          $9.99  at Amazon
-Invisibobble (3-pack)          $7.50  at Amazon
+iRobot Roomba i7+          $799  at Amazon
+WikkiStix Rainbow Pak at Amazon          $8.94  at Amazon
+Tiled Margot Monogrammed Mug          $12  at Anthropologie
+Diamond Dazzle Stik          $8.77  at Amazon
 
-Total: $28.48
-
-
-Customer __  has items:
-BodyGlide          $9.99  at Amazon
-ThermoWorks ThermoPop          $34  at ThermoWorks
-Classic Clog          $44.95  at Crocs 
-Capri Volcano Candle          $30  at Anthropologie
-ThermoWorks ThermoPop          $34  at ThermoWorks
-Block Letter Monogram Necklace          $38  at Anthropologie
-Block Letter Monogram Necklace          $38  at Anthropologie
-ZZ plant          $44  at The Sill
-Tweexy Wearable Nail Polish Bottle Holder          $9.99  at Amazon
-
-Total: $282.93
+Total: $838.70
 
 
 Customer __  has items:
 TheraFlow Foot Massager          $9.99  at Amazon
-La Mer Crème de la Mer Moisturizing Cream, 2 oz.          $345  at Nordstrom
-Counter Culture Coffee Beans          $17  at Amazon
-Nidra Sleep Mask          $11.95  at Amazon
+WikkiStix Rainbow Pak at Amazon          $8.94  at Amazon
+Tiled Margot Monogrammed Mug          $12  at Anthropologie
+Diamond Dazzle Stik          $8.77  at Amazon
+Everyday Non Medical Masks 5 Pack          $30  at Athleta
+
+Total: $69.70
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+Fred & Friends Manatea Silicone Tea Infuser          $14.79  at Amazon
 Polk Audio Signa S2 Soundbar          $139  at Amazon
+Patagonia Better Sweater          $119  at Nordstrom
+GHD Curve Creative Curl Wand          $199  at Amazon
 
-Total: $522.94
+Total: $481.78
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+Polk Audio Signa S2 Soundbar          $139  at Amazon
+Patagonia Better Sweater          $119  at Nordstrom
+GHD Curve Creative Curl Wand          $199  at Amazon
+Fred & Friends Manatea Silicone Tea Infuser          $14.79  at Amazon
+
+Total: $481.78
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+Dyson V11 Torque Vacuum Cleaner          $684.99  at Amazon
+Takeya Cold Brew Coffee Maker          $16.99  at Amazon
+Allbirds Wool Runners          $95  at Allbirds
+Barefoot Dreams CozyChic Throw          $147  at Nordstrom
+
+Total: $953.97
 
 
