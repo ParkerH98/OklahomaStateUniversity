@@ -1,5 +1,7 @@
 // move assert
 
+// delte copy of struct array
+
 
 
 
