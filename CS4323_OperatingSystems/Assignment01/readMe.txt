@@ -38,10 +38,9 @@ to do weird things sometimes after the 5 execution or so.
 
 TO COMPILE
 ----------
-gcc -o assignment00 assignment00_Hague_Parker_mainFile.c assignment00_Hague_Parker_playerInfoFile.c
-assignment00_Hague_Parker_boardInitializationFile.c assignment00_Hague_Parker_generationsFile.c
-assignment00_Hague_Parker_displayGenerationFile.c assignment00_Hague_Parker_readPlayersInformationFile.c
-assignment00_Hague_Parker_displayGameSummaryFile.c
+gcc -o assignment01 assignment01_Hague_Parker_main.c assignment01_Hague_Parker_readFile.c
+assignment01_Hague_Parker_process.c assignment01_Hague_Parker_helperProcess.c
+assignment01_Hague_Parker_customerProcess.c assignment01_Hague_Parker_stringOps.c -lrt
 
 TO RUN
 ----------

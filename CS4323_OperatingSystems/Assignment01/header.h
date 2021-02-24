@@ -36,7 +36,5 @@ void readFile();
 void process(struct Item *shm_struct);
 void removeFirst(char * str, const char toRemove);
 char *trim(char *str);
-
-
 void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct);
 void customerProcess(mqd_t queueDescriptor, int numCustomers, int letter, int numItems, char order[], int *count, int zeroToHund[]);

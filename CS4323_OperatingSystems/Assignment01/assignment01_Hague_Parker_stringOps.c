@@ -41,7 +41,6 @@ char * trim(char *string)
   return string;
 }
 
-
 /*
 ---------------------------------------------------------
 Removes the first occurrence of a specified character
