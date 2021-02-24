@@ -17,6 +17,11 @@
 #include <assert.h>     // used to throw error for shared memory
 
 #define NUM_ITEMS 100   // number of items in items.txt
+#define QUEUE_NAME "/addition"
+#define PERMISSIONS 0660
+#define MAX_MESSAGES 10
+#define MAX_MSG_SIZE 1024
+#define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
 // struct to hold player information
 struct Item{
@@ -31,3 +36,7 @@ void readFile();
 void process(struct Item *shm_struct);
 void removeFirst(char * str, const char toRemove);
 char *trim(char *str);
+
+
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *shm_struct);
+void customerProcess(mqd_t queueDescriptor, int numCustomers, int letter, int numItems, char order[], int *count, int zeroToHund[]);
