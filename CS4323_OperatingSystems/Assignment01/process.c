@@ -17,7 +17,7 @@ void test(struct Item *perm)
 {
     int *count = mmap(NULL, sizeof(int),
                       PROT_READ | PROT_WRITE,
-                      MAP_SHARED, -1, 0);
+                      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
     mqd_t queueDescriptor; // queue descriptors
 
@@ -43,6 +43,23 @@ void test(struct Item *perm)
     printf("Please specify a customer order.\n");
     scanf("%s", order);
 
+
+      int zeroToHund[100];
+    int i;
+    *count = 0;
+
+    for (i = 0; i < 100; i++)
+    {
+        zeroToHund[i] = i;
+    }
+
+    shuffle(zeroToHund, 100);
+
+    // for (i = 0; i < 100; i++)
+    // {
+    //     printf("%d ", zeroToHund[i]);
+    // }
+
     pid_t pid = fork();
 
     if (pid == 0)   //"Helper" process will execute
@@ -64,6 +81,10 @@ void test(struct Item *perm)
         }
     }
 
+  
+
+
+
     if (pid == 0)   // "Customer" processes will execute
     {
         int priority;
@@ -74,27 +95,48 @@ void test(struct Item *perm)
             }
         }
 
-        printf("Customer %c wants to know how many items you want.\n", letter);
+        int temp = *count;
+
+        printf("Customer %c wants to know how many items you want. Remaining: %d\n", letter, 100 - temp);
         scanf("%d", &numItems);
+
 
         int i, randomItem;
         int itemsToGet[101];
 
         itemsToGet[0] = numItems;
 
+
+
         printf("Cust:(%c) (%d) has %d items --> ", letter, getpid(), itemsToGet[0]);
         for (i = 0; i < numItems; i++)
         {
-            randomItem = getRandom(getpid() + i);
+            // randomItem = getRandom(getpid() + i);
+            // randomItem[count] = itemsToGet[i];
+
+            randomItem = zeroToHund[*count];
             itemsToGet[i + 1] = randomItem;
             printf("%d ", itemsToGet[i + 1]);
+
+            *count = *count + 1;
+
+
         }
+
 
         char out_buffer[numItems];
 
         for (int i = 0; i < numItems; i++)
         {
             out_buffer[i] = itemsToGet[i];
+        }
+
+        char out_pid[20];
+        sprintf(out_pid, "%d", getpid());
+
+        if (mq_send(queueDescriptor, out_pid, strlen(out_buffer) + 1, priority) == -1){
+            perror("Child: Not able to send message to the parent process..");
+            exit(1);
         }
 
         if (mq_send(queueDescriptor, out_buffer, strlen(out_buffer) + 1, priority) == -1){
@@ -116,15 +158,27 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     f = fopen("Customer_Receipt.txt", "w+");
 
     float total = 0;
+    int letter = 0;
+
     int numItems;
+    int pid;
 
     for (int i = 0; i < numCustomers; i++)
     {
+        char in_pid[10];
+
+        if (mq_receive(queueDescriptor, in_pid, MSG_BUFFER_SIZE, 0) == -1)
+        {
+            perror("Parent: mq_receive");
+            exit(1);
+        }
+
         char *in = receiveMessage(queueDescriptor);
+
         total = 0;
         numItems = in[0];
 
-        fprintf(f, "Customer __  has items:\n");
+        fprintf(f, "Customer (%c) (%s) has items:\n", order[letter], in_pid);
 
         for (int i = 0; i < numItems; i++)
         {
@@ -136,6 +190,8 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
         fprintf(f, "\n");
         fprintf(f, "Total: $%.2f\n\n", total);
         fprintf(f, "\n");
+
+        letter = letter + 1;
     }
 
     printf("");
@@ -185,47 +241,18 @@ int getRandom(int pid)
     return num;
 }
 
-// writes the name, date, and number of generations to an output file
-// Arguments: a pointer to the info struct
-// void writeToGameLog(struct Info *infoPtr){
-
-//     // initializes file object and assigns a pointer 'f'
-//     FILE *f;
-//     // reads file and stores into pointer f
-//     f = fopen("GameLog.txt", "r+");
-
-//     fseek(f, 0, SEEK_END);
-//     // fprintf(f, "PLAYER NAME: %s\nDATE: %s\nNUMBER OF GENERATIONS: %d\n---------------------------------------------------\n", (*infoPtr).playerName, (*infoPtr).date, (*infoPtr).numGenerations);
-//     fprintf(f, "%s\n%s\n%d\n", (*infoPtr).playerName, (*infoPtr).date, (*infoPtr).numGenerations);
-
-//     printf("");
-//     fclose(f);
-// }
-
-//     int zeroToHund[100];
-
-// for (i = 0; i < 100; i++){
-//     zeroToHund[i] = i;
-// }
-
-// shuffle(zeroToHund, 100);
-
-// for (i = 0; i < 100; i++){
-//     printf("%d ", zeroToHund[i]);
-// }
-
-//     void shuffle(int *arr, size_t n)
-// {
-//     if (n > 1)
-//     {
-//         size_t i;
-//         srand(time(NULL));
-//         for (i = 0; i < n - 1; i++)
-//         {
-//           size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
-//           int t = arr[j];
-//           arr[j] = arr[i];
-//           arr[i] = t;
-//         }
-//     }
-// }
+void shuffle(int *arr, size_t n)
+{
+    if (n > 1)
+    {
+        size_t i;
+        srand(time(NULL));
+        for (i = 0; i < n - 1; i++)
+        {
+            size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+            int t = arr[j];
+            arr[j] = arr[i];
+            arr[i] = t;
+        }
+    }
+}

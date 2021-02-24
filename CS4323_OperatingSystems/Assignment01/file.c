@@ -1,7 +1,7 @@
 #include "header.h"
 #include "stringOps.c"
 
-#define STRING "Prnorv0voenbv[oeiv"
+#define STRING "Prnorv0onv[oeiv"
 
 
 void initializeStructure(int serialNums[NUM_ITEMS], char items[NUM_ITEMS][256], char prices[NUM_ITEMS][16], char stores[NUM_ITEMS][256]){
