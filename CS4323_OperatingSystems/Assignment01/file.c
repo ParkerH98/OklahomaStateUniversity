@@ -1,5 +1,4 @@
 #include "header.h" // header file containing function prototypes and includes statements
-#include "stringOps.c" // link to file containing functions for string manipulations
 
 #define MEMORY_NAME "SharedMemory"
 
