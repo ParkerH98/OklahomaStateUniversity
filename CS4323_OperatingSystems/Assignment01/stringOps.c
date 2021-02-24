@@ -8,7 +8,8 @@ front and end.
 Params: pointer to string to trim
 Return: returns pointer to trimmed string
 */
-char * trim(char *string){
+char * trim(char *string)
+{
 
   int length = 0;
   char *frontPointer = string; // ptr to the front of the string
