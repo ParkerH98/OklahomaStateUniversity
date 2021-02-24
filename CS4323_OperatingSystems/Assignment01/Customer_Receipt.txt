@@ -1,50 +1,50 @@
 Customer __  has items:
 TheraFlow Foot Massager          $9.99  at Amazon
-iRobot Roomba i7+          $799  at Amazon
-WikkiStix Rainbow Pak at Amazon          $8.94  at Amazon
-Tiled Margot Monogrammed Mug          $12  at Anthropologie
-Diamond Dazzle Stik          $8.77  at Amazon
-
-Total: $838.70
-
-
-Customer __  has items:
-TheraFlow Foot Massager          $9.99  at Amazon
-WikkiStix Rainbow Pak at Amazon          $8.94  at Amazon
-Tiled Margot Monogrammed Mug          $12  at Anthropologie
-Diamond Dazzle Stik          $8.77  at Amazon
-Everyday Non Medical Masks 5 Pack          $30  at Athleta
-
-Total: $69.70
-
-
-Customer __  has items:
-TheraFlow Foot Massager          $9.99  at Amazon
-Fred & Friends Manatea Silicone Tea Infuser          $14.79  at Amazon
+BodyGlide          $9.99  at Amazon
 Polk Audio Signa S2 Soundbar          $139  at Amazon
-Patagonia Better Sweater          $119  at Nordstrom
-GHD Curve Creative Curl Wand          $199  at Amazon
+La Mer Crème de la Mer Moisturizing Cream, 2 oz.          $345  at Nordstrom
+Fitbit Charge 4          $144.58  at Amazon
 
-Total: $481.78
+Total: $648.56
 
 
 Customer __  has items:
 TheraFlow Foot Massager          $9.99  at Amazon
 Polk Audio Signa S2 Soundbar          $139  at Amazon
-Patagonia Better Sweater          $119  at Nordstrom
-GHD Curve Creative Curl Wand          $199  at Amazon
-Fred & Friends Manatea Silicone Tea Infuser          $14.79  at Amazon
+La Mer Crème de la Mer Moisturizing Cream, 2 oz.          $345  at Nordstrom
+Fitbit Charge 4          $144.58  at Amazon
+Make-up Removing Cloths, 4 Count          $9.99  at Amazon
 
-Total: $481.78
+Total: $648.56
 
 
 Customer __  has items:
 TheraFlow Foot Massager          $9.99  at Amazon
 Dyson V11 Torque Vacuum Cleaner          $684.99  at Amazon
+Kindle Paperwhite          $149.99  at Amazon
+Philips Airfryer XXL          $293.99  at Amazon
 Takeya Cold Brew Coffee Maker          $16.99  at Amazon
-Allbirds Wool Runners          $95  at Allbirds
-Barefoot Dreams CozyChic Throw          $147  at Nordstrom
 
-Total: $953.97
+Total: $1155.95
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+Polk Audio Signa S2 Soundbar          $139  at Amazon
+Wet-n-Wild Liquid Catsuit Lipstick          $4.34  at Amazon
+Ontel Veggetti Spiralizer          $9.99  at Amazon
+Polk Audio Signa S2 Soundbar          $139  at Amazon
+
+Total: $302.32
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+Wet-n-Wild Liquid Catsuit Lipstick          $4.34  at Amazon
+Ontel Veggetti Spiralizer          $9.99  at Amazon
+Polk Audio Signa S2 Soundbar          $139  at Amazon
+Theragun Elite          $399  at Therabody
+
+Total: $562.32
 
 

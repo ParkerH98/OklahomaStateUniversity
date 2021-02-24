@@ -45,8 +45,7 @@ void test(struct Item *perm)
 
     pid_t pid = fork();
 
-    // "Helper" process will execute
-    if (pid == 0)
+    if (pid == 0)   //"Helper" process will execute
     {
         helperProcess(queueDescriptor, attr, numCustomers, order, perm);
     }
@@ -65,8 +64,7 @@ void test(struct Item *perm)
         }
     }
 
-    // "Customer" processes will execute
-    if (pid == 0)
+    if (pid == 0)   // "Customer" processes will execute
     {
         int priority;
         for (int i = 0; i < numCustomers; i++)
@@ -84,17 +82,12 @@ void test(struct Item *perm)
 
         itemsToGet[0] = numItems;
 
-        printf("Cust:(%c) (%d) has %d items -->", letter, getpid(), itemsToGet[0]);
+        printf("Cust:(%c) (%d) has %d items --> ", letter, getpid(), itemsToGet[0]);
         for (i = 0; i < numItems; i++)
         {
             randomItem = getRandom(getpid() + i);
             itemsToGet[i + 1] = randomItem;
             printf("%d ", itemsToGet[i + 1]);
-        }
-
-        if ((queueDescriptor = mq_open(QUEUE_NAME, O_WRONLY | O_CREAT, PERMISSIONS, &attr)) == -1){
-            perror("Child: mq_open");
-            exit(1);
         }
 
         char out_buffer[numItems];
@@ -109,7 +102,7 @@ void test(struct Item *perm)
             exit(1);
         }
         printf("Sent!\n");
-        printf("---------------------------------------------\n");
+        printf("---------------------------------------------\n\n");
     }
 }
 
