@@ -43,8 +43,7 @@ void test(struct Item *perm)
     printf("Please specify a customer order.\n");
     scanf("%s", order);
 
-
-      int zeroToHund[100];
+    int zeroToHund[100];
     int i;
     *count = 0;
 
@@ -54,11 +53,6 @@ void test(struct Item *perm)
     }
 
     shuffle(zeroToHund, 100);
-
-    // for (i = 0; i < 100; i++)
-    // {
-    //     printf("%d ", zeroToHund[i]);
-    // }
 
     pid_t pid = fork();
 
@@ -81,10 +75,6 @@ void test(struct Item *perm)
         }
     }
 
-  
-
-
-
     if (pid == 0)   // "Customer" processes will execute
     {
         int priority;
@@ -100,29 +90,21 @@ void test(struct Item *perm)
         printf("Customer %c wants to know how many items you want. Remaining: %d\n", letter, 100 - temp);
         scanf("%d", &numItems);
 
-
         int i, randomItem;
         int itemsToGet[101];
 
         itemsToGet[0] = numItems;
 
-
-
         printf("Cust:(%c) (%d) has %d items --> ", letter, getpid(), itemsToGet[0]);
         for (i = 0; i < numItems; i++)
         {
-            // randomItem = getRandom(getpid() + i);
-            // randomItem[count] = itemsToGet[i];
-
             randomItem = zeroToHund[*count];
             itemsToGet[i + 1] = randomItem;
+
             printf("%d ", itemsToGet[i + 1]);
-
+            
             *count = *count + 1;
-
-
         }
-
 
         char out_buffer[numItems];
 
