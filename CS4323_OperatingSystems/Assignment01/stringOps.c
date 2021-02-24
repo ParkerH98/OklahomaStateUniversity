@@ -1,60 +1,66 @@
 
+/*
+---------------------------------------------------------
+Takes an input string and trims the whitespace off of the
+front and end.
 
+Params: pointer to string to trim
+Return: returns pointer to trimmed string
+*/
+char * trim(char *string){
 
-char *trim(char *str){
+  int length = 0;
+  char *frontPointer = string; // ptr to the front of the string
+  char *endPointer = NULL; // initializes the end pointer
 
-  int len = 0;
-  char *frontp = str;
-  char *endp = NULL;
+  if( string == NULL ) { return NULL; }
+  if( string[0] == '\0' ) { return string; } // got to the end of the string
 
-  if( str == NULL ) { return NULL; }
-  if( str[0] == '\0' ) { return str; }
+  length = strlen(string); // length equals the length of the string
+  endPointer = string + length;
 
-  len = strlen(str);
-  endp = str + len;
-
-  /* Move the front and back pointers to address the first non-whitespace
-    * characters from each end.
-    */
-  while( isspace((unsigned char) *frontp) ) { ++frontp; }
-
-  if( endp != frontp ){
-
-    while( isspace((unsigned char) *(--endp)) && endp != frontp ) {}
-  }
-
-  if( frontp != str && endp == frontp ){*str = '\0';}
-          
-  else if( str + len - 1 != endp ){*(endp + 1) = '\0';}
-          
-
-  /* Shift the string so that it starts at str so that if it's dynamically
-    * allocated, we can still free it on the returned pointer.  Note the reuse
-    * of endp to mean the front of the string buffer now.
-    */
-  endp = str;
-  if( frontp != str ){
     
-    while( *frontp ) { *endp++ = *frontp++; }
-    *endp = '\0';
+  while( isspace((unsigned char) *frontPointer) ) { ++frontPointer; } // Move the front and back pointers to address the first non-whitespace characters from each end.
+
+  if( endPointer != frontPointer ) // loop while a space exists
+  {
+    while( isspace((unsigned char) *(--endPointer)) && endPointer != frontPointer ) {}
   }
 
-  return str;
+  if( frontPointer != string && endPointer == frontPointer ){*string = '\0';} // handle if empty
+          
+  else if( string + length - 1 != endPointer ){*(endPointer + 1) = '\0';} // handle the ending white space
+
+  endPointer = string; // shifts the string so it starts at the string 
+  if( frontPointer != string )
+  {
+    while( *frontPointer ) { *endPointer++ = *frontPointer++; } // moves the pointer until end is detected
+    *endPointer = '\0';
+  }
+  return string;
 }
 
-void removeFirst(char * str, const char toRemove){
+
+/*
+---------------------------------------------------------
+Removes the first occurrence of a specified character
+
+Params: pointer to string to manipulate and the char to remove
+Return: void
+*/
+void removeFirst(char * string, const char toRemove){
 
   int i = 0;
-  int len = strlen(str);
+  int length = strlen(string);
 
   /* Run loop till the first occurrence of the character is not found */
-  while(i<len && str[i]!=toRemove)
+  while(i<length && string[i]!=toRemove)
       i++;
 
   /* Shift all characters right to the position found above, to one place left */
-  while(i < len)
+  while(i < length)
   {
-      str[i] = str[i+1];
+      string[i] = string[i+1];
       i++;
   }
 }
