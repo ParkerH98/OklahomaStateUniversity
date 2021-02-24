@@ -13,8 +13,8 @@ char * receiveMessage(mqd_t msgID);
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
-void test(struct Item *perm){
-
+void test(struct Item *perm)
+{
     int *count = mmap (NULL, sizeof (int),
     PROT_READ | PROT_WRITE,
     MAP_SHARED, -1, 0);
@@ -27,6 +27,11 @@ void test(struct Item *perm){
 	attr.mq_msgsize = MAX_MSG_SIZE;	// The maximum size of each message on the given message queue. 
 	attr.mq_curmsgs = 0;	// This field represents the number of messages currently on the given queue.
 
+    if ((queueDescriptor = mq_open (QUEUE_NAME, O_RDWR | O_CREAT, PERMISSIONS, &attr)) == -1) {
+        perror ("Child: mq_open");
+        exit (1);
+    }
+
     int numItems;
     int letter = 64; // root parent gets the letter '@'
 
@@ -38,30 +43,19 @@ void test(struct Item *perm){
     printf("Please specify a customer order.\n");
     scanf("%s", order);
 
-    
-
-    if ((queueDescriptor = mq_open (QUEUE_NAME, O_RDWR | O_CREAT, PERMISSIONS, &attr)) == -1) {
-        perror ("Child: mq_open");
-        exit (1);
-    }
-
     pid_t pid = fork();
 
     // "Helper" process will execute
-    if (pid == 0){
-
-		helperProcess(queueDescriptor, attr, numCustomers, order, perm);
-	}
+    if (pid == 0){helperProcess(queueDescriptor, attr, numCustomers, order, perm);}
 
     else if (pid > 0){
 
         int i = 0;
 
-        while (i < numCustomers && pid > 0){
-
+        while (i < numCustomers && pid > 0)
+        {
             pid = fork();
             if(pid > 0) wait(NULL);
-            // letter = order[letterCount];
             letter++;
             i++;
         }
@@ -71,8 +65,8 @@ void test(struct Item *perm){
     if (pid == 0){
 
         int priority;
-        for (int i = 0; i < numCustomers; i++){
-
+        for (int i = 0; i < numCustomers; i++)
+        {
             if (letter == order[i]){
                 priority = 100 - i;
             }
@@ -82,14 +76,16 @@ void test(struct Item *perm){
         scanf("%d", &numItems);
 
         int i, randomItem;
-        int itemsToGet[100];
+        int itemsToGet[101];
 
-        printf("Customer %c has\n", letter);
+        itemsToGet[0] = numItems;
+
+        printf("Customer %c has %d items\n", letter, itemsToGet[0]);
         for (i = 0; i < numItems; i++){
 
             randomItem = getRandom(getpid() + i);
-            itemsToGet[i] = randomItem;
-            printf("%d ", itemsToGet[i]);
+            itemsToGet[i + 1] = randomItem;
+            printf("%d ", itemsToGet[i + 1]);
         }
 
         printf("\n");
@@ -101,8 +97,8 @@ void test(struct Item *perm){
 
 		char out_buffer [numItems];
 
-        for (int i = 0; i < numItems; i++){
-
+        for (int i = 0; i < numItems; i++)
+        {
             out_buffer[i] = itemsToGet[i];
         }
 
@@ -115,8 +111,8 @@ void test(struct Item *perm){
 }
 
 
-void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm){
-
+void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers, char order[], struct Item *perm)
+{
     sleep(3);
 
     // initializes file object and assigns a pointer 'f'
@@ -125,44 +121,30 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     f = fopen("Customer_Receipt.txt", "w+");
 
     float total = 0;
-    char temp[8];
+    int numItems;
 
-    for (int i = 0; i < 200; i++){
-
-        printf("%d\n", getRandom(i));
-    }
-
-
-    for (int i = 0; i < numCustomers; i++){
-
-        total = 0;
-
+    for (int i = 0; i < numCustomers; i++)
+    {
         char *in = receiveMessage(queueDescriptor);
-
-
+        total = 0;
+        numItems = in[0];
 
         fprintf(f, "Customer __  has items:\n");
-        
-        for (int i = 0; i < 5; i++){
-          
+
+        for (int i = 0; i < numItems; i++)
+        {
             removeFirst(perm[in[i]].price, '$');
-
-            // printf("FLOAT: %f\n", atof(perm[in[i]].price));
-
             total = total + atof(perm[in[i]].price);
-            fprintf(f, "%s          $%s at %s\n", perm[in[i]].item, perm[in[i]].price, perm[in[i]].store);
 
-         //    printf ("Helper: Received from Customer: %d\n\n", in[i]);
+            fprintf(f, "%s          $%s at %s\n", perm[in[i]].item, perm[in[i]].price, perm[in[i]].store);
         }
         fprintf(f, "\n");
         fprintf(f, "Total: $%.2f\n\n", total);
         fprintf(f, "\n");
     }
 
-
     printf("");
     fclose(f);
-
 
     if (mq_close (queueDescriptor) == -1) {
         perror ("Parent: mq_close");
@@ -177,23 +159,23 @@ void helperProcess(mqd_t queueDescriptor, struct mq_attr attr, int numCustomers,
     exit(0);
 }
 
-char * receiveMessage(mqd_t msgID){
+char * receiveMessage(mqd_t queueDescriptor){
 
     char in_buffer [MSG_BUFFER_SIZE];
-    char *s = malloc(sizeof(char) * 5);
 
-    // printf("About to recieve\n");
-
-    if (mq_receive (msgID, in_buffer, MSG_BUFFER_SIZE, 0) == -1) {
+    if (mq_receive (queueDescriptor, in_buffer, MSG_BUFFER_SIZE, 0) == -1) {
         perror ("Parent: mq_receive");
         exit (1);
     }
 
-    for(int j = 0; j < 5; j++){
-        s[j] = in_buffer[j];
-    //    printf("%d\n", (int)s[j]);
+    int numItems = in_buffer[0];
+
+    char *s = malloc(sizeof(char) * numItems);
+
+    for(int i = 0; i < numItems; i++)
+    {
+        s[i] = in_buffer[i];
     }
-    
     return s;
 }
 

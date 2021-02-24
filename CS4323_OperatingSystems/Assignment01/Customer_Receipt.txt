@@ -1,0 +1,33 @@
+Customer __  has items:
+Popsockets          $9.99  at Amazon
+Peloton Bike—starting          $1,895  at Peloton
+TheraFlow Foot Massager          $9.99  at Amazon
+Invisibobble (3-pack)          $7.50  at Amazon
+
+Total: $28.48
+
+
+Customer __  has items:
+BodyGlide          $9.99  at Amazon
+ThermoWorks ThermoPop          $34  at ThermoWorks
+Classic Clog          $44.95  at Crocs 
+Capri Volcano Candle          $30  at Anthropologie
+ThermoWorks ThermoPop          $34  at ThermoWorks
+Block Letter Monogram Necklace          $38  at Anthropologie
+Block Letter Monogram Necklace          $38  at Anthropologie
+ZZ plant          $44  at The Sill
+Tweexy Wearable Nail Polish Bottle Holder          $9.99  at Amazon
+
+Total: $282.93
+
+
+Customer __  has items:
+TheraFlow Foot Massager          $9.99  at Amazon
+La Mer Crème de la Mer Moisturizing Cream, 2 oz.          $345  at Nordstrom
+Counter Culture Coffee Beans          $17  at Amazon
+Nidra Sleep Mask          $11.95  at Amazon
+Polk Audio Signa S2 Soundbar          $139  at Amazon
+
+Total: $522.94
+
+
