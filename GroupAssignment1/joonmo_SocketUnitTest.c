@@ -1,10 +1,7 @@
-#include <sys/types.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "header.h"
 #include <sys/wait.h>
 #include <sys/socket.h> 
 #include <arpa/inet.h> 
-#include <string.h> 
 
 #define PORT 8080 
 
