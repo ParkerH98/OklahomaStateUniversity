@@ -1,4 +1,13 @@
 #include "header.h"
+
+/*
+---------------------------------------------------------
+The main Manager function is in charge of getting user input 
+queries.
+
+Params: none
+Return: void
+*/
 void manager()
 {
     struct Query query; // stores query information
