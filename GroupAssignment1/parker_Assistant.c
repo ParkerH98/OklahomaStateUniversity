@@ -3,10 +3,45 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 
 void assistant()
 {
-    pipeReceive();
+    struct Query query;
+
+    query = pipeReceive(); // assistant receives query from Manager
+    printf("\nRECEIVED:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
+
+
+    FILE *f;
+
+    f = fopen("History.txt", "a+");
+
+    char fname[] = "History.txt";
+
+    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    {
+        // PRINT EMPLOYEE INFORMATION FROM THE HISTORY FILE TO THE TERMINAL
+      
+    }
+    else // a match wasn't found
+    {
+      
+        // NEED TO MAKE SOCKET CONNECTION TO SERVER TO SEND QUERY
+
+        // THEN RECEIVE DATA FROM SERVER AND PRINT TO NEW TERMINAL
+
+        // THEN WRITE EMPLOYEE TO NEW EMPLOYEE TO HISTORY FILE
+
+    }
+
+    // fprintf(f, "Employee Name: %s Job Title: %s Status: %s\n", receivedPtr->employeeName, receivedPtr->jobTitle, receivedPtr->status);
 }
 
+/*
+---------------------------------------------------------
+Searches an input file for a specific employee's name, 
+job title, and status.
 
+Params: 
+Return: an int representing the number of matches found in the file
+*/
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 {
     FILE *fp;

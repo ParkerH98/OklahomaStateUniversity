@@ -24,4 +24,4 @@ void assistant();
 
 
 void pipeSend(char *employeeName, char *jobTitle, char *status);
-void pipeReceive();
+struct Query pipeReceive();

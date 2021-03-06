@@ -11,7 +11,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
     strcpy(sendPtr->jobTitle, jobTitle);
     strcpy(sendPtr->status, status);
 
-    printf("SENT:\nEmployee Name: %s\n Job Title: %s\n Status: %s\n\n", sendPtr->employeeName, sendPtr->jobTitle, sendPtr->status); // Print the read message
+    printf("SENT:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n\n", sendPtr->employeeName, sendPtr->jobTitle, sendPtr->status); // Print the read message
 
     char myPipe[] = "./NamedPipe"; // FIFO file path
     mkfifo(myPipe, 0666);          // Creating the named file(FIFO)
@@ -29,7 +29,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
     close(fd); // Close the pipe
 }
 
-void pipeReceive()
+struct Query pipeReceive()
 {
     int fd; // file descriptor
 
@@ -50,35 +50,12 @@ void pipeReceive()
     }
 
     // Display the results
-    printf("\nRECEIVED:\nEmployee Name: %s\n Job Title: %s\n Status: %s\n", receivedPtr->employeeName, receivedPtr->jobTitle, receivedPtr->status); // Print the read message
+    // printf("\nRECEIVED:\nEmployee Name: %s\n Job Title: %s\n Status: %s\n", receivedPtr->employeeName, receivedPtr->jobTitle, receivedPtr->status); // Print the read message
 
-    FILE *f;
-    f = fopen("History.txt", "a+");
+    return received;
 
-    char fname[] = "History.txt";
 
-    // if (searchFile(fname, receivedPtr->employeeName, receivedPtr->jobTitle, receivedPtr->status) == 0)
-    // {
-    //     // employee not found so send Query to Server
-
-    //     char myPipe[] = "./NamedPipe"; // FIFO file path
-    //     mkfifo(myPipe, 0666);          // Creating the named file(FIFO)
-
-    //     if ((fd = open(myPipe, O_WRONLY | O_CREAT)) < 0) // Open FIFO for write only
-    //     {
-    //         printf("1: Error opening..");
-    //     }
-
-    //     if (write(fd, receivedPtr, sizeof(struct Query)) < 0) // Write on the FIFO
-    //     {
-    //         printf("1: Error writing..");
-    //     }
-
-    //     close(fd); // Close the pipe
-    // }
-
-    // fprintf(f, "Employee Name: %s Job Title: %s Status: %s\n", receivedPtr->employeeName, receivedPtr->jobTitle, receivedPtr->status);
 
     close(fd); // Close the pipe
-    fclose(f);
+    // fclose(f);
 }
