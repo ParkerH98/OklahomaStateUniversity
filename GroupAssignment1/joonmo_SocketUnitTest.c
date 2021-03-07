@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -5,6 +6,12 @@
 #include <sys/socket.h> 
 #include <arpa/inet.h> 
 #include <string.h> 
+=======
+#include "header.h"
+#include <sys/wait.h>
+#include <sys/socket.h> 
+#include <arpa/inet.h> 
+>>>>>>> 384499ab141a6e4ea315df586fbe1949ec2e60a5
 
 #define PORT 8080 
 

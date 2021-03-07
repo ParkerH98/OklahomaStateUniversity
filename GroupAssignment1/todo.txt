@@ -1,0 +1,25 @@
+TODO LIST:
+
+CLIENT
+
+    MANAGER
+        - manager put on loop to receive infinite queries
+
+    ASSISTANT:
+        - establish connection to server if query isn't found in history.txt
+        - send query to server
+        - receive query from server
+        - write employee information to history.txt
+        - queue functionality of history file
+        - output results to new terminal
+        - put assistant on loop to receive again
+        - make sure assistant sends one at a time and then waits
+
+
+SERVER
+
+    - find ID based on employeeName, jobTitle, and status
+    - implement satisfaction thread to search Satisfaction.txt
+    - implement salary thread to search Salary.txt
+    - saving results to a struct
+    - send results back to assistant
