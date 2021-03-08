@@ -38,7 +38,7 @@ while(1)
     end
     
     %need to fix
-    Ea = 1;
+    Ea = 1/2^n;
     
     % check break conditions
     if ea <= Ead || iter >= n, break, 
