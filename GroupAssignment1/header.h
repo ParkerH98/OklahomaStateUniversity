@@ -11,7 +11,6 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-
 struct Query
 {
     char employeeName[EMPLOYEENAME_LEN];
@@ -19,9 +18,8 @@ struct Query
     char status[STATUS_LEN];
 };
 
-void manager();
-void assistant();
-
-
 void pipeSend(char *employeeName, char *jobTitle, char *status);
 struct Query pipeReceive();
+
+void manager();
+void assistant();
