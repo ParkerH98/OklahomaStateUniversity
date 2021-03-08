@@ -43,6 +43,7 @@ struct employeeStructure{
     int duplicateExists;
 
 };
+
 struct Query
 {
     char employeeName[EMPLOYEENAME_LEN];
@@ -52,15 +53,11 @@ struct Query
 
 void *mainTheadFunc(void *queryFromClient)
 {
-	// struct arg_struct *args = arguments;
     struct Query* pQueryFromClient = queryFromClient;
-	struct employeeStructure employeeStruct;
-	struct employeeStructure* pEmployeeStruct = &employeeStruct;
-	printf("Hello");
-	
+	struct employeeStructure* pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
 	FILE *fp;
     char buff[255];
-
+    // printf("Comes Here\n");
     fp = fopen("inputTxtFiles/Name.txt", "r");
     while (fgets(buff, sizeof(buff), fp)) {
         char * employeeIDString = strtok(buff, "\t");
@@ -68,58 +65,52 @@ void *mainTheadFunc(void *queryFromClient)
 		int employeeID = atoi(employeeIDString);
         char * employeeName = strtok(NULL, "");
         // printf("%s\n", employeeName);
-		// if(strcmp(employeeName, pQueryFromClient->employeeName) == 0){
-            // strcpy(pEmployeeStruct->employeeName, employeeName);
-            // pEmployeeStruct->id = employeeID;
+        if (employeeName[strlen(employeeName)-1] == '\n'){
+            employeeName[strlen(employeeName)-1] = 0;
+        }
+		if(strcmp(employeeName, pQueryFromClient->employeeName) == 0){
+
+            strcpy(pEmployeeStruct->employeeName, employeeName);
+            pEmployeeStruct->id = employeeID;
             // printf("%s\n", employeeName);
             // printf("%d\n", employeeID);
-        // }
-        free(employeeIDString);
-        free(employeeName);
+            break;
+        }
     }
-    printf("Comes Here");
-
     fclose(fp);
 
-
-
-	//Micheal Portion ( pEmployeeStruct->id is ready)
+    // 	//Micheal Portion ( pEmployeeStruct->id is ready)
 	
 	
 	
-	//
+    // 	//
 
 
-	
-  	return (void *) pEmployeeStruct;
-
+   
+    return pEmployeeStruct;
 }
 int main()
 {
 
     pthread_t mainThread;
     struct Query queryFromClient;
+    void* pTemp;
+    struct employeeStructure* pEmployeeStruct;
 	// This Testing examples
 	strcpy(queryFromClient.employeeName, "NATHANIEL FORD");
 	strcpy(queryFromClient.jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
 	strcpy(queryFromClient.status, "PT");
-
-
-    if (pthread_create(&mainThread, NULL, &mainTheadFunc, (void *)&queryFromClient) != 0) {	// thread1 create
+    if (pthread_create(&mainThread, NULL, mainTheadFunc, (void *)&queryFromClient) != 0) {	// thread1 create
         printf("Thread1 failed\n");
         return -1;
     }
-	// struct employeeStructure* pEmployeeStruct;
-    void* pTemp;
-	pthread_join(mainThread, pTemp);	/* Wait until thread1 is finished */
+	pthread_join(mainThread, &pTemp);	/* Wait until thread1 is finished */
+    pEmployeeStruct = pTemp;
+    
 
-
-    struct employeeStructure* pEmployeeStruct = pTemp;
-
-	// print testing examples
-	printf("%s",pEmployeeStruct->employeeName);
-
-	
-
+    // printing testing
+    printf("%s\n",pEmployeeStruct->employeeName);
+    printf("%d\n",pEmployeeStruct->id);
+    free(pEmployeeStruct);
 	return 0;
 }

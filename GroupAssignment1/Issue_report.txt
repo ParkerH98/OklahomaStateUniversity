@@ -1,6 +1,7 @@
 
 
 Issue by Joonmo 3/8/2021
-    - some employees' name are Captial letter and other are mixed. So I think we need to convert names to lower case or somthing.  
-
+    - some employees' name are Captial letter and other are mixed. So I think we need to convert names to lower case or somthing.
+        * 
+    - String somtime contains '\n', which make difficult to compare to others
 
