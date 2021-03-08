@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -6,13 +5,7 @@
 #include <sys/socket.h> 
 #include <arpa/inet.h> 
 #include <string.h> 
-=======
 #include "header.h"
-#include <sys/wait.h>
-#include <sys/socket.h> 
-#include <arpa/inet.h> 
->>>>>>> 384499ab141a6e4ea315df586fbe1949ec2e60a5
-
 #define PORT 8080 
 
 
@@ -161,7 +154,7 @@ int main() {
         employeeStructClient.promotionsLast5Years =1;
         employeeStructClient.duplicateExists = 0;
     
-
+        
         // sample.yourName = "Koo";
         struct employeeStructure* pEmployeeStructClient = &employeeStructClient;
 
@@ -198,7 +191,8 @@ int main() {
         valread = read( sock , buffer, 1024); 
         printf("%s\n",buffer );
 
-
+        
+        
 
 
 

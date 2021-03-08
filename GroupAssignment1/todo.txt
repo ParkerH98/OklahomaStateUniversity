@@ -20,3 +20,5 @@ SERVER
     - implement salary thread to search Salary.txt
     - saving results to a struct
     - send results back to assistant
+
+
