@@ -14,11 +14,10 @@ CLIENT
 
 
 SERVER
-
-    - find ID based on employeeName, jobTitle, and status
     - implement satisfaction thread to search Satisfaction.txt
     - implement salary thread to search Salary.txt
     - saving results to a struct
+        - employeeStruct is output of server task - joonmo
     - send results back to assistant
 
 
