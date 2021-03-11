@@ -61,11 +61,6 @@ void* SatisfactionSearch(void *arg){
 	char string[100];
 	int id;
 	float satisfactionLevel;
-	int numberProject;
-	int averageMonthlyHours;
-	int yearsInCompany;
-	int workAccident;
-	int promotionsLast5Years;
     int i = 0;
 
 	fp = fopen("Satisfaction.txt","r");
