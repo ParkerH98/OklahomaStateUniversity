@@ -32,7 +32,7 @@ void* SalarySearch(void *arg){
 	float overtimePay;
     float benefit;
 
-	fp = fopen("Salary.txt","r");
+	fp = fopen("inputTxtFiles//Salary.txt","r");
 
 	while(fgets(string, 100, fp)){
 		sscanf(string,"%d",&id);
@@ -63,7 +63,7 @@ void* SatisfactionSearch(void *arg){
 	float satisfactionLevel;
     int i = 0;
 
-	fp = fopen("Satisfaction.txt","r");
+	fp = fopen("inputTxtFiles//Satisfaction.txt","r");
 
 	while(fgets(string, 100, fp)){
 		sscanf(string,"%d",&id);
@@ -96,7 +96,7 @@ int main(){
 
 	struct employeeStructure a;
 
-	a.id = 1;
+	a.id = 17;
 	strcpy(a.employeeName,"Test Name");
 
 	ThreadSpawn(&a);
