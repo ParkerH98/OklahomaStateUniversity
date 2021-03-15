@@ -96,6 +96,7 @@ int main()
     struct Query queryFromClient;
     void* pTemp;
     struct employeeStructure* pEmployeeStruct;
+
 	// This Testing examples
 	strcpy(queryFromClient.employeeName, "NATHANIEL FORD");
 	strcpy(queryFromClient.jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
@@ -104,10 +105,11 @@ int main()
         printf("Thread1 failed\n");
         return -1;
     }
+    
 	pthread_join(mainThread, &pTemp);	/* Wait until thread1 is finished */
     pEmployeeStruct = pTemp;
     
-
+    //send
     // printing testing
     printf("%s\n",pEmployeeStruct->employeeName);
     printf("%d\n",pEmployeeStruct->id);
