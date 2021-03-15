@@ -9,55 +9,6 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-// Structure is designed as a Doubly Linked List to search the available assets.
-struct matchList{
-    struct employeeStructure* data;
-    struct matchList* next;
-    struct matchList* last;
-};
-
-// Function to add an item to the end of the list.
-void addItem(struct employeeStructure* new, struct matchList* index){
-    struct matchList* readHead = index;
-    //Find the front of the list.
-    while (index->next != NULL){
-        readHead = index->next;
-    }
-    readHead->next = malloc(sizeof(struct matchList));
-    readHead->next->last = readHead;
-    readHead->next->next = NULL;
-    readHead->next->data = new;
-
-    return;
-};
-
-// Function to remove an item from the list.
-void removeItem(struct matchList* index){
-    struct matchList* last;
-    struct matchList* next;
-    struct matchList* current;
-
-    // Find the last node, the next node, and the current node.
-    last = index->last;
-    current = index;
-
-    // Bypass the node being removed (checking to ensure we don't follow a Null Pointer).
-    if (last != NULL){
-        last->next = next;
-    }
-    if (next != NULL){
-    next->last = last;
-    }
-
-    // Free the memory used by the Employee Object.
-    free(current->data);
-
-    // Free the matchList entry.
-    free(current);
-
-    return;
-}
-
 struct employeeStructure{
 
     int id;
@@ -210,7 +161,13 @@ void *mainTheadFunc(void *queryFromClient)
     // This function generates threads.
 	ThreadSpawn(pEmployeeStruct);
 
+    printf("%s\n",pEmployeeStruct->status);
+    printf("%s\n",pEmployeeStruct->jobTitle);
 
+    if(strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
+        printf("Acceptable entry.\n");
+        // TODO: Need to have things added to a Linked List here.
+    }
    
     return pEmployeeStruct;
 }
@@ -236,6 +193,9 @@ int main()
     // printing testing
     printf("%s\n",pEmployeeStruct->employeeName);
     printf("%d\n",pEmployeeStruct->id);
+    printf("%s\n",pEmployeeStruct->status);
+    printf("%s\n",pEmployeeStruct->jobTitle);
     free(pEmployeeStruct);
+    
 	return 0;
 }
