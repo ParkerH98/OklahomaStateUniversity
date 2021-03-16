@@ -18,6 +18,24 @@ struct Query
     char status[STATUS_LEN];
 };
 
+struct EmployeeStructure
+{
+    int id;
+    char employeeName[EMPLOYEENAME_LEN];
+    char jobTitle[JOBTITLE_LEN];
+    float basePay;
+    float overtimePay;
+    float benefit;
+    char status[STATUS_LEN];
+    float satisfactionLevel;
+    int numberProject;
+    int averageMonthlyHours;
+    int yearsInCompany;
+    int workAccident;
+    int promotionsLast5Years;
+    int duplicateExists;
+};
+
 void pipeSend(char *employeeName, char *jobTitle, char *status);
 struct Query pipeReceive();
 

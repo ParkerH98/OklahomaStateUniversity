@@ -107,6 +107,4 @@ int main(){
 	printf("%d\n",a.yearsInCompany);
 	printf("%d\n",a.workAccident);
 	printf("%d\n",a.promotionsLast5Years);
-
-
 }
