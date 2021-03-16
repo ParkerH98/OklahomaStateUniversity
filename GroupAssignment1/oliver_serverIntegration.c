@@ -9,36 +9,32 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
+struct listEntry{
+    struct employeeStructure* data;
+    struct listEntry* next;
+    struct listEntry* last;
+};
+
+struct listMonitor{
+    struct listEntry* head;
+    struct listEntry* tail;
+};
+
 struct employeeStructure{
-
     int id;
-
     char employeeName[30];
-
     char jobTitle[50];
-
     float basePay;
-
     float overtimePay;
-
     float benefit;
-
     char status[50];
-
     float satisfactionLevel;
-
     int numberProject;
-
     int averageMonthlyHours;
-
     int yearsInCompany;
-
     int workAccident;
-
     int promotionsLast5Years;
-
     int duplicateExists;
-
 };
 
 struct Query
@@ -46,6 +42,45 @@ struct Query
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
     char status[STATUS_LEN];
+};
+
+void enqueue(struct listMonitor* index, struct employeeStructure* payload){
+
+    struct listEntry* temp;
+    temp = malloc(sizeof(struct listEntry));
+
+    temp->data = payload;
+    temp->next = NULL;
+    temp->last = index->tail;
+    index->tail->next = temp;
+    index->tail = temp;
+
+};
+
+void disqueue(struct listMonitor* index, struct listEntry* target){
+    struct listEntry* temp;
+    if (target == index->head){
+        temp = target;
+        index->head = index->head->next;
+        index->head->last = NULL;
+        free(temp->data);
+        free(temp);
+    }
+    else if (target == index->tail){
+        temp = target;
+        index->tail = index->tail->last;
+        index->tail->next = NULL;
+        free(temp->data);
+        free(temp);
+
+    }
+    else {
+        temp = target;
+        temp->next->last=temp->last;
+        temp->last->next=temp->next;
+        free(temp->data);
+        free(temp);
+    }
 };
 
 // Function Searches the Salary.txt file by the ID passed in on the employeeStructure object.
@@ -196,6 +231,6 @@ int main()
     printf("%s\n",pEmployeeStruct->status);
     printf("%s\n",pEmployeeStruct->jobTitle);
     free(pEmployeeStruct);
-    
+
 	return 0;
 }
