@@ -99,11 +99,16 @@ int main() {
 
         
 
-            // ==================Socket Clinet Operation START==================
+            // ==================Socket Clinet Operations START==================
             send(sock , pQuery, sizeof(pQuery)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN, 0 ); 
             // send(sock , hello , strlen(hello) , 0 ); 
             printf("Query sent from Client\n"); 
-            valread = read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4); 
+
+
+            while (read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4) == -1){
+                printf("Client Waiting");
+            }
+            // valread = read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4); 
             char employeeName[30];
             char jobTitle[50];
             char status[50];
@@ -211,21 +216,24 @@ int main() {
                 perror("accept");
                 exit(EXIT_FAILURE);
             } 
-        
+
             quaryRead = read( new_socket , pQuery, sizeof(pQuery)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN);
+            
             // valread = read( new_socket , buffer, 1024);
-
-            send(new_socket , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4 , 0 );
-            printf("empolyee structure sent from Server\n"); 
-
-
-           
-            // send(new_socket , hello , strlen(hello) , 0 ); 
             printf("%s\n",buffer );
             printf("Server Recived Query employeeName ========= %s\n",pQuery->employeeName);
             printf("Server Recived Query jobTitle ============= %s\n",pQuery->jobTitle);
             printf("Server Recived Query status =============== %s\n",pQuery->status);
-            printf("To exit Server, Press Control + c \n");
+            // printf("To exit Server, Press Control + c \n");
+            printf("Server is Working for 10 sec. Client should wait\n");
+            sleep(10);
+            send(new_socket , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4 , 0 );
+            printf("empolyee structure is sent from Server\n"); 
+
+
+           
+            // send(new_socket , hello , strlen(hello) , 0 ); 
+            
         }
 		// ==================Socket Operation END==================
 		

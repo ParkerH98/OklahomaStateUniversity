@@ -4,7 +4,7 @@
 int main () {
    int i = 0;
    char c;
-   char str[] = "joonmo koo";
+   char str[] = "JOONMO KOO";
    
    while(str[i]) {
       // putchar (toupper(str[i]));
