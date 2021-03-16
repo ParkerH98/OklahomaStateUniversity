@@ -3,8 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MAX 9000000000 // 9 billion times
-
 #define EMPLOYEENAME_LEN 30
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
