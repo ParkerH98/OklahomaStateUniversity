@@ -7,9 +7,12 @@ int main () {
    char str[] = "joonmo koo";
    
    while(str[i]) {
-      putchar (toupper(str[i]));
+      // putchar (toupper(str[i]));
+      str[i] = tolower(str[i]);
       i++;
    }
+   printf("%s",str);
+
    
    return(0);
 }
