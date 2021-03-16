@@ -1,6 +1,10 @@
 #include "header.h"
+#include <sys/socket.h>
+#include <netinet/in.h>
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
+void receiveResultFromServer();
+int inet_addr();
 
 int main()
 {
@@ -17,7 +21,6 @@ int main()
     }
     else if (pid > 0) // parent process
     {
-        // wait(NULL);
         assistant(); // fetching query results for the Manager process
     }
     else
@@ -75,24 +78,26 @@ void assistant()
     query = pipeReceive();                                                                                                   // assistant receives query from Manager
     printf("\nRECEIVED:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
-    FILE *f;                        // file pointer
+    FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
 
     char fname[] = "History.txt"; // name of file to search
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
-        // PRINT EMPLOYEE INFORMATION FROM THE HISTORY FILE TO THE TERMINAL
+        // Parker's function to print to a new terminal will go here
     }
     else // a match wasn't found
     {
-        // NEED TO MAKE SOCKET CONNECTION TO SERVER TO SEND QUERY
+        forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
-        // THEN RECEIVE DATA FROM SERVER AND PRINT TO NEW TERMINAL
+        sleep(1);
 
-        // THEN WRITE EMPLOYEE TO NEW EMPLOYEE TO HISTORY FILE
+        receiveResultFromServer();
 
-        forwardQueryToServer(query.employeeName, query.jobTitle, query.status);
+        // Landon's function to write to the history file will go here.
+
+        // Parker's function to print to a new terminal will go here
     }
 }
 
@@ -137,4 +142,60 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
         fclose(f); //Close the file if still open.
     }
     return find_result;
+}
+
+/*
+---------------------------------------------------------
+Creates a socket connection to the Server to receive the 
+results from the previously forwarded query.
+
+Params: none
+Return: void
+*/
+void receiveResultFromServer()
+{
+    int clientSocket;
+    struct sockaddr_in serverAddr;
+    socklen_t addr_size;
+
+    // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
+    clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
+    if (clientSocket < 0)
+    {
+        perror("[-]Error in socket");
+        exit(1);
+    }
+    printf("\n[+]Server socket created successfully.\n");
+
+    // Configure settings of the server address struct
+    serverAddr.sin_family = AF_INET;                               //Address family = Internet
+    serverAddr.sin_port = htons(7892);                             //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
+    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
+
+    // Connect the socket to the server using the address struct
+    addr_size = sizeof serverAddr;
+    connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size);
+    if (clientSocket == -1)
+    {
+        perror("[-]Error in socket");
+        exit(1);
+    }
+    printf("[+]Connected to Server.\n");
+
+    // SENDING AND RECEIVING AFTER THIS POINT
+    //=======================================
+
+    char buffer[3][1024];
+
+    recv(clientSocket, buffer[0], EMPLOYEENAME_LEN, 0); //Read the message from the server into the buffer
+    recv(clientSocket, buffer[1], JOBTITLE_LEN, 0); //Read the message from the server into the buffer
+    recv(clientSocket, buffer[2], STATUS_LEN, 0); //Read the message from the server into the buffer
+
+    printf("[+]Data received:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
+
+
+    printf("[+]Closing the connection.\n");
+
+    close(clientSocket);
 }

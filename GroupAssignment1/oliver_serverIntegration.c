@@ -213,8 +213,8 @@ void *mainTheadFunc(void *queryFromClient)
         }
     }
     fclose(fp);
-    
     return index;
+
 }
 int main()
 {

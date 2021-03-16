@@ -19,9 +19,9 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     printf("[+]Server socket created successfully.\n");
 
     // Configure settings of the server address struct
-    serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(7891);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
+    serverAddr.sin_family = AF_INET; //Address family = Internet
+    serverAddr.sin_port = htons(7891); //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");  //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     // Connect the socket to the server using the address struct
@@ -32,7 +32,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
         perror("[-]Error in socket");
         exit(1);
     }
-    printf("[+]Connected to Server.\n");
+    printf("[+]Connected to Server.\n\n");
 
     // SENDING AND RECEIVING AFTER THIS POINT
     //=======================================
@@ -104,5 +104,5 @@ void receiveQueryFromAssistant()
     recv(connectionSocket, buffer[1], JOBTITLE_LEN, 0);     //Read the message from the server into the buffer
     recv(connectionSocket, buffer[2], STATUS_LEN, 0);       //Read the message from the server into the buffer
 
-    printf("[+]Data received:\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
+    printf("[+]Data received:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
 }
