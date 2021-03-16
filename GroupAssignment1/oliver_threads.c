@@ -2,15 +2,15 @@
 #include <stdio.h>
 #include <string.h>
 
-struct employeeStructure{
-
+struct employeeStructure
+{
     int id;
     char employeeName[30];
-    char jobTitle[50];
+    char jobTitle[128];
     float basePay;
     float overtimePay;
     float benefit;
-    char status[50];
+    char status[3];
     float satisfactionLevel;
     int numberProject;
     int averageMonthlyHours;
@@ -18,9 +18,7 @@ struct employeeStructure{
     int workAccident;
     int promotionsLast5Years;
     int duplicateExists;
-
 };
-
 
 void* SalarySearch(void *arg){
 	struct employeeStructure *test = (struct employeeStructure *)arg;
@@ -92,19 +90,31 @@ void ThreadSpawn(struct employeeStructure *target){
 
 };
 
-int main(){
+int SSThreadsTest(){
+
+	printf("Testing Search Threads for Salary and Satisfaction Elements.\n");
 
 	struct employeeStructure a;
 
 	a.id = 17;
 	strcpy(a.employeeName,"Test Name");
 
+	printf("Thread Spawner Starting.\n");
 	ThreadSpawn(&a);
+	printf("Thread Spawner Finished.\n");
 
-	printf("%f\n",a.satisfactionLevel);
-	printf("%d\n",a.numberProject);
-	printf("%d\n",a.averageMonthlyHours);
-	printf("%d\n",a.yearsInCompany);
-	printf("%d\n",a.workAccident);
-	printf("%d\n",a.promotionsLast5Years);
+	printf("Checking Output. See individual with Index 17 in associated files to check result.\n");
+	printf("Employee Name is Koo's Job. No checks here.\n");
+	printf("ID: %d\n",a.id);
+	printf("Job Title: %s\n",a.jobTitle);
+	printf("Base Pay: %f\n",a.basePay);
+	printf("Overtime Pay: %f\n",a.overtimePay);
+	printf("Benefit: %f\n",a.benefit);
+	printf("Status: %s\n",a.status);
+	printf("Satisfaction Level: %f\n",a.satisfactionLevel);
+	printf("Number Project: %d\n",a.numberProject);
+	printf("Avg. Monthly Hours: %d\n",a.averageMonthlyHours);
+	printf("Years in Company: %d\n",a.yearsInCompany);
+	printf("Work Accidents: %d\n",a.workAccident);
+	printf("Promotions Last 5 Years: %d\n",a.promotionsLast5Years);
 }

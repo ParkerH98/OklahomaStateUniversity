@@ -43,16 +43,25 @@ struct Query
 };
 
 void enqueue(struct listMonitor* index, struct employeeStructure* payload){
-
+    int first = 0;
     struct listEntry* temp;
+
+    if (index->head == NULL){
+        first = 1;
+    }
     temp = malloc(sizeof(struct listEntry));
 
     temp->data = payload;
     temp->next = NULL;
     temp->last = index->tail;
-    index->tail->next = temp;
+    if (!first){
+        index->tail->next = temp;
+    }
     index->tail = temp;
 
+    if (first){
+        index->head = temp;
+    }
 };
 
 void disqueue(struct listMonitor* index, struct listEntry* target){
@@ -167,8 +176,10 @@ void *mainTheadFunc(void *queryFromClient)
 {
     struct Query* pQueryFromClient = queryFromClient;
 	struct employeeStructure* pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
+    struct listMonitor* index = malloc(sizeof (struct listMonitor));
 	FILE *fp;
     char buff[255];
+
     // printf("Comes Here\n");
     fp = fopen("inputTxtFiles/Name.txt", "r");
     while (fgets(buff, sizeof(buff), fp)) {
@@ -184,25 +195,26 @@ void *mainTheadFunc(void *queryFromClient)
 
             strcpy(pEmployeeStruct->employeeName, employeeName);
             pEmployeeStruct->id = employeeID;
+
+            ThreadSpawn(pEmployeeStruct);
+            if (strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && 
+                strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
+                enqueue(index, pEmployeeStruct);
+            }
+            else{
+                free(pEmployeeStruct);
+            }
+
+
+            pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
+
             // printf("%s\n", employeeName);
             // printf("%d\n", employeeID);
-            break;
         }
     }
     fclose(fp);
-
-    // This function generates threads.
-	ThreadSpawn(pEmployeeStruct);
-
-    printf("%s\n",pEmployeeStruct->status);
-    printf("%s\n",pEmployeeStruct->jobTitle);
-
-    if(strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
-        printf("Acceptable entry.\n");
-        // TODO: Need to have things added to a Linked List here.
-    }
-   
-    return pEmployeeStruct;
+    
+    return index;
 }
 int main()
 {
@@ -211,6 +223,8 @@ int main()
     struct Query queryFromClient;
     void* pTemp;
     struct employeeStructure* pEmployeeStruct;
+    struct listMonitor* index;
+    struct listEntry* readHead;
 	// This Testing examples
 	strcpy(queryFromClient.employeeName, "NATHANIEL FORD");
 	strcpy(queryFromClient.jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
@@ -219,16 +233,38 @@ int main()
         printf("Thread1 failed\n");
         return -1;
     }
-	pthread_join(mainThread, &pTemp);	/* Wait until thread1 is finished */
-    pEmployeeStruct = pTemp;
-    
 
-    // printing testing
+	pthread_join(mainThread, &pTemp);	/* Wait until thread1 is finished */
+    index = pTemp;
+
+    if (index->tail == NULL){
+        printf("Test");
+        fflush(stdout);
+    }
+
+    readHead = index->head;
+
+    while(readHead->next != NULL){
+        printf("Loop Iteration is running.\n");
+        fflush(stdout);
+        pEmployeeStruct = readHead->data;
+        printf("Data is Free.\n");
+        fflush(stdout);
+        printf("%s\n",pEmployeeStruct->employeeName);
+        printf("%d\n",pEmployeeStruct->id);
+        printf("%s\n",pEmployeeStruct->status);
+        printf("%s\n",pEmployeeStruct->jobTitle);
+        readHead = readHead->next;
+        free(readHead->last);
+    }
+    pEmployeeStruct = readHead->data;
+    printf("Data is Free.\n");
+    fflush(stdout);
     printf("%s\n",pEmployeeStruct->employeeName);
     printf("%d\n",pEmployeeStruct->id);
     printf("%s\n",pEmployeeStruct->status);
     printf("%s\n",pEmployeeStruct->jobTitle);
-    free(pEmployeeStruct);
+    free(readHead->last);
 
 	return 0;
 }
