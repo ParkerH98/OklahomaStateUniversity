@@ -38,6 +38,7 @@ int main() {
     This is For Server-Client Sockect Testing
     Client send Quary to Server
     Server recived Quary, and send employee Structure 
+    loop for sending query multiple times. It set 2 times
     */
     pid_t pid;	//The pid_t data type is a signed integer type which is capable of 					representing a process ID.
 	
