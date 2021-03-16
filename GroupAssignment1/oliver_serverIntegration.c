@@ -199,6 +199,8 @@ void *mainTheadFunc(void *queryFromClient)
 
     if(strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
         printf("Acceptable entry.\n");
+        
+
         // TODO: Need to have things added to a Linked List here.
     }
    
