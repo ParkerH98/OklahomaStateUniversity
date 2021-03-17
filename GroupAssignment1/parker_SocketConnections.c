@@ -91,18 +91,23 @@ void receiveQueryFromAssistant()
         printf("[-]Error in listening");
     }
 
-    // Accept call creates a new socket for the incoming connection
-    addr_size = sizeof serverStorage;
-    connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
+    for (int i = 0; i < 2; i++)
+    {
+        // Accept call creates a new socket for the incoming connection
+        addr_size = sizeof serverStorage;
+        connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
 
-    // SENDING AND RECEIVING AFTER THIS POINT
-    //=======================================
+        // SENDING AND RECEIVING AFTER THIS POINT
+        //=======================================
 
-    char buffer[3][1024];
+        char buffer[3][1024];
 
-    recv(connectionSocket, buffer[0], EMPLOYEENAME_LEN, 0); //Read the message from the server into the buffer
-    recv(connectionSocket, buffer[1], JOBTITLE_LEN, 0);     //Read the message from the server into the buffer
-    recv(connectionSocket, buffer[2], STATUS_LEN, 0);       //Read the message from the server into the buffer
+        recv(connectionSocket, buffer[0], EMPLOYEENAME_LEN, 0); //Read the message from the server into the buffer
+        recv(connectionSocket, buffer[1], JOBTITLE_LEN, 0);     //Read the message from the server into the buffer
+        recv(connectionSocket, buffer[2], STATUS_LEN, 0);       //Read the message from the server into the buffer
 
-    printf("[+]Data received:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
+        printf("\n[+]Data received:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
+    }
+
+    
 }

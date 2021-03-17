@@ -10,24 +10,29 @@ int main()
 {
     // this code will eventually get moved into an overall client function
 
-    pid_t pid;
-    pid = fork(); // creates a child process
+    for (int i = 0; i < 2; i++)
+    {
+        pid_t pid;
+        pid = fork(); // creates a child process
 
-    if (pid == 0) // child process
-    {
-        manager(); // asking user for input query
+        if (pid == 0) // child process
+        {
+            manager(); // asking user for input query
 
-        exit(0);
+            exit(0);
+        }
+        else if (pid > 0) // parent process
+        {
+            wait(NULL);
+            assistant(); // fetching query results for the Manager process
+        }
+        else
+        {
+            printf("fork error");
+            exit(1);
+        }
     }
-    else if (pid > 0) // parent process
-    {
-        assistant(); // fetching query results for the Manager process
-    }
-    else
-    {
-        printf("fork error");
-        exit(1);
-    }
+   
     return 0;
 }
 
@@ -94,6 +99,7 @@ void assistant()
         sleep(1);
 
         receiveResultFromServer();
+
 
         // Landon's function to write to the history file will go here.
 

@@ -2,20 +2,13 @@
 void sendResultToAssistant();
 void testSend();
 
-    int
-    main()
+int main()
 {
-
     receiveQueryFromAssistant();
     sendResultToAssistant();
-    sendResultToAssistant();
-    sendResultToAssistant();
-
-    // testSend();
 
     return 0;
 }
-
 
 /*
 ---------------------------------------------------------
@@ -48,7 +41,7 @@ void sendResultToAssistant()
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET; //Address family = Internet
     serverAddr.sin_port = htons(7892); //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); //Set IP address to localhost
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);  //Set IP address to accept any IP address
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
@@ -69,8 +62,10 @@ void sendResultToAssistant()
         printf("[-]Error in listening");
     }
 
-    // Accept call creates a new socket for the incoming connection
-    addr_size = sizeof serverStorage;
+ 
+
+        // Accept call creates a new socket for the incoming connection
+        addr_size = sizeof serverStorage;
     connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
 
     // SENDING AND RECEIVING AFTER THIS POINT
@@ -84,9 +79,9 @@ void sendResultToAssistant()
     strcpy(queryPtr->jobTitle, "Chocolate Pornstar");
     strcpy(queryPtr->status, "PP");
 
-    send(connectionSocket, queryPtr->employeeName, EMPLOYEENAME_LEN, 0);
-    send(connectionSocket, queryPtr->jobTitle, JOBTITLE_LEN, 0);
-    send(connectionSocket, queryPtr->status, STATUS_LEN, 0);
+    // send(connectionSocket, queryPtr->employeeName, EMPLOYEENAME_LEN, 0);
+    // send(connectionSocket, queryPtr->jobTitle, JOBTITLE_LEN, 0);
+    // send(connectionSocket, queryPtr->status, STATUS_LEN, 0);
 
     printf("[+]Data sent successfully.\n");
 }
