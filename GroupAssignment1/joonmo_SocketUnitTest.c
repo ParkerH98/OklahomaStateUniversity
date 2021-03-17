@@ -40,6 +40,8 @@ int main() {
     Server recived Quary, and send employee Structure 
     loop for sending query multiple times. It set 2 times
     */
+    for (int i = 0; i < 2; i++)
+    {
     pid_t pid;	//The pid_t data type is a signed integer type which is capable of 					representing a process ID.
 	
 	/* fork a child process */
@@ -69,76 +71,70 @@ int main() {
         char buffer[1024] = {0}; 
 
 
-        int loopForClientSocket = 1;
-        int counter = 2;
-        // This is loop for sending query multiple times. It set 2 times
-        while (loopForClientSocket){
-            if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-            { 
-                printf("\n Socket creation error \n"); 
-                return -1; 
-            } 
-
-            serv_addr.sin_family = AF_INET; 
-            serv_addr.sin_port = htons(PORT); 
-                
-            // Convert IPv4 and IPv6 addresses from text to binary form 
-            if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
-            { 
-                printf("\nInvalid address/ Address not supported \n"); 
-                return -1; 
-            } 
         
-            if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
-            { 
-                printf("\nConnection Failed \n"); 
-                return -1; 
-            }
-            // ===================Socket Client Setup END===================
+        if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
+        { 
+            printf("\n Socket creation error \n"); 
+            return -1; 
+        } 
 
-
-
-        
-
-            // ==================Socket Clinet Operations START==================
-            send(sock , pQuery, sizeof(pQuery)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN, 0 ); 
-            // send(sock , hello , strlen(hello) , 0 ); 
-            printf("Query sent from Client\n"); 
-
-
-            while (read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4) == -1){
-                printf("Client Waiting");
-            }
-            // valread = read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4); 
-            char employeeName[30];
-            char jobTitle[50];
-            char status[50];
-            printf("======Client Recived employee Sturct======\n");
-            printf("%d\n", pEmployeeStruct->id);
-            strcpy(employeeName, pEmployeeStruct->employeeName);
-            printf("%s\n",employeeName);
-            strcpy(jobTitle, pEmployeeStruct->jobTitle);
-            printf("%s\n",jobTitle);
-            printf("%f\n", pEmployeeStruct->overtimePay);
-            printf("%f\n", pEmployeeStruct->basePay);
-            printf("%f\n", pEmployeeStruct->benefit);
-            strcpy(status, pEmployeeStruct->status);
-            printf("%s\n",status);
-            printf("%f\n", pEmployeeStruct->satisfactionLevel);
-            printf("%d\n", pEmployeeStruct->numberProject); 
-            printf("%d\n", pEmployeeStruct->averageMonthlyHours);
-            printf("%d\n", pEmployeeStruct->yearsInCompany);
-            printf("%d\n", pEmployeeStruct->workAccident);
-            printf("%d\n", pEmployeeStruct->promotionsLast5Years);
-            printf("%d\n", pEmployeeStruct->duplicateExists);
-            printf("==========================================\n");
+        serv_addr.sin_family = AF_INET; 
+        serv_addr.sin_port = htons(PORT); 
             
-            counter--;
-            close(sock);
-            if (counter == 0){
-                break;
-            }
+        // Convert IPv4 and IPv6 addresses from text to binary form 
+        if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
+        { 
+            printf("\nInvalid address/ Address not supported \n"); 
+            return -1; 
+        } 
+    
+        if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
+        { 
+            printf("\nConnection Failed \n"); 
+            return -1; 
         }
+        // ===================Socket Client Setup END===================
+
+
+
+    
+
+        // ==================Socket Clinet Operations START==================
+        send(sock , pQuery, sizeof(pQuery)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN, 0 ); 
+        // send(sock , hello , strlen(hello) , 0 ); 
+        printf("Query sent from Client\n"); 
+
+
+        // while (read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4) == 0){
+        //     printf("Client Waiting");
+        // }
+        valread = read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4); 
+        char employeeName[30];
+        char jobTitle[50];
+        char status[50];
+        printf("======Client Recived employee Sturct======\n");
+        printf("%d\n", pEmployeeStruct->id);
+        strcpy(employeeName, pEmployeeStruct->employeeName);
+        printf("%s\n",employeeName);
+        strcpy(jobTitle, pEmployeeStruct->jobTitle);
+        printf("%s\n",jobTitle);
+        printf("%f\n", pEmployeeStruct->overtimePay);
+        printf("%f\n", pEmployeeStruct->basePay);
+        printf("%f\n", pEmployeeStruct->benefit);
+        strcpy(status, pEmployeeStruct->status);
+        printf("%s\n",status);
+        printf("%f\n", pEmployeeStruct->satisfactionLevel);
+        printf("%d\n", pEmployeeStruct->numberProject); 
+        printf("%d\n", pEmployeeStruct->averageMonthlyHours);
+        printf("%d\n", pEmployeeStruct->yearsInCompany);
+        printf("%d\n", pEmployeeStruct->workAccident);
+        printf("%d\n", pEmployeeStruct->promotionsLast5Years);
+        printf("%d\n", pEmployeeStruct->duplicateExists);
+        printf("==========================================\n");
+        
+        close(sock);
+            
+        
         //==================Socket Clinet Operation END==================
 
         printf("The Client process is done!\n");
