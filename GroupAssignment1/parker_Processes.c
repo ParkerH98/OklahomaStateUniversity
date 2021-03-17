@@ -1,6 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <sys/wait.h>
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void receiveResultFromServer();
@@ -94,6 +95,7 @@ void assistant()
     }
     else // a match wasn't found
     {
+        // printf("HERE---------------------------------");
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
         sleep(1);

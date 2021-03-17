@@ -1,6 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
+
 int inet_addr();
 
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
@@ -8,6 +9,8 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     int clientSocket;
     struct sockaddr_in serverAddr;
     socklen_t addr_size;
+    // 
+
 
     // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
     clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket

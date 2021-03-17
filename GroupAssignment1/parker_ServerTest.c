@@ -5,7 +5,7 @@ void testSend();
 int main()
 {
     receiveQueryFromAssistant();
-    sendResultToAssistant();
+    // sendResultToAssistant();
 
     return 0;
 }
@@ -40,7 +40,7 @@ void sendResultToAssistant()
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET; //Address family = Internet
-    serverAddr.sin_port = htons(7892); //Set port number, using htons function to use proper byte order
+    serverAddr.sin_port = htons(7891); //Set port number, using htons function to use proper byte order
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);  //Set IP address to accept any IP address
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
