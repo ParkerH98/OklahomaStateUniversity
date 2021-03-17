@@ -31,7 +31,7 @@ void runClient()
         }
         else if (pid > 0) // parent process
         {
-            wait(NULL);
+            // wait(NULL);
             assistant(); // fetching query results for the Manager process
         }
         else
@@ -98,8 +98,8 @@ void assistant()
     // {
     //     // Parker's function to print to a new terminal will go here
     // }
-    else // a match wasn't found
-    {
+    // else // a match wasn't found
+    // {
         // printf("HERE---------------------------------");
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
@@ -113,7 +113,7 @@ void assistant()
         // Landon's function to write to the history file will go here.
 
         // Parker's function to print to a new terminal will go here
-    }
+    // }
 }
 
 /*
