@@ -5,8 +5,7 @@ void historyFile(char* fileName, char* employeeInfo){
 
 	FILE *history;
 	fopen(fileName, "r+");
-	
-	int recordNumber = 0;
+
 	char newLine;
 	
 	char lines[10][500];
