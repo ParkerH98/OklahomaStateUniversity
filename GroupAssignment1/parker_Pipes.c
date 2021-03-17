@@ -17,7 +17,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
 
     strcpy(sendPtr->employeeName, employeeName); // copies input parameters to the struct to be sent
     strcpy(sendPtr->jobTitle, jobTitle);
-    strcpy(sendPtr->status, status);
+    strcpy(sendPtr->status, status); 
 
     // debug print -- remove later
     // printf("\nSENT TO ASSISTANT VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n\n", sendPtr->employeeName, sendPtr->jobTitle, sendPtr->status); // Print the read message

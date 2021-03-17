@@ -2,15 +2,22 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/wait.h>
-// void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
+void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
+void runClient();
+
 // void receiveResultFromServer();
 // int inet_addr();
 
 int main()
 {
-    // this code will eventually get moved into an overall client function
+    runClient();
 
+    return 0;
+}
+
+void runClient()
+{
     for (int i = 0; i < 2; i++)
     {
         pid_t pid;
@@ -33,8 +40,6 @@ int main()
             exit(1);
         }
     }
-   
-    return 0;
 }
 
 
@@ -89,18 +94,18 @@ void assistant()
 
     char fname[] = "History.txt"; // name of file to search
 
-    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
-    {
-        // Parker's function to print to a new terminal will go here
-    }
+    // if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    // {
+    //     // Parker's function to print to a new terminal will go here
+    // }
     else // a match wasn't found
     {
         // printf("HERE---------------------------------");
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
-        sleep(1);
+        // sleep(1);
 
-        receiveResultFromServer();
+        // receiveResultFromServer();
 
         printf("\n====================\nQUERY END\n====================\n\n");
 
@@ -151,6 +156,6 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     {
         fclose(f); //Close the file if still open.
     }
-    return find_result;
+    return find_result; 
 }
 

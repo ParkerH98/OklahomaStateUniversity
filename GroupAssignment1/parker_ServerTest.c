@@ -7,4 +7,4 @@ int main()
     // sendResultToAssistant();
 
     return 0;
-}
+} 
