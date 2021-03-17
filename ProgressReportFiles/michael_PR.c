@@ -200,7 +200,7 @@ int LLTest(){
         readHead = readHead->next;
     }
 
-    printf("\nTest Three: See if ID 4 is missing.");
+    printf("\nTest Three: See if ID 4 is missing.\n");
     readHead = test->head;
     while (readHead->next != NULL){
         printf("%d\n",readHead->data->id);
