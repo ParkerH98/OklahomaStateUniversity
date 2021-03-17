@@ -7,33 +7,20 @@
 //     SSThreadsTest();
 // }
 
-// parkers client main to integrate
 int main()
 {
-    // this code will eventually get moved into an overall client function
+    pid_t pid;
+    pid = fork(); // creates a child process
 
-    for (int i = 0; i < 2; i++)
+    if (pid == 0) // child process
     {
-        pid_t pid;
-        pid = fork(); // creates a child process
+        receiveQueryFromAssistant(); // starts server and begins listening
 
-        if (pid == 0) // child process
-        {
-            manager(); // asking user for input query
-
-            exit(0);
-        }
-        else if (pid > 0) // parent process
-        {
-            wait(NULL);
-            assistant(); // fetching query results for the Manager process
-        }
-        else
-        {
-            printf("fork error");
-            exit(1);
-        }
+        exit(0);
     }
-
+    else if (pid > 0) // parent process
+    {
+        runClient(); // runs manager and assistant functions
+    }
     return 0;
 }
