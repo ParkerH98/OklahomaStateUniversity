@@ -11,6 +11,7 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
+
 struct Query
 {
     char employeeName[EMPLOYEENAME_LEN];
@@ -18,7 +19,7 @@ struct Query
     char status[STATUS_LEN];
 };
 
-struct EmployeeStructure
+struct Employee
 {
     int id;
     char employeeName[EMPLOYEENAME_LEN];
