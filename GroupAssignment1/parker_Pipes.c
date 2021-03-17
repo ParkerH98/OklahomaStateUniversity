@@ -20,7 +20,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
     strcpy(sendPtr->status, status);
 
     // debug print -- remove later
-    printf("\nSENT TO ASSISTANT VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n\n", sendPtr->employeeName, sendPtr->jobTitle, sendPtr->status); // Print the read message
+    // printf("\nSENT TO ASSISTANT VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n\n", sendPtr->employeeName, sendPtr->jobTitle, sendPtr->status); // Print the read message
 
     char myPipe[] = "./NamedPipe"; // FIFO file path
     mkfifo(myPipe, 0666);          // Creating the named file(FIFO)

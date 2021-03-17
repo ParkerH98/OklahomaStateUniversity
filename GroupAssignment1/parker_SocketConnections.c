@@ -1,7 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9000
+#define PORT 9001
 
 
 int inet_addr();
@@ -25,7 +25,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
         perror("[-]Error in socket");
         exit(1);
     }
-    printf("[+]Server socket created successfully.\n");
+    // printf("[+]Server socket created successfully.\n");
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET; //Address family = Internet
@@ -41,7 +41,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
         perror("[-]Error in socket");
         exit(1);
     }
-    printf("[+]Connected to Server.\n\n");
+    // printf("[+]Connected to Server.\n\n");
 
     // SENDING AND RECEIVING AFTER THIS POINT
     //=======================================
@@ -58,9 +58,9 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     send(clientSocket, queryPtr->jobTitle, JOBTITLE_LEN, 0);
     send(clientSocket, queryPtr->status, STATUS_LEN, 0);
 
-    printf("[+]Data sent successfully.\n");
+    printf("[+]Data sent successfully from assistant.\n");
 
-    printf("[+]Closing the connection.\n");
+    // printf("[+]Closing the connection.\n");
 
     close(clientSocket);
 }
@@ -87,7 +87,7 @@ void receiveResultFromServer()
         perror("[-]Error in socket");
         exit(1);
     }
-    printf("\n[+]Server socket created successfully.\n");
+    // printf("\n[+]Server socket created successfully.\n");
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
@@ -103,7 +103,7 @@ void receiveResultFromServer()
         perror("[-]Error in socket");
         exit(1);
     }
-    printf("[+]Connected to Server.\n");
+    // printf("[+]Connected to Server.\n");
 
     // SENDING AND RECEIVING AFTER THIS POINT
     //=======================================
@@ -114,10 +114,10 @@ void receiveResultFromServer()
     recv(clientSocket, buffer[1], JOBTITLE_LEN, 0); //Read the message from the server into the buffer
     recv(clientSocket, buffer[2], STATUS_LEN, 0); //Read the message from the server into the buffer
 
-    printf("[+]Data received:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
+    printf("[+]Data received from server:\n\n%s\n%s\n%s\n", buffer[0], buffer[1], buffer[2]); //Print the received message
 
 
-    printf("[+]Closing the connection.\n");
+    // printf("[+]Closing the connection.\n");
 
     close(clientSocket);
 }
@@ -138,39 +138,70 @@ Assistant via the socket connection.
 
 Params: none
 Return: void
-// */
-// void sendResultToAssistant() // SERVER
-// {
+*/
+void sendResultToAssistant() // SERVER
+{
 
-//     struct Query
-//     {
-//         char employeeName[EMPLOYEENAME_LEN];
-//         char jobTitle[JOBTITLE_LEN];
-//         char status[STATUS_LEN];
-//     };
+    struct Query
+    {
+        char employeeName[EMPLOYEENAME_LEN];
+        char jobTitle[JOBTITLE_LEN];
+        char status[STATUS_LEN];
+    };
 
-//     int entrySocket, connectionSocket; // socket file descriptors
+    int entrySocket, connectionSocket; // socket file descriptors
+    int bindCheck;
+    struct sockaddr_in serverAddr;
+    struct sockaddr_storage serverStorage;
+    socklen_t addr_size;
+
+    // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
+    entrySocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
+
+    // Configure settings of the server address struct
+    serverAddr.sin_family = AF_INET;                               //Address family = Internet
+    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
+    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
+
+    // bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
+    // if (bindCheck < 0)
+    // {
+    //     perror("[-]Error in bind");
+    //     exit(1);
+    // }
+    // printf("[+]Binding successfull.\n");
+
+    // // Listen on the socket, with 5 max connection requests queued
+    // if (listen(entrySocket, 5) == 0)
+    // {
+    //     printf("[+]Listening....\n");
+    // }
+    // else
+    // {
+    //     printf("[-]Error in listening");
+    // }
 
 
-//     connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
+    connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
 
-//     // SENDING AND RECEIVING AFTER THIS POINT
-//     //=======================================
+    // SENDING AND RECEIVING AFTER THIS POINT
+    //=======================================
 
-//     struct Query query;
-//     struct Query *queryPtr = &query;
+    struct Query query;
+    struct Query *queryPtr = &query;
 
-//     // assigns input data to Query struct
-//     strcpy(queryPtr->employeeName, "Jerry Seinfeld");
-//     strcpy(queryPtr->jobTitle, "Chocolate Pornstar");
-//     strcpy(queryPtr->status, "PP");
+    // assigns input data to Query struct
+    strcpy(queryPtr->employeeName, "Jerry Seinfeld");
+    strcpy(queryPtr->jobTitle, "Chocolate Pornstar");
+    strcpy(queryPtr->status, "PP");
 
-//     send(connectionSocket, queryPtr->employeeName, EMPLOYEENAME_LEN, 0);
-//     send(connectionSocket, queryPtr->jobTitle, JOBTITLE_LEN, 0);
-//     send(connectionSocket, queryPtr->status, STATUS_LEN, 0);
+    send(connectionSocket, queryPtr->employeeName, EMPLOYEENAME_LEN, 0);
+    send(connectionSocket, queryPtr->jobTitle, JOBTITLE_LEN, 0);
+    send(connectionSocket, queryPtr->status, STATUS_LEN, 0);
 
-//     printf("[+]Data sent successfully.\n");
-// }
+    printf("\n[+]Data sent successfully to assistant.\n");
+}
 
 
 void receiveQueryFromAssistant()

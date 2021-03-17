@@ -1,5 +1,5 @@
 #include "parker_SocketConnections.c"
-void sendResultToAssistant();
+// void sendResultToAssistant();
 
 int main()
 {

@@ -2,10 +2,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/wait.h>
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
+// void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
-void receiveResultFromServer();
-int inet_addr();
+// void receiveResultFromServer();
+// int inet_addr();
 
 int main()
 {
@@ -82,7 +82,7 @@ void assistant()
 {
     struct Query query;                                                                                                      // holds user query
     query = pipeReceive();                                                                                                   // assistant receives query from Manager
-    printf("\nRECEIVED:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
+    printf("\nRECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
     FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
@@ -101,6 +101,8 @@ void assistant()
         sleep(1);
 
         receiveResultFromServer();
+
+        printf("\n====================\nQUERY END\n====================\n\n");
 
 
         // Landon's function to write to the history file will go here.
@@ -142,7 +144,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 
     if (find_result == 0) // no results found
     {
-        printf("\nQuery does not exist in history file.\n");
+        printf("\nQuery does not exist in history file...forwarding request to server.\n");
     }
 
     if (f)
