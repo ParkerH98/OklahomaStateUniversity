@@ -175,8 +175,8 @@ void ThreadSpawn(struct employeeStructure *target){
 void *mainTheadFunc(void *queryFromClient)
 {
     struct Query* pQueryFromClient = queryFromClient;
-	struct employeeStructure* pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
-    struct listMonitor* index = malloc(sizeof (struct listMonitor));
+	struct employeeStructure* pEmployeeStruct = malloc(sizeof *pEmployeeStruct); //Introduced by M Oliver.
+    struct listMonitor* index = malloc(sizeof (struct listMonitor)); //Introduced by M Oliver.
 	FILE *fp;
     char buff[255];
 
@@ -196,6 +196,9 @@ void *mainTheadFunc(void *queryFromClient)
             strcpy(pEmployeeStruct->employeeName, employeeName);
             pEmployeeStruct->id = employeeID;
 
+            // ==================================================================================
+            // OLIVER'S CODE
+            // ==================================================================================
             ThreadSpawn(pEmployeeStruct);
             if (strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && 
                 strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
@@ -207,6 +210,10 @@ void *mainTheadFunc(void *queryFromClient)
 
 
             pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
+
+            // ==================================================================================
+            // OLIVER'S CODE
+            // ==================================================================================
 
             // printf("%s\n", employeeName);
             // printf("%d\n", employeeID);
