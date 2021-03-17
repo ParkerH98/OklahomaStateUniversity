@@ -67,13 +67,27 @@ void enqueue(struct listMonitor* index, struct employeeStructure* payload){
 void disqueue(struct listMonitor* index, struct listEntry* target){
     struct listEntry* temp;
     if (target == index->head){
+        printf("Case One");
+        fflush(stdout);
         temp = target;
+        printf("Temp Assigned.\n");
+        fflush(stdout);
         index->head = index->head->next;
-        index->head->last = NULL;
+        printf("Index Head Moved.\n");
+        fflush(stdout);
+        //index->head->last = index->head;
+        //printf("Nulling the Last on Head.\n");
+        fflush(stdout);
         free(temp->data);
+        printf("Freed the Data.\n");
+        fflush(stdout);
         free(temp);
+        printf("Freed the Memory\n");
+        fflush(stdout);
     }
     else if (target == index->tail){
+        printf("Case Two");
+        fflush(stdout);
         temp = target;
         index->tail = index->tail->last;
         index->tail->next = NULL;
@@ -82,6 +96,8 @@ void disqueue(struct listMonitor* index, struct listEntry* target){
 
     }
     else {
+        printf("Case Three");
+        fflush(stdout);
         temp = target;
         temp->next->last=temp->last;
         temp->last->next=temp->next;
@@ -233,9 +249,9 @@ int main()
     struct listMonitor* index;
     struct listEntry* readHead;
 	// This Testing examples
-	strcpy(queryFromClient.employeeName, "NATHANIEL FORD");
-	strcpy(queryFromClient.jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
-	strcpy(queryFromClient.status, "PT");
+	strcpy(queryFromClient.employeeName, "THOMAS SMITH");
+	strcpy(queryFromClient.jobTitle, "SPECIAL NURSE");
+	strcpy(queryFromClient.status, "FT");
     if (pthread_create(&mainThread, NULL, mainTheadFunc, (void *)&queryFromClient) != 0) {	// thread1 create
         printf("Thread1 failed\n");
         return -1;
@@ -260,9 +276,9 @@ int main()
         printf("%s\n",pEmployeeStruct->employeeName);
         printf("%d\n",pEmployeeStruct->id);
         printf("%s\n",pEmployeeStruct->status);
-        printf("%s\n",pEmployeeStruct->jobTitle);
+        printf("%s\n\n",pEmployeeStruct->jobTitle);
         readHead = readHead->next;
-        free(readHead->last);
+        disqueue(index, readHead->last);
     }
     pEmployeeStruct = readHead->data;
     printf("Data is Free.\n");
@@ -271,7 +287,7 @@ int main()
     printf("%d\n",pEmployeeStruct->id);
     printf("%s\n",pEmployeeStruct->status);
     printf("%s\n",pEmployeeStruct->jobTitle);
-    free(readHead->last);
+    disqueue(index, readHead);
 
 	return 0;
 }

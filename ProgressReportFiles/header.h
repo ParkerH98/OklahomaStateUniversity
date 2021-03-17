@@ -5,30 +5,30 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-struct listEntry{
-    struct employeeStructure* data;
-    struct listEntry* next;
-    struct listEntry* last;
+struct ListEntry{
+    struct EmployeeStructure* data;
+    struct ListEntry* next;
+    struct ListEntry* last;
 };
 
-struct listMonitor{
-    struct listEntry* head;
-    struct listEntry* tail;
+struct ListMonitor{
+    struct ListEntry* head;
+    struct ListEntry* tail;
 };
 
-struct query{
+struct Query{
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
     char status[STATUS_LEN];
 };
 
-struct employeeStructure{
+struct EmployeeStructure{
     int id;
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
-    float basePay;
-    float overtimePay;
-    float benefit;
+    double basePay;
+    double overtimePay;
+    double benefit;
     char status[STATUS_LEN];
     float satisfactionLevel;
     int numberProject;

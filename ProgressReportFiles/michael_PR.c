@@ -5,14 +5,14 @@
 #include <stdlib.h>
 
 void* SalarySearch(void *arg){
-	struct employeeStructure *test = (struct employeeStructure *)arg;
+	struct EmployeeStructure *test = (struct EmployeeStructure *)arg;
 	
 	FILE *fp;
 	char string[100];
 	int id;
-	float basePay;
-	float overtimePay;
-    float benefit;
+	double basePay;
+	double overtimePay;
+    double benefit;
 
 	fp = fopen("inputTxtFiles//Salary.txt","r");
 
@@ -25,8 +25,9 @@ void* SalarySearch(void *arg){
 			// variables to play with. Probably a minor slowdown here, but since we only read full lines once per
 			// lookup it shouldn't contribute too much to runtime as the problem scales.
 
-			sscanf(string,"%d\t%[^\t]\t%f\t%f\t%f\t%s",&id,test->jobTitle,&basePay,&overtimePay,&benefit,test->status);
+			sscanf(string,"%d\t%[^\t]\t%lf\t%lf\t%lf\t%s",&id,test->jobTitle,&basePay,&overtimePay,&benefit,test->status);
 			test->basePay = basePay;
+            printf("%f",basePay);
 			test->overtimePay = overtimePay;
 			test->benefit = benefit;
 			break;
@@ -37,7 +38,7 @@ void* SalarySearch(void *arg){
 }
 
 void* SatisfactionSearch(void *arg){
-	struct employeeStructure *test = (struct employeeStructure *)arg;
+	struct EmployeeStructure *test = (struct EmployeeStructure *)arg;
 	
 	FILE *fp;
 	char string[100];
@@ -62,7 +63,7 @@ void* SatisfactionSearch(void *arg){
 	return NULL;
 }
 
-void ThreadSpawn(struct employeeStructure *target){
+void ThreadSpawn(struct EmployeeStructure *target){
 
 	pthread_t TID_1;
 	pthread_t TID_2;
@@ -82,9 +83,9 @@ int SSThreadsTest(){
 
 	printf("Testing Search Threads for Salary and Satisfaction Elements.\n");
 
-	struct employeeStructure a;
+	struct EmployeeStructure a;
 
-	a.id = 17;
+	a.id = 7;
 	strcpy(a.employeeName,"Test Name");
 
 	printf("Thread Spawner Starting.\n");
@@ -107,14 +108,14 @@ int SSThreadsTest(){
 	printf("Promotions Last 5 Years: %d\n",a.promotionsLast5Years);
 }
 
-void enqueue(struct listMonitor* index, struct employeeStructure* payload){
+void enqueue(struct ListMonitor* index, struct EmployeeStructure* payload){
     int first = 0;
-    struct listEntry* temp;
+    struct ListEntry* temp;
 
     if (index->head == NULL){
         first = 1;
     }
-    temp = malloc(sizeof(struct listEntry));
+    temp = malloc(sizeof(struct ListEntry));
 
     temp->data = payload;
     temp->next = NULL;
@@ -129,19 +130,20 @@ void enqueue(struct listMonitor* index, struct employeeStructure* payload){
     }
 };
 
-void disqueue(struct listMonitor* index, struct listEntry* target){
-    struct listEntry* temp;
+void disqueue(struct ListMonitor* index, struct ListEntry* target){
+    // NOTE: Need to get Pointers to Nowhere working.
+    struct ListEntry* temp;
     if (target == index->head){
         temp = target;
         index->head = index->head->next;
-        index->head->last = NULL;
+        //index->head->last = NULL;
         free(temp->data);
         free(temp);
     }
     else if (target == index->tail){
         temp = target;
         index->tail = index->tail->last;
-        index->tail->next = NULL;
+        //index->tail->next = NULL;
         free(temp->data);
         free(temp);
 
@@ -156,20 +158,20 @@ void disqueue(struct listMonitor* index, struct listEntry* target){
 };
 
 int LLTest(){
-    struct listMonitor* test;
-    struct listEntry* readHead;
-    struct employeeStructure* person;
+    struct ListMonitor* test;
+    struct ListEntry* readHead;
+    struct EmployeeStructure* person;
     int i = 0;
 
     printf("Testing Linked Lists");
 
-    test = malloc(sizeof(struct listMonitor));
-    person = malloc(sizeof(struct employeeStructure));
+    test = malloc(sizeof(struct ListMonitor));
+    person = malloc(sizeof(struct EmployeeStructure));
 
     for (i = 0; i < 10; i++){
         person->id = i;
         enqueue(test, person);
-        person = malloc(sizeof(struct employeeStructure));
+        person = malloc(sizeof(struct EmployeeStructure));
     }
 
     printf("\nTest One: See if ID from 0-9 are present.\n");
@@ -207,5 +209,57 @@ int LLTest(){
         readHead = readHead->next;
     }
     printf("%d\n",readHead->data->id);
+
+}
+
+void *mainTheadFunc(void *queryFromClient)
+{
+    struct Query* pQueryFromClient = queryFromClient;
+	struct EmployeeStructure* pEmployeeStruct = malloc(sizeof *pEmployeeStruct); //Introduced by M Oliver.
+    struct ListMonitor* index = malloc(sizeof (struct ListMonitor)); //Introduced by M Oliver.
+	FILE *fp;
+    char buff[255];
+
+    // printf("Comes Here\n");
+    fp = fopen("inputTxtFiles/Name.txt", "r");
+    while (fgets(buff, sizeof(buff), fp)) {
+        char * employeeIDString = strtok(buff, "\t");
+        // printf("%s\n", employeeIDString);
+		int employeeID = atoi(employeeIDString);
+        char * employeeName = strtok(NULL, "");
+        // printf("%s\n", employeeName);
+        if (employeeName[strlen(employeeName)-1] == '\n'){
+            employeeName[strlen(employeeName)-1] = 0;
+        }
+		if(strcmp(employeeName, pQueryFromClient->employeeName) == 0){
+
+            strcpy(pEmployeeStruct->employeeName, employeeName);
+            pEmployeeStruct->id = employeeID;
+
+            // ==================================================================================
+            // OLIVER'S CODE
+            // ==================================================================================
+            ThreadSpawn(pEmployeeStruct);
+            if (strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && 
+                strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
+                enqueue(index, pEmployeeStruct);
+            }
+            else{
+                free(pEmployeeStruct);
+            }
+
+
+            pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
+
+            // ==================================================================================
+            // OLIVER'S CODE
+            // ==================================================================================
+
+            // printf("%s\n", employeeName);
+            // printf("%d\n", employeeID);
+        }
+    }
+    fclose(fp);
+    return index;
 
 }
