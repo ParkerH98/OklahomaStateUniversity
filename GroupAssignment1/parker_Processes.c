@@ -5,20 +5,49 @@
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void runClient();
+void receiveQueryFromAssistant();
+void sendResultToAssistant();
+void runServer();
 
-// void receiveResultFromServer();
+void receiveResultFromServer();
 // int inet_addr();
 
 int main()
 {
-    runClient();
+
+    pid_t pid;
+    pid = fork(); // creates a child process
+
+    if (pid == 0) // child process
+    {
+
+        runServer();
+
+        exit(0);
+    }
+    else if (pid > 0) // parent process
+    {
+        runClient(); // runs manager and assistant functions
+    }
 
     return 0;
 }
 
+void runServer()
+{
+    for (int i = 0; i < TESTING_LOOP; i++){
+        receiveQueryFromAssistant(); // starts server and begins listening
+
+        sleep(1);
+
+        sendResultToAssistant();
+    }
+       
+}
+
 void runClient()
 {
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < TESTING_LOOP; i++)
     {
         pid_t pid;
         pid = fork(); // creates a child process
@@ -103,9 +132,9 @@ void assistant()
         // printf("HERE---------------------------------");
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
-        // sleep(1);
+        sleep(1);
 
-        // receiveResultFromServer();
+        receiveResultFromServer();
 
         printf("\n====================\nQUERY END\n====================\n\n");
 

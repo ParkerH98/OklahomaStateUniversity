@@ -91,7 +91,7 @@ void receiveResultFromServer()
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(7892);                             //Set port number, using htons function to use proper byte order
+    serverAddr.sin_port = htons(2700);                             //Set port number, using htons function to use proper byte order
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
@@ -160,27 +160,27 @@ void sendResultToAssistant() // SERVER
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
+    serverAddr.sin_port = htons(2700);                             //Set port number, using htons function to use proper byte order
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
-    // bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
-    // if (bindCheck < 0)
-    // {
-    //     perror("[-]Error in bind");
-    //     exit(1);
-    // }
-    // printf("[+]Binding successfull.\n");
+    bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
+    if (bindCheck < 0)
+    {
+        perror("[-]Error in bind");
+        exit(1);
+    }
+    printf("[+]Binding successfull.\n");
 
-    // // Listen on the socket, with 5 max connection requests queued
-    // if (listen(entrySocket, 5) == 0)
-    // {
-    //     printf("[+]Listening....\n");
-    // }
-    // else
-    // {
-    //     printf("[-]Error in listening");
-    // }
+    // Listen on the socket, with 5 max connection requests queued
+    if (listen(entrySocket, 5) == 0)
+    {
+        printf("[+]Listening....\n");
+    }
+    else
+    {
+        printf("[-]Error in listening");
+    }
 
 
     connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
@@ -239,7 +239,7 @@ void receiveQueryFromAssistant()
         printf("[-]Error in listening");
     }
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < TESTING_LOOP; i++)
     {
         // Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
