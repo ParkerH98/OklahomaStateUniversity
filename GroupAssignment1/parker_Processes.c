@@ -94,10 +94,10 @@ void assistant()
 
     char fname[] = "History.txt"; // name of file to search
 
-    // if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
-    // {
-    //     // Parker's function to print to a new terminal will go here
-    // }
+    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    {
+        // Parker's function to print to a new terminal will go here
+    }
     // else // a match wasn't found
     // {
         // printf("HERE---------------------------------");
@@ -128,7 +128,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 {
     FILE *f;             // file pointer
     int line_num = 1;    // keeps track of the line number
-    int find_result = 0; // number of matches found
+    int numMatches = 0; // number of matches found
     char temp[512];      // stores the current read line
 
     if ((f = fopen(fname, "r")) == NULL) // opens file for reading
@@ -142,12 +142,12 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
         {
             printf("A match found on line: %d\n", line_num);
             printf("\n%s\n", temp);
-            find_result++;
+            numMatches++;
         }
         line_num++;
     }
 
-    if (find_result == 0) // no results found
+    if (numMatches == 0) // no results found
     {
         printf("\nQuery does not exist in history file...forwarding request to server.\n");
     }
@@ -156,6 +156,6 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     {
         fclose(f); //Close the file if still open.
     }
-    return find_result; 
+    return numMatches; 
 }
 

@@ -4,9 +4,13 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Salary Search is the function that takes a EmployeeStructure with a non-empty ID field as input, and finds the information
+// for that Employee ID in the SaLary File. It then adds that information to the relevant fields in the Structure.
 void* SalarySearch(void *arg){
+    // Clone the input pointer so that it's of the right type.
 	struct EmployeeStructure *test = (struct EmployeeStructure *)arg;
 	
+    // Setup relevant variables.
 	FILE *fp;
 	char string[100];
 	int id;
@@ -14,44 +18,49 @@ void* SalarySearch(void *arg){
 	double overtimePay;
     double benefit;
 
+    // Open the file.
 	fp = fopen("inputTxtFiles//Salary.txt","r");
 
+    // Iterate across the file, looking for the ID we need.
 	while(fgets(string, 100, fp)){
 		sscanf(string,"%d",&id);
 		if (id == test->id){
 
-			// NOTE: For some reason, the compiler identifies the pointers to the Employee Structure object as
-			// being pointers to a double, instead of a float. I've worked around by giving it some local
-			// variables to play with. Probably a minor slowdown here, but since we only read full lines once per
-			// lookup it shouldn't contribute too much to runtime as the problem scales.
+			// When we find the ID, copy the information over. Yes, this is done using a horrific sscanf. It works for the fixed
+            // format we're dealing with, so I'm happy with it.
 
 			sscanf(string,"%d\t%[^\t]\t%lf\t%lf\t%lf\t%s",&id,test->jobTitle,&basePay,&overtimePay,&benefit,test->status);
 			test->basePay = basePay;
-            printf("%f",basePay);
 			test->overtimePay = overtimePay;
 			test->benefit = benefit;
 			break;
 		}
 	}
+    // Close out the function and return nothing. All changes are saved to the object that was passed in.
 	fclose(fp);
 	return NULL;
 }
 
+//Satisfaction Search is largely identical to Salary Search, with the only difference being the fields that are scanned.
 void* SatisfactionSearch(void *arg){
+    // Capture the pointer in the proper format.
 	struct EmployeeStructure *test = (struct EmployeeStructure *)arg;
 	
+    // Rig up the input variables.
 	FILE *fp;
 	char string[100];
 	int id;
 	float satisfactionLevel;
     int i = 0;
 
+    // Open Text File
 	fp = fopen("inputTxtFiles//Satisfaction.txt","r");
 
+    //Iterate across the file, checking for the ID we're looking for.
 	while(fgets(string, 100, fp)){
 		sscanf(string,"%d",&id);
 		if (id == test->id){
-
+            // Grab the important bits.
 			sscanf(string,"%d\t%f\t%d\t%d\t%d\t%d\t%d",&id,&satisfactionLevel,&test->numberProject,&test->averageMonthlyHours,
 				&test->yearsInCompany,&test->workAccident,&test->promotionsLast5Years);
 			test->satisfactionLevel = satisfactionLevel;
@@ -59,39 +68,38 @@ void* SatisfactionSearch(void *arg){
 			break;
 		}
 	}
+    // Close the file and return nothing.
 	fclose(fp);
 	return NULL;
 }
 
+// This functions spawns the threads we need.
 void ThreadSpawn(struct EmployeeStructure *target){
-
+    // Setup Thread ID Holders.
 	pthread_t TID_1;
 	pthread_t TID_2;
-    printf("Thread Creation starting.\n");
+    // Spin up the threads, passing forward the target EmployeeStructure.
 	pthread_create(&TID_1, NULL, SalarySearch, target);
-    printf("Thread One is Live.\n");
 	pthread_create(&TID_2, NULL, SatisfactionSearch, target);
-    printf("Thread Two is Live.\n");
+    // Wait for the threads to finish.
 	pthread_join(TID_1, NULL);
-    printf("Thread 1 is Back.");
 	pthread_join(TID_2, NULL);
-    printf("Thread 2 is Back.");
-
 };
 
+// Simple test program. Hard-Sets the Employee Name and ID Information we need, then runs.
 int SSThreadsTest(){
 
 	printf("Testing Search Threads for Salary and Satisfaction Elements.\n");
 
+    // Setup a fixed EmployeeStructure to search for information on.
 	struct EmployeeStructure a;
-
 	a.id = 7;
 	strcpy(a.employeeName,"Test Name");
 
-	printf("Thread Spawner Starting.\n");
+    // Call up THreadSpawn to spawn threads to get the information we care about.
 	ThreadSpawn(&a);
-	printf("Thread Spawner Finished.\n");
 
+    // Print what was found to see if this is working properly.
 	printf("Checking Output. See individual with Index 17 in associated files to check result.\n");
 	printf("Employee Name is Koo's Job. No checks here.\n");
 	printf("ID: %d\n",a.id);
@@ -108,63 +116,95 @@ int SSThreadsTest(){
 	printf("Promotions Last 5 Years: %d\n",a.promotionsLast5Years);
 }
 
-void enqueue(struct ListMonitor* index, struct EmployeeStructure* payload){
-    int first = 0;
-    struct ListEntry* temp;
 
+// FUnction to enqueue the information.
+void enqueue(struct ListMonitor* index, struct EmployeeStructure* payload){
+    int first = 0;              //I'm using this integer as a boolean.
+    struct ListEntry* temp;     // This pointer exists to keep track of what we're working with.
+
+    // If the front pointer on the index is Null, we're adding the first item to the linked list.
     if (index->head == NULL){
         first = 1;
     }
+    // Create the List Entry that will be added.
     temp = malloc(sizeof(struct ListEntry));
-
+    // Attach the payload, a EmployeeStructure passed in from outside.
     temp->data = payload;
+    // Set the next pointer to nothing.
     temp->next = NULL;
+    //Hook up the last pointer to the object attached to the tail of the management structure.
     temp->last = index->tail;
+    //If this isn't the first, the old tail's next pointer is moved off NULL and onto the new thing.
     if (!first){
         index->tail->next = temp;
     }
+    // We then move the tail pointer onto the new thing.
     index->tail = temp;
 
+    // IF this is the first item, we attach the head.
     if (first){
         index->head = temp;
     }
 };
 
+//Function to bump from the queue.
 void disqueue(struct ListMonitor* index, struct ListEntry* target){
     // NOTE: Need to get Pointers to Nowhere working.
     struct ListEntry* temp;
-    if (target == index->head){
+    // If this is the only item, we need to clear it.
+    if (target == index->head && target == index->tail){
         temp = target;
-        index->head = index->head->next;
-        index->head->last = NULL;
+        index->head == NULL;
+        index->tail == NULL;
         free(temp->data);
         free(temp);
     }
+    // If it's the first item, then we have to move the head pointer forward by one.
+    else if (target == index->head){
+        // Attach the target to the temp pointer.
+        temp = target;
+        // Move the head forward one in the queue.
+        index->head = index->head->next;
+        // Remove the last pointer from the element about to be deleted, and point it to nothing.
+        index->head->last = NULL;
+        // Free the data and the entry.
+        free(temp->data);
+        free(temp);
+    }
+    // If it's the last item, then we have to move the tail pointer back by one.
     else if (target == index->tail){
         temp = target;
+        // Move the tail pointer back by one.
         index->tail = index->tail->last;
+        // Wipe out the next pointer.
         index->tail->next = NULL;
+        // Clear out the data to be removed.
         free(temp->data);
         free(temp);
 
     }
+    // Otherwise, we have to connect the neighbors.
     else {
         temp = target;
+        // Redirect all references to the target being removed to the appropriate neighbor.
         temp->next->last=temp->last;
         temp->last->next=temp->next;
+        // Then remove the target.
         free(temp->data);
         free(temp);
     }
 };
 
+// Function to test Linked Lists.
 int LLTest(){
+    // Create the stuff to let this work.
     struct ListMonitor* test;
     struct ListEntry* readHead;
     struct EmployeeStructure* person;
     int i = 0;
 
     printf("Testing Linked Lists");
-
+    // Generate the Linked List and put in some IDs to the data fields.
     test = malloc(sizeof(struct ListMonitor));
     person = malloc(sizeof(struct EmployeeStructure));
 
@@ -176,6 +216,7 @@ int LLTest(){
 
     printf("\nTest One: See if ID from 0-9 are present.\n");
 
+    // Print out the list to see if it made.
     readHead = test->head;
     while (readHead->next != NULL){
         printf("%d\n",readHead->data->id);
@@ -183,9 +224,11 @@ int LLTest(){
     }
     printf("%d\n",readHead->data->id);
 
+    // Remove the front and back.
     disqueue(test,test->head);
     disqueue(test,test->tail);
 
+    // Display to check.
     printf("\nTest Two: See if IDs 0 and 9 have successfully been removed.\n");
     readHead = test->head;
     while (readHead->next != NULL){
@@ -194,6 +237,7 @@ int LLTest(){
     }
     printf("%d\n",readHead->data->id);
 
+    // Remove the element 3 entries in (ID = 4).
     readHead = test->head;
     for (i = 0; i<4; i++){
         if (i==3){
@@ -202,6 +246,7 @@ int LLTest(){
         readHead = readHead->next;
     }
 
+    // Test to see if it's gone.
     printf("\nTest Three: See if ID 4 is missing.\n");
     readHead = test->head;
     while (readHead->next != NULL){
@@ -210,8 +255,20 @@ int LLTest(){
     }
     printf("%d\n",readHead->data->id);
 
+    // Test to see if the linked list can be cleared entirely.
+    readHead = test->head;
+    while (readHead->next != NULL){
+        disqueue(test,readHead);
+        readHead = test->head;
+    }
+    disqueue(test,readHead);
+
+    // If there is a problem here, it will crash. The absence of a Seg Fault tells us this worked.
+
 }
 
+// We have no test function for this running yet.
+// This is the modified version of Koo's Server Main Thread, which can handle multiple name matches.
 void *mainTheadFunc(void *queryFromClient)
 {
     struct Query* pQueryFromClient = queryFromClient;
