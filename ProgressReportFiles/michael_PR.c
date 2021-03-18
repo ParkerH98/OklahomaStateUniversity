@@ -136,14 +136,14 @@ void disqueue(struct ListMonitor* index, struct ListEntry* target){
     if (target == index->head){
         temp = target;
         index->head = index->head->next;
-        //index->head->last = NULL;
+        index->head->last = NULL;
         free(temp->data);
         free(temp);
     }
     else if (target == index->tail){
         temp = target;
         index->tail = index->tail->last;
-        //index->tail->next = NULL;
+        index->tail->next = NULL;
         free(temp->data);
         free(temp);
 
