@@ -1,5 +1,10 @@
 #include "michael_PR.c"
 #include "parker.c"
+#include "joonmo_PR.c"
+
+
+
+// gcc driver.c -lpthread
 
 int main()
 {
@@ -8,6 +13,14 @@ int main()
     printf("\n\n");
     SSThreadsTest();
     printf("\nMICHAEL OLIVER TEST ENDS HERE\n");
+
+    
+    printf("JOONMO KOO TEST BEGINS HERE\n");
+    serverMainThreadUnitTest();
+    socketUnitTest();
+    toLowerUnitTest();
+    printf("\nJOONMO KOO TEST ENDS HERE\n");
+
 
 
     printf("PARKER HAGUE TEST BEGINS HERE\n");
