@@ -3,12 +3,14 @@
 
 int main()
 {
-    printf("Michael Oliver Tests Begin now.\n");
+    printf("MICHAEL OLIVER TEST BEGINS HERE\n");
     LLTest();
     printf("\n\n");
     SSThreadsTest();
+    printf("\nMICHAEL OLIVER TEST ENDS HERE\n");
 
-    printf("Parker Hague Tests Begin Now.\n");
+
+    printf("PARKER HAGUE TEST BEGINS HERE\n");
 
     pid_t pid;
     pid = fork(); // creates a child process
@@ -23,5 +25,7 @@ int main()
     {
         runClient(); // runs manager and assistant functions
     }
+    printf("PARKER HAGUE TEST ENDS HERE\n");
+
     return 0;
 }
