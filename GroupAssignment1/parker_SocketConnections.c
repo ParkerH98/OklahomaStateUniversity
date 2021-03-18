@@ -239,7 +239,7 @@ void receiveQueryFromAssistant()
         printf("[-]Error in listening");
     }
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 1; i++)
     {
         // Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
