@@ -9,6 +9,14 @@
 
 int main()
 {
+
+    printf("Michael Oliver Tests Begin now.\n");
+    LLTest();
+    printf("\n\n");
+    SSThreadsTest();
+
+    printf("Parker Hague Tests Begin Now.\n");
+
     pid_t pid;
     pid = fork(); // creates a child process
 
