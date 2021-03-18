@@ -1,15 +1,8 @@
 #include "michael_PR.c"
 #include "parker.c"
 
-// void main(){
-//     LLTest();
-//     printf("\n\n\n");
-//     SSThreadsTest();
-// }
-
 int main()
 {
-
     printf("Michael Oliver Tests Begin now.\n");
     LLTest();
     printf("\n\n");
