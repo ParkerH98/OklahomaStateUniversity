@@ -11,3 +11,11 @@ Issue by Joonmo 3/8/2021
                 employeeName[strlen(employeeName)-1] = 0;
             }
             by Joonmo
+
+
+Issue by Joonmo 3/19/2021
+    - Combined attempt1 Code
+        - it appears that Server does not read correct ID and employeeName 
+        - server is not handling non-exist input
+        - at 2nd iteration in Loop, thread is not working (I think momery lose data or somthing)
+        - history queue is not IO function( It is puting all in memory. I think it should be IO function line by line)
