@@ -13,6 +13,7 @@ CLIENT
         - make sure assistant sends one at a time and then waits ***DONE***
         - check multiple writes to new terminal doesn't overwrite previous queries
         - maybe move printToTerminal from the socket function to the assistant function????
+        - add func to read query from history file and print to terminal if query is found in file
 
 
 SERVER
