@@ -38,9 +38,9 @@ void runServer()
     for (int i = 0; i < TESTING_LOOP; i++){
         receiveQueryFromAssistant(); // starts server and begins listening
 
-        sleep(1);
+        // sleep(2);
 
-        sendResultToAssistant();
+        // sendResultToAssistant();
     }
        
 }
@@ -85,17 +85,21 @@ void manager()
     struct Query query;              // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
-    printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
-    fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
-    strtok(queryPtr->employeeName, "\n");
+    // printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
+    // fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
+    // strtok(queryPtr->employeeName, "\n");
 
-    printf("Enter a job title.\n"); // gets and stores job title into Query struct
-    fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
-    strtok(queryPtr->jobTitle, "\n");
+    // printf("Enter a job title.\n"); // gets and stores job title into Query struct
+    // fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
+    // strtok(queryPtr->jobTitle, "\n");
 
-    printf("Enter a status.\n"); // gets and stores status into Query struct
-    fgets(queryPtr->status, STATUS_LEN, stdin);
-    strtok(queryPtr->status, "\n");
+    // printf("Enter a status.\n"); // gets and stores status into Query struct
+    // fgets(queryPtr->status, STATUS_LEN, stdin);
+    // strtok(queryPtr->status, "\n");
+
+    strcpy(queryPtr->employeeName, "BRIAN BENSON");
+    strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+    strcpy(queryPtr->status, "FT");
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
@@ -116,7 +120,7 @@ void assistant()
 {
     struct Query query;                                                                                                      // holds user query
     query = pipeReceive();                                                                                                   // assistant receives query from Manager
-    printf("\nRECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
+    printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
     FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
@@ -132,9 +136,10 @@ void assistant()
         // printf("HERE---------------------------------");
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
-        sleep(1);
+        // sleep(2);
 
-        receiveResultFromServer();
+
+        // receiveResultFromServer();
 
         printf("\n====================\nQUERY END\n====================\n\n");
 
@@ -178,7 +183,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 
     if (numMatches == 0) // no results found
     {
-        printf("\nQuery does not exist in history file...forwarding request to server.\n");
+        printf("\nCLIENT: Query does not exist in history file...need to forward to server.\n");
     }
 
     if (f)
