@@ -44,3 +44,5 @@ struct Query pipeReceive();
 
 void manager();
 void assistant();
+
+void printToTerminal(struct Employee *employeePtr);

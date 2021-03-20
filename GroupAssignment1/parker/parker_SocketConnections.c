@@ -1,7 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9004
+#define PORT 9006
 
 int inet_addr();
 
@@ -42,16 +42,15 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     strcpy(queryPtr->status, status);
 
     send(clientSocket, queryPtr, sizeof (struct Query), 0);
+    printf("CLIENT: Query sent to server.\n\n");
 
-    printf("CLIENT: Data sent successfully to server.\n\n");
-
-    sleep(0);
 
     struct Employee employee;
     struct Employee *employeePtr = &employee;
 
     read(clientSocket, employeePtr , sizeof(struct Employee));
 
+    printf("CLIENT: Result received from server.\n");
     printf("Id: %d\n", employeePtr->id);
     printf("Employee Name: %s\n", employeePtr->employeeName);
     printf("Job Title: %s\n", employeePtr->jobTitle);
@@ -66,7 +65,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     printf("Work Accident: %d\n", employeePtr->workAccident);
     printf("Promotion in Last 5 Years: %d\n", employeePtr->promotionsLast5Years);
 
-    // printf("[+]Closing the connection.\n");
+    // printToTerminal(employeePtr);
 
     close(clientSocket);
 }
@@ -111,10 +110,7 @@ void receiveQueryFromAssistant()
         struct Query *queryPtr = &query;
 
         recv(connectionSocket, queryPtr, sizeof(struct Query), 0); //Read the message from the server into the buffer
-
-        printf("SERVER: Data received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
-
-        sleep(0);
+        printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
 
         struct Employee employee;
         struct Employee *employeePtr = &employee;
@@ -134,7 +130,6 @@ void receiveQueryFromAssistant()
         employeePtr->promotionsLast5Years = 0;
 
         send(connectionSocket, employeePtr, sizeof(struct Employee), 0);
-
-        printf("\nSERVER: Data sent successfully to assistant.\n");
+        printf("\nSERVER: Result sent to assistant.\n\n");
     }
 }

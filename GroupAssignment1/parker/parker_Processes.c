@@ -8,19 +8,15 @@ void runClient();
 void receiveQueryFromAssistant();
 void sendResultToAssistant();
 void runServer();
-
 void receiveResultFromServer();
-// int inet_addr();
 
 int main()
 {
-
     pid_t pid;
     pid = fork(); // creates a child process
 
     if (pid == 0) // child process
     {
-
         runServer();
 
         exit(0);
@@ -37,10 +33,6 @@ void runServer()
 {
     for (int i = 0; i < TESTING_LOOP; i++){
         receiveQueryFromAssistant(); // starts server and begins listening
-
-        // sleep(2);
-
-        // sendResultToAssistant();
     }
        
 }
@@ -60,7 +52,6 @@ void runClient()
         }
         else if (pid > 0) // parent process
         {
-            // wait(NULL);
             assistant(); // fetching query results for the Manager process
         }
         else
@@ -131,23 +122,16 @@ void assistant()
     {
         // Parker's function to print to a new terminal will go here
     }
-    // else // a match wasn't found
-    // {
-        // printf("HERE---------------------------------");
+    else // a match wasn't found
+    {
         forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
-
-        // sleep(2);
-
-
-        // receiveResultFromServer();
 
         printf("\n====================\nQUERY END\n====================\n\n");
 
 
         // Landon's function to write to the history file will go here.
 
-        // Parker's function to print to a new terminal will go here
-    // }
+    }
 }
 
 /*
@@ -192,4 +176,3 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     }
     return numMatches; 
 }
-

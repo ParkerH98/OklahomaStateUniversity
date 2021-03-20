@@ -12,6 +12,7 @@ CLIENT
         - put assistant on loop to receive again 
         - make sure assistant sends one at a time and then waits ***DONE***
         - check multiple writes to new terminal doesn't overwrite previous queries
+        - maybe move printToTerminal from the socket function to the assistant function????
 
 
 SERVER
