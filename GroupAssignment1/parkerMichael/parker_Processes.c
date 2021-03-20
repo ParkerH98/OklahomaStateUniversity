@@ -35,7 +35,6 @@ void runServer()
     for (int i = 0; i < TESTING_LOOP; i++){
         receiveQueryFromAssistant(); // starts server and begins listening
     }
-       
 }
 
 void runClient()
@@ -62,8 +61,6 @@ void runClient()
         }
     }
 }
-
-
 /*
 ---------------------------------------------------------
 The main Manager function is in charge of getting user input 
@@ -95,7 +92,6 @@ void manager()
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
-
 /*
 ---------------------------------------------------------
 The main Assistant function is in charge of getting user input 
@@ -121,7 +117,7 @@ void assistant()
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
-        // Parker's function to print to a new terminal will go here
+        // func to grab from history file and print call func to print to new terminal
     }
     else // a match wasn't found
     {
@@ -129,12 +125,9 @@ void assistant()
 
         printf("\n====================\nQUERY END\n====================\n\n");
 
-
         // Landon's function to write to the history file will go here.
-
     }
 }
-
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 
