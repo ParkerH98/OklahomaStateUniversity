@@ -210,7 +210,7 @@ void main(){
     if (listen(entrySocket, 5) == 0) { printf("SERVER: Listening....\n"); }
     else { printf("[-]Error in listening"); }
 
-    for (int i = 0; i < TESTING_LOOP; i++)
+    while (1)
     {
         // Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
@@ -275,4 +275,5 @@ void main(){
         send(connectionSocket, employeePtr, sizeof(employeePtr)+STATUS_LEN+JOBTITLE_LEN+EMPLOYEENAME_LEN +sizeof(int)*7+sizeof(double)*3+sizeof(float), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
+    printf("Server shut down at Loop\n");
 }
