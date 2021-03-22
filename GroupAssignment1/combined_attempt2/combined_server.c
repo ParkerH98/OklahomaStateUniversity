@@ -175,17 +175,20 @@ void *mainTheadFunc(void *queryFromClient)
             // ==================================================================================
             // OLIVER'S CODE
             // ==================================================================================
+            
             ThreadSpawn(pEmployeeStruct);
+            
             if (strcmp(pEmployeeStruct->status, pQueryFromClient->status) == 0 && 
                 strcmp(pEmployeeStruct->jobTitle, pQueryFromClient->jobTitle) == 0){
                 enqueue(index, pEmployeeStruct);
             }
-            else{
-                free(pEmployeeStruct);
-            }
+            
+            // else{
+            //     free(pEmployeeStruct);
+            // }
 
-
-            pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
+            
+            // pEmployeeStruct = malloc(sizeof *pEmployeeStruct);
 
             // ==================================================================================
             // OLIVER'S CODE
@@ -200,85 +203,6 @@ void *mainTheadFunc(void *queryFromClient)
 
 }
 
-void mainThread(struct EmployeeStructure* pEmployeeStruct, struct Query queryFromClient){
-
-    pthread_t mainThread;
-    // struct Query queryFromClient;
-    void* pTemp;
-    // struct EmployeeStructure* pEmployeeStruct;
-    struct ListMonitor* index;
-    struct ListEntry* readHead;
-
-	// This Testing examples
-	// strcpy(queryFromClient.employeeName, "THOMAS SMITH");
-	// strcpy(queryFromClient.jobTitle, "SPECIAL NURSE");
-	// strcpy(queryFromClient.status, "FT");
-    printf("MainThread Recived Query employeeName ========= %s\n",queryFromClient.employeeName);
-    printf("MainThread Recived Query jobTitle ============= %s\n",queryFromClient.jobTitle);
-    printf("MainThread Recived Query status =============== %s\n",queryFromClient.status);
-
-
-    if (pthread_create(&mainThread, NULL, mainTheadFunc, (void *)&queryFromClient) != 0) {	// thread1 create
-        printf("Thread1 failed\n");
-        // return -1;
-    }
-
-	pthread_join(mainThread, &pTemp);	/* Wait until thread1 is finished */
-    index = pTemp;
-
-    if (index->tail == NULL){
-        printf("Test");
-        fflush(stdout);
-    }
-
-    readHead = index->head;
-
-    while(readHead->next != NULL){
-        printf("Loop Iteration is running.\n");
-        fflush(stdout);
-        pEmployeeStruct = readHead->data;
-        printf("Data is Free.\n");
-        fflush(stdout);
-        // printf("%s\n",pEmployeeStruct->employeeName);
-        // printf("%d\n",pEmployeeStruct->id);
-        // printf("%s\n",pEmployeeStruct->status);
-        // printf("%s\n\n",pEmployeeStruct->jobTitle);
-        readHead = readHead->next;
-        disqueue(index, readHead->last);
-    }
-    pEmployeeStruct = readHead->data;
-    // printf("Data is Free.\n");
-    // fflush(stdout);
-    // printf("%s\n",pEmployeeStruct->employeeName);
-    // printf("%d\n",pEmployeeStruct->id);
-    // printf("%s\n",pEmployeeStruct->status);
-    // printf("%s\n",pEmployeeStruct->jobTitle);
-    
-    disqueue(index, readHead);
-
-    char employeeName[EMPLOYEENAME_LEN];
-    char jobTitle[JOBTITLE_LEN];
-    char status[STATUS_LEN];
-    printf("======MainThread Recived employee Sturct From SubThread======\n");
-    printf("%d\n", pEmployeeStruct->id);
-    strcpy(employeeName, pEmployeeStruct->employeeName);
-    printf("%s\n",employeeName);
-    strcpy(jobTitle, pEmployeeStruct->jobTitle);
-    printf("%s\n",jobTitle);
-    printf("%f\n", pEmployeeStruct->overtimePay);
-    printf("%f\n", pEmployeeStruct->basePay);
-    printf("%f\n", pEmployeeStruct->benefit);
-    strcpy(status, pEmployeeStruct->status);
-    printf("%s\n",status);
-    printf("%f\n", pEmployeeStruct->satisfactionLevel);
-    printf("%d\n", pEmployeeStruct->numberProject); 
-    printf("%d\n", pEmployeeStruct->averageMonthlyHours);
-    printf("%d\n", pEmployeeStruct->yearsInCompany);
-    printf("%d\n", pEmployeeStruct->workAccident);
-    printf("%d\n", pEmployeeStruct->promotionsLast5Years);
-    printf("%d\n", pEmployeeStruct->duplicateExists);
-    printf("==========================================\n");
-}
 
 
 void server()
@@ -382,7 +306,7 @@ void server()
         }
 
         readHead = index->head;
-
+        
         while(readHead->next != NULL){
             printf("Loop Iteration is running.\n");
             fflush(stdout);
@@ -394,8 +318,10 @@ void server()
             // printf("%s\n",pEmployeeStruct->status);
             // printf("%s\n\n",pEmployeeStruct->jobTitle);
             readHead = readHead->next;
+            printf("================HERE====================\n");
             disqueue(index, readHead->last);
         }
+        
         pEmployeeStruct = readHead->data;
         // printf("Data is Free.\n");
         // fflush(stdout);

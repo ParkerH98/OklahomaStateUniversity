@@ -133,22 +133,24 @@ void client(){
     {
     // for (int i = 0; i < TESTING_LOOP; i++)
     // {
+        printf("==========CLIENT LOOP START==========\n");
         pid_t pid;
     
         pid = fork(); // creates a child process
-        printf("==========CLIENT LOOP START==========\n");
+        
         if (pid == 0) // child process
         {
             manager(); // asking user for input query
             printf("The Manager process is done!\n");
-            // exit(1);
+            exit(0);
         }
         else if (pid > 0) // parent process
         {
-            wait(NULL);
+            
             // sleep(2);
             assistant(); // fetching query results for the Manager process
             printf("The Assistant process is done!\n");
+            wait(NULL);
             // exit(1);
             
             // exit(1);
