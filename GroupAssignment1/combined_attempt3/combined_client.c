@@ -2,6 +2,57 @@
 #include "combined_pipes.c"
 #include "combined_clientOperations.c"
 
+/*
+
+*/
+int writeFile(char *fname, struct EmployeeStructure newLine, int writePos){
+    FILE *fp;
+    FILE *fp2;
+    char tempFName[] = "HistoryTemp.c";
+    char temp[512];
+    int write = 0;
+    int i = 0;
+    int writePosition = writePos;
+    
+    printf("Writing File.");
+
+    if ((fp = fopen(fname, "r")) == NULL){
+        return (-1);
+    }
+
+    if ((fp2 = fopen(tempFName, "w")) == NULL){
+        return(-1);
+    }
+
+    while(fgets(temp,512,fp) != NULL){
+        printf("%d == %d ", i, writePosition);
+        if (i == writePosition && write == 0){
+            printf("New Line In");
+            fprintf(fp2,"%d\t%s\t%s\t%f\t%f\t%f\t%s\t%f\t%d\t%d\t%d\t%d\t%d\n",
+            newLine.id,newLine.employeeName,newLine.jobTitle,newLine.basePay,newLine.overtimePay,
+            newLine.benefit,newLine.status,newLine.satisfactionLevel,newLine.numberProject,
+            newLine.averageMonthlyHours,newLine.yearsInCompany,newLine.workAccident,newLine.promotionsLast5Years);
+            write = 1;
+        }
+        else{
+            fprintf(fp2,"%s", temp);
+        }
+        i = i+1;
+    }
+    if (write == 0){
+        printf("New Line In");
+        fprintf(fp2,"%d\t%s\t%s\t%f\t%f\t%f\t%s\t%f\t%d\t%d\t%d\t%d\t%d",
+        newLine.id,newLine.employeeName,newLine.jobTitle,newLine.basePay,newLine.overtimePay,
+        newLine.benefit,newLine.status,newLine.satisfactionLevel,newLine.numberProject,
+        newLine.averageMonthlyHours,newLine.yearsInCompany,newLine.workAccident,newLine.promotionsLast5Years);
+        write = 1;
+    }
+    fclose(fp2);
+    fclose(fp);
+    remove("history.txt");
+    rename("HistoryTemp.c","history.txt");
+    return 0;
+};
 
 /*
 ---------------------------------------------------------
@@ -11,6 +62,7 @@ job title, and status.
 Params: pointers to the file name, and pointers to the employee name, job title, and status of the query in question
 Return: an int representing the number of matches found in the file
 */
+
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 {
     FILE *f;             // file pointer
@@ -95,14 +147,16 @@ void assistant()
 {
     struct Query query;                                                                                                      // holds user query
     struct EmployeeStructure employeeStruct;
+    int writePosition = 0;
     
     query = pipeReceive();                                                                                                   // assistant receives query from Manager
     printf("\nAssistant: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
     FILE *f; // file pointer
-    f = fopen("History.txt", "a+"); // opens file for appending
+    f = fopen("history.txt", "a+"); // opens file for appending
+    fclose(f);
 
-    char fname[] = "History.txt"; // name of file to search
+    char fname[] = "history.txt"; // name of file to search
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
@@ -115,7 +169,10 @@ void assistant()
        
     else{
         printf("\nAssistant: ----------------NOT FOUND MATCHED INPUT IN HISTORY-----------------\n");
-        sendQueryAndGetEmployeeStruct(query, employeeStruct);
+        sendQueryAndGetEmployeeStruct(query, &employeeStruct);
+        printf("%d",employeeStruct.id);
+        writeFile("History.txt",employeeStruct,writePosition);
+        writePosition = (writePosition + 1)%10;
     }
     fclose(f);
         // Landon's function to write to the history file will go here.
