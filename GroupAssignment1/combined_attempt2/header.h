@@ -19,18 +19,9 @@
 #define STATUS_LEN 3
 #define TESTING_LOOP 3
 
-#define PORT 9004
+#define PORT 9006
 
-struct ListEntry{
-    struct EmployeeStructure* data;
-    struct ListEntry* next;
-    struct ListEntry* last;
-};
 
-struct ListMonitor{
-    struct ListEntry* head;
-    struct ListEntry* tail;
-};
 
 struct Query{
     char employeeName[EMPLOYEENAME_LEN];
@@ -53,6 +44,10 @@ struct EmployeeStructure{
     int workAccident;
     int promotionsLast5Years;
     int duplicateExists;
+};
+struct EmployeeStack{
+    struct EmployeeStructure data;
+    struct EmployeeStack *next;
 };
 
 #endif

@@ -1,9 +1,9 @@
 #include "header.h"
 #include <sys/socket.h>
-#include <netinet/in.h>
-#define PORT 9006
+// #include <netinet/in.h>
 
-int inet_addr();
+
+// int inet_addr();
 
 // Salary Search is the function that takes a EmployeeStructure with a non-empty ID field as input, and finds the information
 // for that Employee ID in the SaLary File. It then adds that information to the relevant fields in the Structure.
@@ -217,7 +217,7 @@ void main(){
         struct Query query;
         struct Query *queryPtr = &query;
 
-        recv(connectionSocket, queryPtr, sizeof(struct Query), 0); //Read the message from the server into the buffer
+        recv(connectionSocket, queryPtr, sizeof(queryPtr)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN, 0); //Read the message from the server into the buffer
         printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
 
         struct EmployeeStructure employee;
@@ -239,12 +239,34 @@ void main(){
         employeePtr->promotionsLast5Years = 0;
         */
 
-       searchMain(queryPtr);
+       top = searchMain(queryPtr);
        employeePtr = &top->data;
-
+       employeePtr->duplicateExists =0;
+       char employeeName[EMPLOYEENAME_LEN];
+        char jobTitle[JOBTITLE_LEN];
+        char status[STATUS_LEN];
+        printf("======Server Recived employee Sturct From MainThread======\n");
+        printf("%d\n", employeePtr->id);
+        strcpy(employeeName, employeePtr->employeeName);
+        printf("%s\n",employeeName);
+        strcpy(jobTitle, employeePtr->jobTitle);
+        printf("%s\n",jobTitle);
+        printf("%f\n", employeePtr->overtimePay);
+        printf("%f\n", employeePtr->basePay);
+        printf("%f\n", employeePtr->benefit);
+        strcpy(status, employeePtr->status);
+        printf("%s\n",status);
+        printf("%f\n", employeePtr->satisfactionLevel);
+        printf("%d\n", employeePtr->numberProject); 
+        printf("%d\n", employeePtr->averageMonthlyHours);
+        printf("%d\n", employeePtr->yearsInCompany);
+        printf("%d\n", employeePtr->workAccident);
+        printf("%d\n", employeePtr->promotionsLast5Years);
+        printf("%d\n", employeePtr->duplicateExists);
+        printf("==========================================\n");
     
 
-        send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
+        send(connectionSocket, employeePtr, sizeof(employeePtr)+STATUS_LEN+JOBTITLE_LEN+EMPLOYEENAME_LEN +sizeof(int)*7+sizeof(double)*3+sizeof(float), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
 }

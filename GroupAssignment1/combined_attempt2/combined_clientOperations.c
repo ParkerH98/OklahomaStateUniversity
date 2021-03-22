@@ -62,7 +62,7 @@ void sendQueryAndGetEmployeeStruct(struct Query query, struct EmployeeStructure 
     // while (read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4) == 0){
     //     printf("Client Waiting");
     // }
-    valread = read( sock , pEmployeeStruct, sizeof(pEmployeeStruct)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN +sizeof(int)*7+sizeof(float)*4); 
+    valread = read( sock , pEmployeeStruct, sizeof(pEmployeeStruct)+STATUS_LEN+JOBTITLE_LEN+EMPLOYEENAME_LEN +sizeof(int)*7+sizeof(double)*3+sizeof(float)); 
     
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
