@@ -3,7 +3,7 @@
 
 
 
-// Run: Use gcc combined_main.c -lpthread
+// Run: gcc combined_main.c -lpthread
 
 #include "header.h"
 #include "combined_client.c"
