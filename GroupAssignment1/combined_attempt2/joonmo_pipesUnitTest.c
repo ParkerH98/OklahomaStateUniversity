@@ -62,7 +62,7 @@ int main(){
     // pid_t pid;
     
     // pid = fork(); // creates a child process
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 3; i++)
     {
     // for (int i = 0; i < TESTING_LOOP; i++)
     // {
@@ -74,18 +74,15 @@ int main(){
         {
             manager(); // asking user for input query
             printf("The Manager process is done!\n");
-            exit(1);
+            exit(0);
         }
         else if (pid > 0) // parent process
         {
-            wait(NULL);
+            
             // sleep(2);
             assistant(); // fetching query results for the Manager process
             printf("The Assistant process is done!\n");
-            
-            // exit(1);
-            
-            // exit(1);
+            wait(NULL);
             
         }
         else
