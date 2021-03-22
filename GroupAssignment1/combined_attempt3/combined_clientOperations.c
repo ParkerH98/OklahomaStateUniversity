@@ -10,11 +10,11 @@
 // CLIENT CONNECTION FUCNTIONS
 // =======================================================================
 
-void sendQueryAndGetEmployeeStruct(struct Query query, struct EmployeeStructure employeeStruct)
+void sendQueryAndGetEmployeeStruct(struct Query query, struct EmployeeStructure *employeeStruct)
 {
  
     struct Query* pQuery = &query;
-    struct EmployeeStructure* pEmployeeStruct = &employeeStruct;
+    struct EmployeeStructure* pEmployeeStruct = employeeStruct;
     // strcpy(query.employeeName, "THOMAS SMITH");
 	// strcpy(query.jobTitle, "SPECIAL NURSE");
 	// strcpy(query.status, "FT");
