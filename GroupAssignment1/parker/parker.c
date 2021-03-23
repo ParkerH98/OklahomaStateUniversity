@@ -284,8 +284,6 @@ void runClient()
         }
     }
 }
-
-
 /*
 ---------------------------------------------------------
 The main Manager function is in charge of getting user input 
@@ -317,7 +315,6 @@ void manager()
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
-
 /*
 ---------------------------------------------------------
 The main Assistant function is in charge of getting user input 
@@ -358,12 +355,8 @@ void assistant()
 
 
         // Landon's function to write to the history file will go here.
-
     }
 }
-
-
-
 
 void runServer()
 {

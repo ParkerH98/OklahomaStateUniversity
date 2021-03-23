@@ -13,7 +13,6 @@
 
 #define TESTING_LOOP 2
 
-
 struct Query
 {
     char employeeName[EMPLOYEENAME_LEN];
@@ -39,10 +38,5 @@ struct Employee
     int duplicateExists;
 };
 
-// void pipeSend(char *employeeName, char *jobTitle, char *status);
-struct Query pipeReceive();
-
 void manager();
 void assistant();
-
-// void printToTerminal(struct Employee *employeePtr);
