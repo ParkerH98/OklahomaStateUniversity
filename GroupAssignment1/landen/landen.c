@@ -2,35 +2,45 @@
 #include <stdlib.h>
 
 void historyFile(char* fileName, char* employeeInfo){
-
-	FILE *history;
-	fopen(fileName, "r+");
-
+FILE *history;
+	history = fopen(fileName, "r");
+	
+	FILE *temp;
+	temp = fopen("temp.txt", "w+");
+	
 	char newLine;
 	
-	char lines[10][500];
+	int count = 0;
 	
-	int i = 9;
 	while((newLine = getc(history)) != EOF){
-		int j = 0;
 		if(newLine == '\n'){
-			i--;
-		}
-		else{
-			lines[i][j] = newLine;
-			j++;
+			count++;
 		}
 	}
 	
-	for(int h = 9; h >= 0; h--){
-		for(int k = 0; k < 500; k++){
-			lines[h][k] = lines[h - 1][k];
+	if(count < 10){
+		while((newLine = getc(history)) != EOF){
+			fputs(newLine, temp);
 		}
+		fputs(employeeInfo, temp);
 	}
-	for(int k = 0; k < 500; k++){
-		lines[0][k] = employeeInfo[k];
+	else{
+		tmpcount = 0;
+		while((newLine = getc(history)) != EOF){
+			if(tmpcount > 0){
+				fputs(newLine, temp);
+			}
+			if(newLine == '\n'){
+				tmpcount++;
+			}
+		}
+		fputs(employeeInfo, temp);
 	}
 	
+	fclose(history);
+	remove(fileName);
+	rename("temp.txt", fileName);
+	fclose(temp);
 	return;
 }
 

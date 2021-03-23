@@ -156,6 +156,7 @@ struct EmployeeStack* searchMain(void *sourceQueryFromClient){
                 // Now that we have the new item firmly on the stack, where we can't lose track of it,
                 // we allocate temp to a new field.
                 temp = malloc(sizeof (struct EmployeeStack));
+                temp->data.id = -100;
             }
             /*
             // Otherwise, release the information, and reallocate the dynamic memory.
@@ -246,6 +247,9 @@ void main(){
         */
 
        top = searchMain(queryPtr);
+
+
+
        employeePtr = &top->data;
        employeePtr->duplicateExists =0;
        char employeeName[EMPLOYEENAME_LEN];

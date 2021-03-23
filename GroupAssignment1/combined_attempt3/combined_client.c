@@ -170,13 +170,9 @@ void assistant()
     else{
         printf("\nAssistant: ----------------NOT FOUND MATCHED INPUT IN HISTORY-----------------\n");
         sendQueryAndGetEmployeeStruct(query, &employeeStruct);
-        printf("%d",employeeStruct.id);
         writeFile("History.txt",employeeStruct,writePosition);
         writePosition = (writePosition + 1)%10;
     }
-    fclose(f);
-        // Landon's function to write to the history file will go here.
-
         // Parker's function to print to a new terminal will go here
     // }
 }
