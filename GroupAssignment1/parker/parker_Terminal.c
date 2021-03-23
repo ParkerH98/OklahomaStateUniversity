@@ -1,13 +1,13 @@
 #include "header.h"
 
-void printToTerminal(struct Employee *employeePtr)
+struct Employee *employeePtr printToTerminal(struct Employee *employeePtr)
 {
     system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
 
     int file = open("/dev/pts/2", O_WRONLY); // sets the gnome-terminal as a file to write to
-    int stdoutDescriptor = dup(1);           // copies the file descriptor for stdout
+    int stdoutDescriptor = dup(1); // copies the file descriptor for stdout
 
-    dup2(file, 1);                              // writes the stdout file descriptor to that of the new gnome-terminal
+    dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
 
     printf("Id: %d\n", employeePtr->id);
     printf("Employee Name: %s\n", employeePtr->employeeName);
@@ -25,6 +25,7 @@ void printToTerminal(struct Employee *employeePtr)
     printf("Should display in a new window\n"); // tests that stdout prints to new terminal
     printf("===================================================\n\n");
 
-    dup2(stdoutDescriptor, 1);            // sets the stdout file descriptor back thereby undoing the change
+    dup2(stdoutDescriptor, 1); // sets the stdout file descriptor back thereby undoing the change
     printf("Should display in vscode\n"); // tests the stdout prints back in original location
-}
+    return employeePtr;
+} 

@@ -1,7 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <sys/wait.h>
+#include <sys/wait.h> 
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void runClient();
@@ -34,7 +34,6 @@ void runServer()
     for (int i = 0; i < TESTING_LOOP; i++){
         receiveQueryFromAssistant(); // starts server and begins listening
     }
-       
 }
 
 void runClient()
@@ -73,7 +72,7 @@ Return: void
 */
 void manager()
 {
-    struct Query query;              // stores query information
+    struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
     // printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
@@ -109,8 +108,8 @@ Return: void
 */
 void assistant()
 {
-    struct Query query;                                                                                                      // holds user query
-    query = pipeReceive();                                                                                                   // assistant receives query from Manager
+    struct Query query; // holds user query
+    query = pipeReceive(); // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
     FILE *f; // file pointer
@@ -124,7 +123,10 @@ void assistant()
     }
     else // a match wasn't found
     {
-        forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        struct Employee employee;
+        struct *employeePtr = forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
+
+        printToTerminal(employeePtr);
 
         printf("\n====================\nQUERY END\n====================\n\n");
 

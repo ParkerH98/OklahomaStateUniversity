@@ -65,7 +65,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     printf("Work Accident: %d\n", employeePtr->workAccident);
     printf("Promotion in Last 5 Years: %d\n", employeePtr->promotionsLast5Years);
 
-    // printToTerminal(employeePtr);
+    
 
     close(clientSocket);
 }
