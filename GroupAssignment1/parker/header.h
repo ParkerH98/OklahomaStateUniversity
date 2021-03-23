@@ -11,7 +11,7 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-#define TESTING_LOOP 3
+#define TESTING_LOOP 2
 
 
 struct Query
@@ -39,10 +39,10 @@ struct Employee
     int duplicateExists;
 };
 
-void pipeSend(char *employeeName, char *jobTitle, char *status);
+// void pipeSend(char *employeeName, char *jobTitle, char *status);
 struct Query pipeReceive();
 
 void manager();
 void assistant();
 
-void printToTerminal(struct Employee *employeePtr);
+// void printToTerminal(struct Employee *employeePtr);

@@ -16,7 +16,7 @@
 // gcc -o joonmo_client parker_Processes.c parker_SocketConnections.c  parker_Pipes.c
 //  gcc -o joonmo_server parker_ServerTest.c
 
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
+void clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void receiveResultFromServer();
 int inet_addr();
@@ -117,7 +117,7 @@ void assistant()
         // strcpy(query.employeeName, "NATHANIEL FORD");
         // strcpy(query.jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
         // strcpy(query.status, "PT");
-        forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
         sleep(1);
 

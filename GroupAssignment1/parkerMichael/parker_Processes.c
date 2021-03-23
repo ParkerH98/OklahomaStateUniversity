@@ -2,10 +2,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/wait.h>
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
+void clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void runClient();
-void receiveQueryFromAssistant();
+void serverSocket_SendReceive();
 void sendResultToAssistant();
 void runServer();
 void receiveResultFromServer();
@@ -33,7 +33,7 @@ int main()
 void runServer()
 {
     for (int i = 0; i < TESTING_LOOP; i++){
-        receiveQueryFromAssistant(); // starts server and begins listening
+        serverSocket_SendReceive(); // starts server and begins listening
     }
 }
 
@@ -121,7 +121,7 @@ void assistant()
     }
     else // a match wasn't found
     {
-        forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
         printf("\n====================\nQUERY END\n====================\n\n");
 

@@ -1,12 +1,11 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9006
+#define PORT 9010
 
 int inet_addr();
 
-// client
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
+struct Employee * clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
     struct sockaddr_in serverAddr;
@@ -27,11 +26,6 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     addr_size = sizeof serverAddr;
     connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size);
     if (clientSocket == -1) { perror("[-]Error in socket"); exit(1); }
-    // printf("[+]Connected to Server.\n\n");
-
-    //=======================================
-    // SENDING AND RECEIVING AFTER THIS POINT
-    //=======================================
 
     struct Query query;
     struct Query *queryPtr = &query;
@@ -43,7 +37,6 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
 
     send(clientSocket, queryPtr, sizeof (struct Query), 0);
     printf("CLIENT: Query sent to server.\n\n");
-
 
     struct Employee employee;
     struct Employee *employeePtr = &employee;
@@ -65,13 +58,12 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     printf("Work Accident: %d\n", employeePtr->workAccident);
     printf("Promotion in Last 5 Years: %d\n", employeePtr->promotionsLast5Years);
 
-    
-
     close(clientSocket);
+
+    return employeePtr;
 }
 
-// server
-void receiveQueryFromAssistant()
+void serverSocket_SendReceive()
 {
     int entrySocket, connectionSocket; // socket file descriptors
     int bindCheck;
@@ -101,10 +93,6 @@ void receiveQueryFromAssistant()
         // Accept call creates a new socket for the incoming connection
         addr_size = sizeof serverStorage;
         connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
-
-        //=======================================
-        // SENDING AND RECEIVING AFTER THIS POINT
-        //=======================================
 
         struct Query query;
         struct Query *queryPtr = &query;

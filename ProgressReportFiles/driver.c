@@ -30,7 +30,7 @@ int main()
 
     if (pid == 0) // child process
     {
-        receiveQueryFromAssistant(); // starts server and begins listening
+        serverSocket_SendReceive(); // starts server and begins listening
 
         exit(0);
     }

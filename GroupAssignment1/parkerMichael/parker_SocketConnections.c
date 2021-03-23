@@ -6,7 +6,7 @@
 int inet_addr();
 
 // client
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
+void clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
     struct sockaddr_in serverAddr;
@@ -71,7 +71,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
 }
 
 // server
-void receiveQueryFromAssistant()
+void serverSocket_SendReceive()
 {
     int entrySocket, connectionSocket; // socket file descriptors
     int bindCheck;

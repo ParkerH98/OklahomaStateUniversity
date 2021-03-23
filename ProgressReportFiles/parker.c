@@ -4,7 +4,7 @@
 
 int inet_addr();
 
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status);
+void clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void runClient();
 
@@ -163,7 +163,7 @@ void printToTerminal()
 
 // USED FUNCTIONS THUS FAR
 
-void receiveQueryFromAssistant()
+void serverSocket_SendReceive()
 {
     int entrySocket, connectionSocket; // socket file descriptors
     int bindCheck;
@@ -217,7 +217,7 @@ void receiveQueryFromAssistant()
     }
 }
 
-void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
+void clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
     struct sockaddr_in serverAddr;
@@ -379,7 +379,7 @@ void assistant()
     // else // a match wasn't found
     // {
     // printf("HERE---------------------------------");
-    forwardQueryToServer(query.employeeName, query.jobTitle, query.status); // sends query to Server
+    clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
     // sleep(1);
 
