@@ -70,10 +70,8 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, st
     int numMatches = 0; // number of matches found
     char temp[512];      // stores the current read line
 
-    if ((f = fopen(fname, "r")) == NULL) // opens file for reading
-    {
-        return (-1);
-    }
+    // opens file for reading
+    if ((f = fopen(fname, "r")) == NULL) { return (-1); }
 
     while (fgets(temp, 512, f) != NULL) // goes through file line by line
     {
@@ -90,15 +88,11 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, st
         line_num++;
     }
 
-    if (numMatches == 0) // no results found
-    {
-        printf("\nQuery does not exist in history file...forwarding request to server.\n");
-    }
+    // no results found
+    if (numMatches == 0) { printf("\nQuery does not exist in history file...forwarding request to server.\n"); }
 
-    if (f)
-    {
-        fclose(f); //Close the file if still open.
-    }
+    //Close the file if still open.
+    if (f) { fclose(f); }
     return numMatches; 
 }
 /*

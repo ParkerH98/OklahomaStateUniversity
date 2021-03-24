@@ -17,11 +17,12 @@
 #define EMPLOYEENAME_LEN 30
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
-#define TESTING_LOOP 3
 
+#define TESTING_LOOP 3
 #define PORT 9006
 
-
+extern int iterationCount = 1;
+extern char IP[16];
 
 struct Query{
     char employeeName[EMPLOYEENAME_LEN];

@@ -5,6 +5,8 @@
 
 int inet_addr();
 
+char IP[16];
+
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 
@@ -20,10 +22,8 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     int numMatches = 0; // number of matches found
     char temp[512];     // stores the current read line
 
-    if ((f = fopen(fname, "r")) == NULL) // opens file for reading
-    {
-        return (-1);
-    }
+    // opens file for reading
+    if ((f = fopen(fname, "r")) == NULL) { return (-1); }
 
     while (fgets(temp, 512, f) != NULL) // goes through file line by line
     {
@@ -35,15 +35,16 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
         }
         line_num++;
     }
-
-    if (numMatches == 0) // no results found
+    // no results found
+    if (numMatches == 0)
     {
         printf("\nCLIENT: Query does not exist in history file...need to forward to server.\n");
     }
 
+    //Close the file if still open.
     if (f)
     {
-        fclose(f); //Close the file if still open.
+        fclose(f);
     }
     return numMatches;
 }
@@ -82,23 +83,24 @@ void printToTerminal(struct Employee employee)
 
 struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
+
+    printf("IP HERE IS %s\n\n\n\n", IP);
+
     int clientSocket;
     struct sockaddr_in serverAddr;
     socklen_t addr_size;
 
-    // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
+    // sets values: Internet domain, Stream socket, Default protocol (TCP in this case)
     clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
     if (clientSocket < 0)
     {
         perror("[-]Error in socket");
         exit(1);
     }
-    // printf("[+]Server socket created successfully.\n");
 
-    // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
     serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
+    serverAddr.sin_addr.s_addr = inet_addr(IP);                    //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     // Connect the socket to the server using the address struct
@@ -142,7 +144,6 @@ struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, cha
     printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
 
     close(clientSocket);
-
     return employee;
 }
 
@@ -160,7 +161,7 @@ void serverSocket_SendReceive()
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
     serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");           //Set IP address to localhost
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);                //Sets IP to accept from any IP address
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
@@ -349,7 +350,6 @@ Return: void
 */
 void assistant()
 {
-
     struct Query query;                                                                                                                                    // holds user query
     query = pipeReceive();                                                                                                                                 // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
@@ -361,21 +361,16 @@ void assistant()
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
-        // Parker's function to print to a new terminal will go here
+        // function to print to a new terminal will go here
     }
     else // a match wasn't found
     {
-        // struct Employee employee;
-        // struct Employee *employeePtr = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         struct Employee employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
-
-        printToTerminal(employee);
-
+        printToTerminal(employee);                                                                             // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
 
-        // Landon's function to write to the history file will go here.
+        // function to write to the history file will go here.
     }
-
     iterationCount++;
 }
 
