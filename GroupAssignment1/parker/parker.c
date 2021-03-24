@@ -1,7 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9010
+#define PORT 9011
 
 int inet_addr();
 
@@ -50,7 +50,10 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
 
 void printToTerminal(struct Employee employee)
 {
-    system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
+    if (iterationCount == 1)
+    {
+        system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
+    }
 
     int file = open("/dev/pts/2", O_WRONLY); // sets the gnome-terminal as a file to write to
     int stdoutDescriptor = dup(1); // copies the file descriptor for stdout
@@ -329,6 +332,7 @@ Return: void
 */
 void assistant()
 {
+   
     struct Query query; // holds user query
     query = pipeReceive(); // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
@@ -356,6 +360,8 @@ void assistant()
 
         // Landon's function to write to the history file will go here.
     }
+
+    iterationCount++;
 }
 
 void runServer()

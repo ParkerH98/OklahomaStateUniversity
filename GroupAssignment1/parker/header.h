@@ -11,7 +11,9 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-#define TESTING_LOOP 2
+#define TESTING_LOOP 5
+
+extern int iterationCount = 1;
 
 struct Query
 {
