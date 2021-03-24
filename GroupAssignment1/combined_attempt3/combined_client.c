@@ -63,7 +63,7 @@ Params: pointers to the file name, and pointers to the employee name, job title,
 Return: an int representing the number of matches found in the file
 */
 
-int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
+int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, struct EmployeeStructure *newLine)
 {
     FILE *f;             // file pointer
     int line_num = 1;    // keeps track of the line number
@@ -81,6 +81,10 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
         {
             printf("A match found on line: %d\n", line_num);
             printf("\n%s\n", temp);
+            sscanf(temp,"%d\t%s\t%s\t%lf\t%lf\t%lf\t%s\t%f\t%d\t%d\t%d\t%d\t%d\n",
+            &newLine->id,newLine->employeeName,newLine->jobTitle,&newLine->basePay,&newLine->overtimePay,
+            &newLine->benefit,newLine->status,&newLine->satisfactionLevel,&newLine->numberProject,
+            &newLine->averageMonthlyHours,&newLine->yearsInCompany,&newLine->workAccident,&newLine->promotionsLast5Years);
             numMatches++;
         }
         line_num++;
@@ -158,10 +162,11 @@ void assistant()
 
     char fname[] = "history.txt"; // name of file to search
 
-    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    if (searchFile(fname, query.employeeName, query.jobTitle, query.status, &employeeStruct) != 0) // a match was found
     {
         // Parker's function to print to a new terminal will go here
         printf("\nAssistant: ----------------FOUND MATCHED INPUT IN HISTORY-----------------\n");
+        printf("Employee ID: %d",employeeStruct.id);
     }
     // else // a match wasn't found
     // {
