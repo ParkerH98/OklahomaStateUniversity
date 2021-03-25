@@ -22,6 +22,7 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 	
 	fseek(history, 0, SEEK_SET);
 	
+	if(employee.id != -99){
 	if(count < 10){
 		while((newLine = getc(history)) != EOF){
 			fprintf(temp, "%c", newLine);
@@ -65,6 +66,7 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 		fprintf(temp, "Work Accident: %d ", employee.workAccident);
 		fprintf(temp, "Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
 		//If the history file already has 10 lines, all of the employee info except for the first line is copied to temp, then the new employee information is appended to the end.
+	}
 	}
 	
 	fclose(history); //Closes the history file
