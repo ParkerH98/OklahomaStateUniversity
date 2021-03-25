@@ -5,7 +5,7 @@
 
 int inet_addr();
 
-struct Employee * clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
+struct EmployeeStructure * clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
     struct sockaddr_in serverAddr;
@@ -38,10 +38,10 @@ struct Employee * clientSocket_SendReceive(char *employeeName, char *jobTitle, c
     send(clientSocket, queryPtr, sizeof (struct Query), 0);
     printf("CLIENT: Query sent to server.\n\n");
 
-    struct Employee employee;
-    struct Employee *employeePtr = &employee;
+    struct EmployeeStructure employee;
+    struct EmployeeStructure *employeePtr = &employee;
 
-    read(clientSocket, employeePtr , sizeof(struct Employee));
+    read(clientSocket, employeePtr , sizeof(struct EmployeeStructure));
 
     printf("CLIENT: Result received from server.\n");
     printf("Id: %d\n", employeePtr->id);
@@ -100,8 +100,8 @@ void serverSocket_SendReceive()
         recv(connectionSocket, queryPtr, sizeof(struct Query), 0); //Read the message from the server into the buffer
         printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
 
-        struct Employee employee;
-        struct Employee *employeePtr = &employee;
+        struct EmployeeStructure employee;
+        struct EmployeeStructure *employeePtr = &employee;
 
         employeePtr->id = 15000;
         strcpy(employeePtr->employeeName, "BRIAN BENSON");
@@ -117,7 +117,7 @@ void serverSocket_SendReceive()
         employeePtr->workAccident = 0;
         employeePtr->promotionsLast5Years = 0;
 
-        send(connectionSocket, employeePtr, sizeof(struct Employee), 0);
+        send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
 }

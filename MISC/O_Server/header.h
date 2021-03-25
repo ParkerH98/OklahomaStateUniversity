@@ -25,7 +25,7 @@ struct Query
     char status[STATUS_LEN];
 };
 
-struct Employee
+struct EmployeeStructure
 {
     int id;
     char employeeName[EMPLOYEENAME_LEN];
@@ -44,7 +44,7 @@ struct Employee
 };
 
 struct EmployeeStack{
-    struct Employee data;
+    struct EmployeeStructure data;
     struct EmployeeStack *next;
 };
 

@@ -5,6 +5,9 @@
 
 // int inet_addr();
 
+void manager();
+void assistant();
+
 char IP[16];
 
 /*
@@ -358,16 +361,19 @@ void assistant()
     f = fopen("History.txt", "a+"); // opens file for appending
 
     char fname[] = "History.txt"; // name of file to search
+    struct EmployeeStructure employee;
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         // function to print to a new terminal will go here
+
+        
         // we need a copy of the Employee struct here
         printToTerminal(employee);
     }
     else // a match wasn't found
     {
-        struct EmployeeStructure employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         printToTerminal(employee);                                                                             // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
 
