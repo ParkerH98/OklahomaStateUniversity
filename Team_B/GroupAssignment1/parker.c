@@ -160,8 +160,8 @@ void serverSocket_SendReceive()
 
     // Configure settings of the server address struct
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);                //Sets IP to accept from any IP address
+    serverAddr.sin_port = htons(PORT); //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY); //Sets IP to accept from any IP address
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
