@@ -24,10 +24,21 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 	
 	if(count < 10){
 		while((newLine = getc(history)) != EOF){
-			printf("%c", newLine);
 			fprintf(temp, "%c", newLine);
 		}
-		fputs(employeeInfo, temp);
+		fprintf(temp, "Id: %d ", employee.id);
+		fprintf(temp, "Employee Name: %s ", employee.employeeName);
+		fprintf(temp, "Job Title: %s ", employee.jobTitle);
+		fprintf(temp, "Base Pay: %f ", employee.basePay);
+		fprintf(temp, "Overtime Pay: %f ", employee.basePay);
+		fprintf(temp, "Benefit: %f ", employee.benefit);
+		fprintf(temp, "Status: %s ", employee.status);
+		fprintf(temp, "Satisfaction Level: %f ", employee.satisfactionLevel);
+		fprintf(temp, "Number of Projects: %d ", employee.numberProject);
+		fprintf(temp, "Average Monthly Hours: %d ", employee.employee.averageMonthlyHours);
+		fprintf(temp, "Company Time (Years): %d ", employee.yearsInCompany);
+		fprintf(temp, "Work Accident: %d ", employee.workAccident);
+		fprintf(temp, "Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
 		//If the history file has less than 10 lines, the whole history file is copied to temp, and then the new employee information is appended to the end.
 	}
 	else{
@@ -48,12 +59,13 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 	remove(fileName); //Deletes the history file
 	fclose(temp); //Closes temp
 	rename("temp.txt", fileName); //Renames temp to the same name as the history file
+	return;
 }
 
 int main(){
 	return 0;
 }
-
+	
 // printf("Id: %d\n", employee.id);
 // printf("Employee Name: %s\n", employee.employeeName);
 // printf("Job Title: %s\n", employee.jobTitle);
