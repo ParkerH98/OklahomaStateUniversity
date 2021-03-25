@@ -78,42 +78,32 @@ void printToTerminal(struct EmployeeStructure employee)
     
     dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
     // printf("=========================DeBug==========================\n\n");
-    printf("Id: %d\n", employee.id);
-    printf("Employee Name: %s\n", employee.employeeName);
-    printf("Job Title: %s\n", employee.jobTitle);
-    printf("Base Pay: %f\n", employee.basePay);
-    printf("Overtime Pay: %f\n", employee.overtimePay);
-    printf("Benefit: %f\n", employee.benefit);
-    printf("Status: %s\n", employee.status);
-    printf("Satisfaction Level: %f\n", employee.satisfactionLevel);
-    printf("Number of Projects: %d\n", employee.numberProject);
-    printf("Average Monthly Hours: %d\n", employee.averageMonthlyHours);
-    printf("Company Time (Years): %d\n", employee.yearsInCompany);
-    printf("Work Accident: %d\n", employee.workAccident);
+    printf("Id: %d ", employee.id);
+    printf("Employee Name: %s ", employee.employeeName);
+    printf("Job Title: %s ", employee.jobTitle);
+    printf("Base Pay: %f ", employee.basePay);
+    printf("Overtime Pay: %f ", employee.overtimePay);
+    printf("Benefit: %f ", employee.benefit);
+    printf("Status: %s ", employee.status);
+    printf("Satisfaction Level: %f ", employee.satisfactionLevel);
+    printf("Number of Projects: %d ", employee.numberProject);
+    printf("Average Monthly Hours: %d ", employee.averageMonthlyHours);
+    printf("Company Time (Years): %d ", employee.yearsInCompany);
+    printf("Work Accident: %d ", employee.workAccident);
     printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
-    printf("Should display in a new window\n"); // tests that stdout prints to new terminal
-    
 
     dup2(stdoutDescriptor, 1);            // sets the stdout file descriptor back thereby undoing the change
-    printf("Should display in vscode\n"); // tests the stdout prints back in original location
 }
 
 struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
-
-    printf("IP HERE IS %s\n\n\n\n", IP);
-
     int clientSocket;
     struct sockaddr_in serverAddr;
     socklen_t addr_size;
 
     // sets values: Internet domain, Stream socket, Default protocol (TCP in this case)
     clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
-    if (clientSocket < 0)
-    {
-        perror("[-]Error in socket");
-        exit(1);
-    }
+    if (clientSocket < 0) { perror("[-]Error in socket"); exit(1); }
 
     serverAddr.sin_family = AF_INET;                               //Address family = Internet
     serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
@@ -123,11 +113,7 @@ struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobT
     // Connect the socket to the server using the address struct
     addr_size = sizeof serverAddr;
     connect(clientSocket, (struct sockaddr *)&serverAddr, addr_size);
-    if (clientSocket == -1)
-    {
-        perror("[-]Error in socket");
-        exit(1);
-    }
+    if (clientSocket == -1) { perror("[-]Error in socket"); exit(1); }
 
     struct Query query;
     struct Query *queryPtr = &query;
@@ -161,7 +147,6 @@ struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobT
     printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
     
     close(clientSocket);
-    
     return employee;
 }
 
@@ -183,22 +168,11 @@ void serverSocket_SendReceive()
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
-    if (bindCheck < 0)
-    {
-        perror("[-]Error in bind");
-        exit(1);
-    }
-    // printf("[+]Binding successfull.\n");
+    if (bindCheck < 0) { perror("[-]Error in bind"); exit(1); }
 
     // Listen on the socket, with 5 max connection requests queued
-    if (listen(entrySocket, 5) == 0)
-    {
-        printf("SERVER: Listening....\n");
-    }
-    else
-    {
-        printf("[-]Error in listening");
-    }
+    if (listen(entrySocket, 5) == 0) { printf("SERVER: Listening....\n"); }
+    else { printf("[-]Error in listening"); }
 
     for (int i = 0; i < TESTING_LOOP; i++)
     {
@@ -372,7 +346,7 @@ void assistant()
     query = pipeReceive();                                                                                                                                 // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
 
-    FILE *f;                        // file pointer
+    FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
 
     char fname[] = "History.txt"; // name of file to search
