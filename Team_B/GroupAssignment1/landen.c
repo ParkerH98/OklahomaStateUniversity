@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
+
 void historyFile(char* fileName, struct EmployeeStructure employee){
 //Accepts the name of the file as a string and the employee's information as a string for arguments.
 	
@@ -74,7 +75,25 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 	return;
 }
 
+
+// gcc landen.c 
 int main(){
+	struct EmployeeStructure employee;
+	employee.id = 15000;
+	strcpy(employee.employeeName, "BRIAN BENSON");
+	strcpy(employee.jobTitle, "IS BUSINESS ANALYST");
+	employee.basePay = 78059.8;
+	employee.overtimePay = 0;
+	employee.benefit = 0;
+	strcpy(employee.status, "FT");
+	employee.satisfactionLevel = 0.37;
+	employee.numberProject = 2;
+	employee.averageMonthlyHours = 158;
+	employee.yearsInCompany = 3;
+	employee.workAccident = 0;
+	employee.promotionsLast5Years = 0;
+
+	historyFile("history.txt", employee);
 	return 0;
 }
 	

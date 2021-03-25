@@ -1,5 +1,7 @@
+#include "header.h"
 #include "parker.c"
 
+// Run: gcc client_driver.c -lpthread -o client
 int main(int argc, char *argv[])
 {
     if (argc == 1)
@@ -9,7 +11,7 @@ int main(int argc, char *argv[])
     }
     printf("Assistant: Entered IP of Server %s\n\n", argv[1]);
     strcpy(IP, argv[1]);
-
+    
     runClient();
     return 0;
 }

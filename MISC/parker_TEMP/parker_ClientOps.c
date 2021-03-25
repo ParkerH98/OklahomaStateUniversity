@@ -1,13 +1,13 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/wait.h> 
-struct Employee * clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status);
+struct EmployeeStructure * clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status);
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status);
 void runClient();
 void serverSocket_SendReceive();
 void sendResultToAssistant();
 void receiveResultFromServer();
-void printToTerminal(struct Employee *employeePtr);
+void printToTerminal(struct EmployeeStructure *employeePtr);
 
 // int main()
 // {
@@ -116,8 +116,8 @@ void assistant()
     }
     else // a match wasn't found
     {
-        struct Employee employee;
-        struct Employee *employeePtr = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        struct EmployeeStructure employee;
+        struct EmployeeStructure *employeePtr = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
 
         printToTerminal(employeePtr);
 
@@ -172,7 +172,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     return numMatches; 
 }
 
-void printToTerminal(struct Employee *employeePtr)
+void printToTerminal(struct EmployeeStructure *employeePtr)
 {
     system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
 

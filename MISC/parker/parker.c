@@ -43,7 +43,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     return numMatches; 
 }
 
-void printToTerminal(struct Employee employee)
+void printToTerminal(struct EmployeeStructure employee)
 {
     if (iterationCount == 1)
     {
@@ -76,7 +76,7 @@ void printToTerminal(struct Employee employee)
 } 
 
 
-struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
+struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
 
     printf("IP HERE IS %s\n\n\n\n", IP);
@@ -110,10 +110,10 @@ struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, cha
     send(clientSocket, queryPtr, sizeof (struct Query), 0);
     printf("CLIENT: Query sent to server.\n\n");
 
-    struct Employee employee;
-    struct Employee *employeePtr = &employee;
+    struct EmployeeStructure employee;
+    struct EmployeeStructure *employeePtr = &employee;
 
-    read(clientSocket, employeePtr , sizeof(struct Employee));
+    read(clientSocket, employeePtr , sizeof(struct EmployeeStructure));
 
     printf("CLIENT: Result received from server.\n");
     printf("Id: %d\n", employee.id);
@@ -171,8 +171,8 @@ void serverSocket_SendReceive()
         recv(connectionSocket, queryPtr, sizeof(struct Query), 0); //Read the message from the server into the buffer
         printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
 
-        struct Employee employee;
-        struct Employee *employeePtr = &employee;
+        struct EmployeeStructure employee;
+        struct EmployeeStructure *employeePtr = &employee;
 
         employeePtr->id = 15000;
         strcpy(employeePtr->employeeName, "BRIAN BENSON");
@@ -188,7 +188,7 @@ void serverSocket_SendReceive()
         employeePtr->workAccident = 0;
         employeePtr->promotionsLast5Years = 0;
 
-        send(connectionSocket, employeePtr, sizeof(struct Employee), 0);
+        send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
 }
@@ -342,7 +342,7 @@ void assistant()
     }
     else // a match wasn't found
     {
-        struct Employee employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        struct EmployeeStructure employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         printToTerminal(employee); // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
 

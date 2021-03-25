@@ -1,9 +1,12 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9011
+// #define PORT 9011
 
-int inet_addr();
+// int inet_addr();
+
+void manager();
+void assistant();
 
 char IP[16];
 
@@ -49,7 +52,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     return numMatches;
 }
 
-void printToTerminal(struct Employee employee)
+void printToTerminal(struct EmployeeStructure employee)
 {
     if (iterationCount == 1)
     {
@@ -81,7 +84,7 @@ void printToTerminal(struct Employee employee)
     printf("Should display in vscode\n"); // tests the stdout prints back in original location
 }
 
-struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
+struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
 
     printf("IP HERE IS %s\n\n\n\n", IP);
@@ -123,10 +126,10 @@ struct Employee clientSocket_SendReceive(char *employeeName, char *jobTitle, cha
     send(clientSocket, queryPtr, sizeof(struct Query), 0);
     printf("CLIENT: Query sent to server.\n\n");
 
-    struct Employee employee;
-    struct Employee *employeePtr = &employee;
+    struct EmployeeStructure employee;
+    struct EmployeeStructure *employeePtr = &employee;
 
-    read(clientSocket, employeePtr, sizeof(struct Employee));
+    read(clientSocket, employeePtr, sizeof(struct EmployeeStructure));
 
     printf("CLIENT: Result received from server.\n");
     printf("Id: %d\n", employee.id);
@@ -194,8 +197,8 @@ void serverSocket_SendReceive()
         recv(connectionSocket, queryPtr, sizeof(struct Query), 0);                                                                      //Read the message from the server into the buffer
         printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
 
-        struct Employee employee;
-        struct Employee *employeePtr = &employee;
+        struct EmployeeStructure employee;
+        struct EmployeeStructure *employeePtr = &employee;
 
         employeePtr->id = 15000;
         strcpy(employeePtr->employeeName, "BRIAN BENSON");
@@ -211,7 +214,7 @@ void serverSocket_SendReceive()
         employeePtr->workAccident = 0;
         employeePtr->promotionsLast5Years = 0;
 
-        send(connectionSocket, employeePtr, sizeof(struct Employee), 0);
+        send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
 }
@@ -283,6 +286,7 @@ struct Query pipeReceive()
 
 void runClient()
 {
+    iterationCount =1;
     for (int i = 0; i < TESTING_LOOP; i++)
     {
         pid_t pid;
@@ -358,16 +362,24 @@ void assistant()
     f = fopen("History.txt", "a+"); // opens file for appending
 
     char fname[] = "History.txt"; // name of file to search
+    struct EmployeeStructure employee;
 
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         // function to print to a new terminal will go here
+
+        
+        // we need a copy of the Employee struct here
+        // printToTerminal(employee);
+        printf("FOUND employee from history");
     }
     else // a match wasn't found
     {
-        struct Employee employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
+        employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         printToTerminal(employee);                                                                             // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
+
+        // historyFile(fname, employee);
 
         // function to write to the history file will go here.
     }

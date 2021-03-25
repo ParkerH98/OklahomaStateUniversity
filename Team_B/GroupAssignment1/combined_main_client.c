@@ -9,7 +9,8 @@
 #include "combined_client.c"
 // #include "combined_server.c"
 
-int main() {    
+int main() {
+    iterationCount = 1;    
     /*
         Automated Input Test
         To modify it, go to manager function in combined_client.c

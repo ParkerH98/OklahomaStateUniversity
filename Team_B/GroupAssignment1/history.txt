@@ -1,3 +1,10 @@
-7237	THOMAS SMITH	SPECIAL NURSE	105827.800000	2131.290000	4180.820000	FT	0.580000	2	191	3	1	0
+Age: 22 Name: Joonmo Koo
+Age: 22 Name: Bob Sagot
+Age: 22 Name: Parker Hague
+Age: 22 Name: Parker Hague
+Employee Name: NATHANIEL FORD Job Title: GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY Status: PT
 Employee Name: GARY JIMENEZ Job Title: CAPTAIN III (POLICE DEPARTMENT) Status: FT
-ls
+Id: 0 Employee Name:  Job Title:  Base Pay: 0.000000 Overtime Pay: 0.000000 Benefit: 0.000000 Status: »œç › Satisfaction Level: 0.000000 Number of Projects: 803104640 Average Monthly Hours: 21917 Company Time (Years): 0 Work Accident: 0 Promotion in Last 5 Years: 803103072
+Id: 0 Employee Name:  Job Title:  Base Pay: 0.000000 Overtime Pay: 0.000000 Benefit: 0.000000 Status: »2≤Ã Satisfaction Level: 0.000000 Number of Projects: 155076480 Average Monthly Hours: 22044 Company Time (Years): 0 Work Accident: 0 Promotion in Last 5 Years: 155074912
+Id: 0 Employee Name:  Job Title:  Base Pay: 0.000000 Overtime Pay: 0.000000 Benefit: 0.000000 Status: »9Ïf Satisfaction Level: 0.000000 Number of Projects: 632444800 Average Monthly Hours: 21949 Company Time (Years): 0 Work Accident: 0 Promotion in Last 5 Years: 632443232
+Id: 15000 Employee Name: BRIAN BENSON Job Title: IS BUSINESS ANALYST Base Pay: 78059.800000 Overtime Pay: 78059.800000 Benefit: 0.000000 Status: FT Satisfaction Level: 0.370000 Number of Projects: 2 Average Monthly Hours: 158 Company Time (Years): 3 Work Accident: 0 Promotion in Last 5 Years: 0

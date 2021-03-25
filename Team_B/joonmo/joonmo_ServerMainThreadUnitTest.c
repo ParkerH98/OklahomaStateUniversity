@@ -1,10 +1,14 @@
 
-// Run: Use gcc add_threads.c -lpthread
 #include "header.h"
 #include <stdio.h>
 #include <pthread.h>
 #include <string.h>
 #include <stdlib.h>
+
+
+/*
+    Micheal also contributed here
+*/
 
 
 // Salary Search is the function that takes a EmployeeStructure with a non-empty ID field as input, and finds the information

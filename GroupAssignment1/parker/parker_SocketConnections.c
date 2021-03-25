@@ -1,14 +1,11 @@
 #include "header.h"
-// #include <sys/socket.h>
-// #include <netinet/in.h>
-// #define PORT 9004
+#include <sys/socket.h>
+#include <netinet/in.h>
+#define PORT 9006
 
+int inet_addr();
 
-// int inet_addr();
-
-// =======================================================================
-// CLIENT CONNECTION FUCNTIONS
-// =======================================================================
+// client
 void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
@@ -44,7 +41,7 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     strcpy(queryPtr->jobTitle, jobTitle);
     strcpy(queryPtr->status, status);
 
-    send(clientSocket, queryPtr, sizeof(struct Query), 0);
+    send(clientSocket, queryPtr, sizeof (struct Query), 0);
     printf("CLIENT: Query sent to server.\n\n");
 
 
@@ -73,8 +70,8 @@ void forwardQueryToServer(char *employeeName, char *jobTitle, char *status)
     close(clientSocket);
 }
 
-
-void receiveQueryFromAssistant(struct Query query)
+// server
+void receiveQueryFromAssistant()
 {
     int entrySocket, connectionSocket; // socket file descriptors
     int bindCheck;
@@ -109,7 +106,7 @@ void receiveQueryFromAssistant(struct Query query)
         // SENDING AND RECEIVING AFTER THIS POINT
         //=======================================
 
-
+        struct Query query;
         struct Query *queryPtr = &query;
 
         recv(connectionSocket, queryPtr, sizeof(struct Query), 0); //Read the message from the server into the buffer
@@ -118,126 +115,21 @@ void receiveQueryFromAssistant(struct Query query)
         struct EmployeeStructure employee;
         struct EmployeeStructure *employeePtr = &employee;
 
-        // employeePtr->id = 15000;
-        // strcpy(employeePtr->employeeName, "BRIAN BENSON");
-        // strcpy(employeePtr->jobTitle, "IS BUSINESS ANALYST");
-        // employeePtr->basePay = 78059.8;
-        // employeePtr->overtimePay = 0;
-        // employeePtr->benefit = 0;
-        // strcpy(employeePtr->status, "FT");
-        // employeePtr->satisfactionLevel = 0.37;
-        // employeePtr->numberProject = 2;
-        // employeePtr->averageMonthlyHours = 158;
-        // employeePtr->yearsInCompany = 3;
-        // employeePtr->workAccident = 0;
-        // employeePtr->promotionsLast5Years = 0;
+        employeePtr->id = 15000;
+        strcpy(employeePtr->employeeName, "BRIAN BENSON");
+        strcpy(employeePtr->jobTitle, "IS BUSINESS ANALYST");
+        employeePtr->basePay = 78059.8;
+        employeePtr->overtimePay = 0;
+        employeePtr->benefit = 0;
+        strcpy(employeePtr->status, "FT");
+        employeePtr->satisfactionLevel = 0.37;
+        employeePtr->numberProject = 2;
+        employeePtr->averageMonthlyHours = 158;
+        employeePtr->yearsInCompany = 3;
+        employeePtr->workAccident = 0;
+        employeePtr->promotionsLast5Years = 0;
 
-        // send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
+        send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
         printf("\nSERVER: Result sent to assistant.\n\n");
     }
-    close(entrySocket);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void sendQueryAndGetEmployeeStruct(struct Query query, struct EmployeeStructure *employeeStruct)
-{
- 
-    struct Query* pQuery = &query;
-    struct EmployeeStructure* pEmployeeStruct = employeeStruct;
-    // strcpy(query.employeeName, "THOMAS SMITH");
-	// strcpy(query.jobTitle, "SPECIAL NURSE");
-	// strcpy(query.status, "FT");
-
-
-    // struct employeeStructure employeeStruct;
-    // struct employeeStructure* pEmployeeStruct = &employeeStruct;
-    int sock = 0, valread;
-    struct sockaddr_in serv_addr;
-    // char *hello = "Hello from client"; 
-    // char buffer[1024] = {0}; 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-    { 
-        printf("\n Socket creation error \n"); 
-        // return -1; 
-    } 
-
-    serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORT); 
-        
-    // Convert IPv4 and IPv6 addresses from text to binary form 
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
-    { 
-        printf("\nInvalid address/ Address not supported \n"); 
-        // return -1; 
-    } 
-
-    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
-    { 
-        printf("\nConnection Failed \n"); 
-        // return -1; 
-    }
-    // ===================Socket Client Setup END===================
-
-
-
-
-
-    // ==================Socket Clinet Operations START==================
-    send(sock , pQuery, sizeof(pQuery)+ EMPLOYEENAME_LEN + JOBTITLE_LEN + STATUS_LEN, 0 ); 
-    // send(sock , hello , strlen(hello) , 0 ); 
-    printf("Client sent Query\n"); 
-    // printf("\n====================\nQUERY END\n====================\n\n");
-
-    // while (read( sock , pEmployeeStruct, 130+sizeof(int)*7+sizeof(float)*4) == 0){
-    //     printf("Client Waiting");
-    // }
-    valread = read( sock , pEmployeeStruct, sizeof(pEmployeeStruct)+STATUS_LEN+JOBTITLE_LEN+EMPLOYEENAME_LEN +sizeof(int)*7+sizeof(double)*3+sizeof(float)); 
-    
-    char employeeName[EMPLOYEENAME_LEN];
-    char jobTitle[JOBTITLE_LEN];
-    char status[STATUS_LEN];
-    printf("======Client Recived employee Sturct======\n");
-    printf("%d\n", pEmployeeStruct->id);
-    strcpy(employeeName, pEmployeeStruct->employeeName);
-    printf("%s\n",employeeName);
-    strcpy(jobTitle, pEmployeeStruct->jobTitle);
-    printf("%s\n",jobTitle);
-    printf("%f\n", pEmployeeStruct->overtimePay);
-    printf("%f\n", pEmployeeStruct->basePay);
-    printf("%f\n", pEmployeeStruct->benefit);
-    strcpy(status, pEmployeeStruct->status);
-    printf("%s\n",status);
-    printf("%f\n", pEmployeeStruct->satisfactionLevel);
-    printf("%d\n", pEmployeeStruct->numberProject); 
-    printf("%d\n", pEmployeeStruct->averageMonthlyHours);
-    printf("%d\n", pEmployeeStruct->yearsInCompany);
-    printf("%d\n", pEmployeeStruct->workAccident);
-    printf("%d\n", pEmployeeStruct->promotionsLast5Years);
-    printf("%d\n", pEmployeeStruct->duplicateExists);
-    printf("==========================================\n");
-    
-    close(sock);
-        
-    
-    //==================Socket Clinet Operation END==================
-
-    
-    // printf("To exit Server, Press Control + c \n");
 }
