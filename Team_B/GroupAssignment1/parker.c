@@ -1,7 +1,7 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
-#define PORT 9011
+// #define PORT 9011
 
 // int inet_addr();
 
@@ -286,6 +286,7 @@ struct Query pipeReceive()
 
 void runClient()
 {
+    iterationCount =1;
     for (int i = 0; i < TESTING_LOOP; i++)
     {
         pid_t pid;
@@ -369,7 +370,8 @@ void assistant()
 
         
         // we need a copy of the Employee struct here
-        printToTerminal(employee);
+        // printToTerminal(employee);
+        printf("FOUND employee from history");
     }
     else // a match wasn't found
     {
@@ -377,7 +379,7 @@ void assistant()
         printToTerminal(employee);                                                                             // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
 
-        historyFile(fname, employee);
+        // historyFile(fname, employee);
 
         // function to write to the history file will go here.
     }

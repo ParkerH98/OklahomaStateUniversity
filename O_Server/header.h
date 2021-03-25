@@ -1,6 +1,5 @@
-#ifndef HEADER_H
-#define HEADER_H
-
+#ifndef HEADER
+#define HEADER
 #include <stdlib.h> // needed for file operations
 #include <stdio.h> // Baisc standard I/O like printf
 #include <string.h> // required for strlen
@@ -11,32 +10,29 @@
 #include <sys/wait.h> // used for wait function 
 #include <netinet/in.h> // needed for socket connections
 #include <sys/socket.h> // needed for socket connections
-#include <arpa/inet.h> 
-#include <pthread.h>
+#include <pthread.h> // needed for threading.
 
 #define EMPLOYEENAME_LEN 30
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
 #define TESTING_LOOP 3
-#define PORT 9006
 
-extern int iterationCount = 1;
-extern char IP[16];
-
-struct Query{
+struct Query
+{
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
     char status[STATUS_LEN];
 };
 
-struct EmployeeStructure{
+struct EmployeeStructure
+{
     int id;
     char employeeName[EMPLOYEENAME_LEN];
     char jobTitle[JOBTITLE_LEN];
-    double basePay;
-    double overtimePay;
-    double benefit;
+    float basePay;
+    float overtimePay;
+    float benefit;
     char status[STATUS_LEN];
     float satisfactionLevel;
     int numberProject;
@@ -46,6 +42,7 @@ struct EmployeeStructure{
     int promotionsLast5Years;
     int duplicateExists;
 };
+
 struct EmployeeStack{
     struct EmployeeStructure data;
     struct EmployeeStack *next;
