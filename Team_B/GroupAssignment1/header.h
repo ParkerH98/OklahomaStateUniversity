@@ -18,10 +18,10 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-#define TESTING_LOOP 3
-#define PORT 9006
+#define TESTING_LOOP 1
+#define PORT 9007
 
-extern int iterationCount = 1;
+extern int iterationCount;
 extern char IP[16];
 
 struct Query{

@@ -1,0 +1,23 @@
+TODO LIST:
+
+CLIENT
+
+    test mulitple people name instead of automated names
+
+       ASSISTANT:
+        - write employee information to history.txt
+        - queue functionality of history file 
+        - check multiple writes to new terminal doesn't overwrite previous queries
+        - add func to read query from history file and print to terminal if query is found in file (handles the 'if')
+        - make sure to not open up a new terminal window after the first iteration DONE
+        - make assistant send to any IP
+
+
+SERVER
+    - saving results to a struct 
+    - make server receive from any IP
+
+EXTRA
+    - all reading string use to lowercase conversion
+
+

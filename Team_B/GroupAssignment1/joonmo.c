@@ -172,23 +172,19 @@ void runServer(){
         char jobTitle[JOBTITLE_LEN];
         char status[STATUS_LEN];
         printf("======Server Recived employee Sturct From MainThread======\n");
-        printf("%d\n", employeePtr->id);
-        strcpy(employeeName, employeePtr->employeeName);
-        printf("%s\n",employeeName);
-        strcpy(jobTitle, employeePtr->jobTitle);
-        printf("%s\n",jobTitle);
-        printf("%f\n", employeePtr->overtimePay);
-        printf("%f\n", employeePtr->basePay);
-        printf("%f\n", employeePtr->benefit);
-        strcpy(status, employeePtr->status);
-        printf("%s\n",status);
-        printf("%f\n", employeePtr->satisfactionLevel);
-        printf("%d\n", employeePtr->numberProject); 
-        printf("%d\n", employeePtr->averageMonthlyHours);
-        printf("%d\n", employeePtr->yearsInCompany);
-        printf("%d\n", employeePtr->workAccident);
-        printf("%d\n", employeePtr->promotionsLast5Years);
-        printf("%d\n", employeePtr->duplicateExists);
+        printf("Id: %d\n", employeePtr->id);
+        printf("Employee Name: %s\n", employeePtr->employeeName);
+        printf("Job Title: %s\n", employeePtr->jobTitle);
+        printf("Base Pay: %f\n", employeePtr->basePay);
+        printf("Overtime Pay: %f\n", employeePtr->overtimePay);
+        printf("Benefit: %f\n", employeePtr->benefit);
+        printf("Status: %s\n", employeePtr->status);
+        printf("Satisfaction Level: %f\n", employeePtr->satisfactionLevel);
+        printf("Number of Projects: %d\n", employeePtr->numberProject);
+        printf("Average Monthly Hours: %d\n", employeePtr->averageMonthlyHours);
+        printf("Company Time (Years): %d\n", employeePtr->yearsInCompany);
+        printf("Work Accident: %d\n", employeePtr->workAccident);
+        printf("Promotion in Last 5 Years: %d\n", employeePtr->promotionsLast5Years);
         printf("==========================================\n");
     
 
