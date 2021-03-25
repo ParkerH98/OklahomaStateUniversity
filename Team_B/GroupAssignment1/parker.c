@@ -1,7 +1,10 @@
 #include "header.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <string.h>
+#include <ctype.h>
 #include "landen.c"
+
 // #define PORT 9011
 
 // int inet_addr();
@@ -47,6 +50,7 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
         if ((strstr(temp, employeeName)) != NULL && (strstr(temp, jobTitle)) != NULL && (strstr(temp, status)) != NULL) // searches for the specific employee attributes
         {
             printf("A match found on line: %d\n", line_num);
+            printf("========================HERE====================== \n ");
             printf("\n%s\n", temp);
             numMatches++;
         }
@@ -66,29 +70,61 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     return numMatches;
 }
 
+
+void getNumberOfTerminals(char* numberOfTerminal)
+{
+
+  FILE *fp;
+//   char numberOfTerminal[50];
+
+  /* Open the command for reading. */
+  fp = popen("/bin/ls /dev/pts/  | wc -l", "r");
+  if (fp == NULL) {
+    printf("Failed to run command\n" );
+    exit(1);
+  }
+
+  /* Read the output a line at a time - output it. */
+  while (fgets(numberOfTerminal, sizeof(numberOfTerminal), fp) != NULL) {
+    printf("%s", numberOfTerminal);
+  }
+
+  /* close */
+  pclose(fp);
+}
+
+// char s[] = "45";
+// int num = atoi(s);
+
 void printToTerminal(struct EmployeeStructure employee)
 {
+    
+    char numberOfTerminal[50];
+    getNumberOfTerminals(numberOfTerminal);
+    char commendPath[] = "/dev/pts/";
+    strcat(commendPath,numberOfTerminal);
+    printf("========================%s \n ", commendPath);
     if (iterationCount == 1)
     {
         system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
     }
-
-    int file = open("/dev/pts/11", O_WRONLY); // sets the gnome-terminal as a file to write to
+    
+    int file = open(commendPath, O_WRONLY); // sets the gnome-terminal as a file to write to
     int stdoutDescriptor = dup(1);           // copies the file descriptor for stdout
     
     dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
     // printf("=========================DeBug==========================\n\n");
-    printf("Id: %d ", employee.id);
-    printf("Employee Name: %s ", employee.employeeName);
-    printf("Job Title: %s ", employee.jobTitle);
-    printf("Base Pay: %f ", employee.basePay);
-    printf("Overtime Pay: %f ", employee.overtimePay);
-    printf("Benefit: %f ", employee.benefit);
-    printf("Status: %s ", employee.status);
-    printf("Satisfaction Level: %f ", employee.satisfactionLevel);
-    printf("Number of Projects: %d ", employee.numberProject);
-    printf("Average Monthly Hours: %d ", employee.averageMonthlyHours);
-    printf("Company Time (Years): %d ", employee.yearsInCompany);
+    printf("Id: %d\n", employee.id);
+    printf("Employee Name:%s \n ", employee.employeeName);
+    printf("Job Title: %s \n ", employee.jobTitle);
+    printf("Base Pay: %f \n ", employee.basePay);
+    printf("Overtime Pay: %f \n ", employee.overtimePay);
+    printf("Benefit: %f \n ", employee.benefit);
+    printf("Status: %s \n ", employee.status);
+    printf("Satisfaction Level: %f \n ", employee.satisfactionLevel);
+    printf("Number of Projects: %d \n ", employee.numberProject);
+    printf("Average Monthly Hours: %d \n ", employee.averageMonthlyHours);
+    printf("Company Time (Years): %d \n ", employee.yearsInCompany);
     printf("Work Accident: %d ", employee.workAccident);
     printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
 
@@ -351,22 +387,24 @@ void assistant()
 
     char fname[] = "History.txt"; // name of file to search
     struct EmployeeStructure employee;
-
+    
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         // we need a copy of the Employee struct here
         // printToTerminal(employee);
-        printf("FOUND employee from history");
+        
+        printf("FOUND employee from history\n");
     }
     else // a match wasn't found
     {
+        
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         
         printToTerminal(employee); // prints the returned employee information to a new terminal
         // printf("===================DEBUG=======================\n");                                                                         // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
 
-        // historyFile(fname, employee);
+        historyFile(fname, employee);
     }
     iterationCount++;
 }

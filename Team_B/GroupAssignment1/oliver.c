@@ -43,7 +43,7 @@ void* SalarySearch(void *arg){
 			test->basePay = basePay;
 			test->overtimePay = overtimePay;
 			test->benefit = benefit;
-			convertToLowerCase(test->status);
+			// convertToLowerCase(test->status);
 			break;
 		}
 	}

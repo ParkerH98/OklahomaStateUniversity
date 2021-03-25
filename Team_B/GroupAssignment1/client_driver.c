@@ -2,7 +2,7 @@
 #include "parker.c"
 
 // Run: gcc client_driver.c -lpthread -o client
-
+// ./client 127.0.0.1
 //strcpy(queryPtr->employeeName, "BRIAN BENSON");
 // strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
  // strcpy(queryPtr->status, "FT");

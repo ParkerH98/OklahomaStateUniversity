@@ -1,0 +1,1 @@
+Id: 15000 Employee Name: BRIAN BENSON Job Title: IS BUSINESS ANALYST Base Pay: 78059.800000 Overtime Pay: 78059.800000 Benefit: 0.000000 Status: FT Satisfaction Level: 0.370000 Number of Projects: 2 Average Monthly Hours: 158 Company Time (Years): 3 Work Accident: 0 Promotion in Last 5 Years: 0

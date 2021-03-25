@@ -2,21 +2,19 @@ TODO LIST:
 
 CLIENT
 
-    test mulitple people name instead of automated names
+    test mulitple people name instead of automated names - everyone
 
        ASSISTANT:
-        - write employee information to history.txt
-        - queue functionality of history file 
-        - check multiple writes to new terminal doesn't overwrite previous queries
-        - add func to read query from history file and print to terminal if query is found in file (handles the 'if')
-        - make sure to not open up a new terminal window after the first iteration DONE
-        - make assistant send to any IP
-
+        - write employee information to history.txt - landen
+        - queue functionality of history file  - landen
+        - add func to read query from history file and print to terminal if query is found in file (handles the 'if') -landen
+        - lowercase conversion for query and file - parker
 
 SERVER
-    - make server receive from any IP
+    - make server receive from any IP - jooonmo
+    -
 
 EXTRA
-    - all reading string use to lowercase conversion
+    - all reading string use to lowercase conversion -everyone
 
 
