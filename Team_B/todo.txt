@@ -14,7 +14,6 @@ CLIENT
 
 
 SERVER
-    - saving results to a struct 
     - make server receive from any IP
 
 EXTRA

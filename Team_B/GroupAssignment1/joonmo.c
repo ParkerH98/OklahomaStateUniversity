@@ -1,9 +1,23 @@
 #include "header.h"
 #include <sys/socket.h>
-#include "oliver.c"
 
+#include <ctype.h>
+#include "oliver.c"
 // server
 
+
+
+void convertToLowerCase (char* string) {
+   int i = 0;
+   char c;
+   // char str[] = "JOONMO KOO";
+   
+   while(string[i]) {
+      // putchar (toupper(str[i]));
+      string[i] = tolower(string[i]);
+      i++;
+   }
+}
 
 struct EmployeeStack* searchMain(void *sourceQueryFromClient){
     struct Query* queryFromClient = sourceQueryFromClient;
