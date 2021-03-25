@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void historyFile(char* fileName, char* employeeInfo){
+void historyFile(char* fileName, struct EmployeeStructure employee){
 //Accepts the name of the file as a string and the employee's information as a string for arguments.
 	
 	FILE *history;
@@ -53,3 +53,19 @@ void historyFile(char* fileName, char* employeeInfo){
 int main(){
 	return 0;
 }
+
+// printf("Id: %d\n", employee.id);
+// printf("Employee Name: %s\n", employee.employeeName);
+// printf("Job Title: %s\n", employee.jobTitle);
+// printf("Base Pay: %f\n", employee.basePay);
+// printf("Overtime Pay: %f\n", employee.overtimePay);
+// printf("Benefit: %f\n", employee.benefit);
+// printf("Status: %s\n", employee.status);
+// printf("Satisfaction Level: %f\n", employee.satisfactionLevel);
+// printf("Number of Projects: %d\n", employee.numberProject);
+// printf("Average Monthly Hours: %d\n", employee.averageMonthlyHours);
+// printf("Company Time (Years): %d\n", employee.yearsInCompany);
+// printf("Work Accident: %d\n", employee.workAccident);
+// printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
+// printf("Should display in a new window\n"); // tests that stdout prints to new terminal
+// printf("===================================================\n\n");

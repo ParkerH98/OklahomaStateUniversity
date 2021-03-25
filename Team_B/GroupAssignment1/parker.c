@@ -362,12 +362,16 @@ void assistant()
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         // function to print to a new terminal will go here
+        // we need a copy of the Employee struct here
+        printToTerminal(employee);
     }
     else // a match wasn't found
     {
         struct Employee employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         printToTerminal(employee);                                                                             // prints the received result to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
+
+        historyFile(fname, employee);
 
         // function to write to the history file will go here.
     }
