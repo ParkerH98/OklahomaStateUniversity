@@ -5,6 +5,17 @@
 
 // Salary Search is the function that takes a EmployeeStructure with a non-empty ID field as input, and finds the information
 // for that Employee ID in the SaLary File. It then adds that information to the relevant fields in the Structure.
+void convertToLowerCase (char* string) {
+   int i = 0;
+   char c;
+   // char str[] = "JOONMO KOO";
+   
+   while(string[i]) {
+      // putchar (toupper(str[i]));
+      string[i] = tolower(string[i]);
+      i++;
+   }
+}
 void* SalarySearch(void *arg){
     // Clone the input pointer so that it's of the right type.
 	struct EmployeeStructure *test = (struct EmployeeStructure *)arg;
@@ -32,6 +43,7 @@ void* SalarySearch(void *arg){
 			test->basePay = basePay;
 			test->overtimePay = overtimePay;
 			test->benefit = benefit;
+			convertToLowerCase(test->status);
 			break;
 		}
 	}
@@ -63,7 +75,6 @@ void* SatisfactionSearch(void *arg){
 			sscanf(string,"%d\t%f\t%d\t%d\t%d\t%d\t%d",&id,&satisfactionLevel,&test->numberProject,&test->averageMonthlyHours,
 				&test->yearsInCompany,&test->workAccident,&test->promotionsLast5Years);
 			test->satisfactionLevel = satisfactionLevel;
-
 			break;
 		}
 	}

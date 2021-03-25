@@ -47,6 +47,8 @@ struct EmployeeStack* searchMain(void *sourceQueryFromClient){
         if (employeeName[strlen(employeeName)-1] == '\n'){
             employeeName[strlen(employeeName)-1] = 0;
         }
+        convertToLowerCase(employeeID);
+        convertToLowerCase(employeeName);
         //If the Name we have is the name we're looking for.
 		if(strcmp(employeeName, queryFromClient->employeeName) == 0){
             // Load the ID and Name into the Employee Structure at pEmployeeStruct.
