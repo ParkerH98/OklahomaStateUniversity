@@ -27,19 +27,19 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 		while((newLine = getc(history)) != EOF){
 			fprintf(temp, "%c", newLine);
 		}
-		fprintf(temp, "Id: %d \n", employee.id);
-		fprintf(temp, "Employee Name: %s \n", employee.employeeName);
-		fprintf(temp, "Job Title: %s \n", employee.jobTitle);
-		fprintf(temp, "Base Pay: %f \n", employee.basePay);
-		fprintf(temp, "Overtime Pay: %f \n", employee.basePay);
-		fprintf(temp, "Benefit: %f \n", employee.benefit);
-		fprintf(temp, "Status: %s ", employee.status);
-		fprintf(temp, "Satisfaction Level: %f \n", employee.satisfactionLevel);
-		fprintf(temp, "Number of Projects: %d \n", employee.numberProject);
-		fprintf(temp, "Average Monthly Hours: %d \n", employee.averageMonthlyHours);
-		fprintf(temp, "Company Time (Years): %d \n", employee.yearsInCompany);
-		fprintf(temp, "Work Accident: %d \n", employee.workAccident);
-		fprintf(temp, "Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
+		fprintf(temp, "Id: [%d] \n", employee.id);
+		fprintf(temp, "Employee Name: {%s} \n", employee.employeeName);
+		fprintf(temp, "Job Title: <%s> \n", employee.jobTitle);
+		fprintf(temp, "Base Pay: [%f] \n", employee.basePay);
+		fprintf(temp, "Overtime Pay: [%f] \n", employee.basePay);
+		fprintf(temp, "Benefit: [%f] \n", employee.benefit);
+		fprintf(temp, "Status: /%s/ ", employee.status);
+		fprintf(temp, "Satisfaction Level: [%f] \n", employee.satisfactionLevel);
+		fprintf(temp, "Number of Projects: [%d] \n", employee.numberProject);
+		fprintf(temp, "Average Monthly Hours: [%d] \n", employee.averageMonthlyHours);
+		fprintf(temp, "Company Time (Years): [%d] \n", employee.yearsInCompany);
+		fprintf(temp, "Work Accident: [%d] \n", employee.workAccident);
+		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
 		//If the history file has less than 10 lines, the whole history file is copied to temp, and then the new employee information is appended to the end.
 	}
 	else{
@@ -53,19 +53,19 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 			}
 		}
 		
-		fprintf(temp, "Id: %d ", employee.id);
-		fprintf(temp, "Employee Name: %s ", employee.employeeName);
-		fprintf(temp, "Job Title: %s ", employee.jobTitle);
-		fprintf(temp, "Base Pay: %f ", employee.basePay);
-		fprintf(temp, "Overtime Pay: %f ", employee.basePay);
-		fprintf(temp, "Benefit: %f ", employee.benefit);
-		fprintf(temp, "Status: %s ", employee.status);
-		fprintf(temp, "Satisfaction Level: %f ", employee.satisfactionLevel);
-		fprintf(temp, "Number of Projects: %d ", employee.numberProject);
-		fprintf(temp, "Average Monthly Hours: %d ", employee.averageMonthlyHours);
-		fprintf(temp, "Company Time (Years): %d ", employee.yearsInCompany);
-		fprintf(temp, "Work Accident: %d ", employee.workAccident);
-		fprintf(temp, "Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
+		fprintf(temp, "Id: [%d] ", employee.id);
+		fprintf(temp, "Employee Name: {%s} ", employee.employeeName);
+		fprintf(temp, "Job Title: <%s> ", employee.jobTitle);
+		fprintf(temp, "Base Pay: [%f] ", employee.basePay);
+		fprintf(temp, "Overtime Pay: [%f] ", employee.basePay);
+		fprintf(temp, "Benefit: [%f] ", employee.benefit);
+		fprintf(temp, "Status: /%s/ ", employee.status);
+		fprintf(temp, "Satisfaction Level: [%f] ", employee.satisfactionLevel);
+		fprintf(temp, "Number of Projects: [%d] ", employee.numberProject);
+		fprintf(temp, "Average Monthly Hours: [%d] ", employee.averageMonthlyHours);
+		fprintf(temp, "Company Time (Years): [%d] ", employee.yearsInCompany);
+		fprintf(temp, "Work Accident: [%d] ", employee.workAccident);
+		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
 		//If the history file already has 10 lines, all of the employee info except for the first line is copied to temp, then the new employee information is appended to the end.
 	}
 	
