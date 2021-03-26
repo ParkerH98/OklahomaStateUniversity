@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "header.h"
 
 void writeToHistoryFile(char* fileName, struct EmployeeStructure employee){

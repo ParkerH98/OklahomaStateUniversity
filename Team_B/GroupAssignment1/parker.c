@@ -1,21 +1,11 @@
 #include "header.h"
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <ctype.h>
 #include "landen.c"
-
-// #define PORT 9011
-
-// int inet_addr();
 
 void manager();
 void assistant();
 
 int iterationCount = 1;
-
 char IP[16];
-// extern int iterationCount;
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 

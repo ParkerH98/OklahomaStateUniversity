@@ -13,6 +13,10 @@
 #include <sys/socket.h> // needed for socket connections
 #include <arpa/inet.h> 
 #include <pthread.h>
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
+
 
 #define EMPLOYEENAME_LEN 30
 #define JOBTITLE_LEN 128
