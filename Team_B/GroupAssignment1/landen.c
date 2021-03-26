@@ -76,6 +76,216 @@ void historyFile(char* fileName, struct EmployeeStructure employee){
 	return;
 }
 
+struct EmployeeStructure employeeSearch(char* fileName, struct Query query){
+	
+	struct EmployeeStructure employee;
+	
+	FILE *history;
+	history = fopen(fileName, "r");
+	
+	char *name = query.employeeName;
+	char *jobTitle = query.jobTitle;
+	char *status = query.status;
+	
+	char idString[500];
+	int id;
+	
+	char basePayString[500];
+	double basePay;
+	
+	char overtimePayString[500];
+	double overtimePay;
+	
+	char benefitString[500];
+	double benefit;
+	
+	char satisfactionLevelString[500];
+	float satisfactionLevel;
+	
+	char numberProjectString[500];
+	int numberProject;
+	
+	char averageMonthlyHoursString[500];
+	int averageMonthlyHours;
+	
+	char yearsInCompanyString[500];
+	int yearsInCompany;
+	
+	char workAccidentString[500];
+	int workAccident;
+	
+	char promotionsLast5YearsString[500];
+	int promotionsLast5Years;
+	
+	char next;
+	
+	bool sameName = true;
+	bool sameJobTitle = true;
+	bool sameStatus = true;
+	
+	while((next = getc(history)) != EOF){
+		
+		if(next == '{'){
+			int i = 0;
+			while((next = getc(history)) != '}'){
+				if(next != name[i]){
+					sameName = false;
+				}
+				i++;
+			}
+		}
+		
+		if(next == '<'){
+			int i = 0;
+			while((next = getc(history)) != '>'){
+				if(next != jobTitle[i]){
+					sameJobTitle = false;
+				}
+				i++;
+			}
+		}
+		
+		if(next == '/'){
+			int i = 0;
+			while((next = getc(history)) != '/'){
+				if(next != status[i]){
+					sameStatus = false;
+				}
+				i++;
+			}
+		}
+	}
+	
+	fseek(history, 0, SEEK_SET);
+	
+	if(sameName && sameJobTitle && sameStatus){
+		
+		int i = 0;
+		
+		strcpy(employee.employeeName, name);
+		strcpy(employee.jobTitle, jobTitle);
+		strcpy(employee.status, status);
+		
+		while((next = getc(history)) != EOF){
+			if(next == '[' && i == 0){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					idString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 1){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					basePayString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 2){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					overtimePayString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 3){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					benefitString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 4){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					satisfactionLevelString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 5){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					numberProjectString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 6){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					averageMonthlyHoursString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 7){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					yearsInCompanyString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 8){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					workAccidentString[j] = next;
+					j++;
+				}
+			}
+			else if(next == '[' && i == 9){
+				i++;
+				int j = 0;
+				while((next = getc(history)) != ']'){
+					promotionsLast5YearsString[j] = next;
+					j++;
+				}
+			}
+		}
+		
+		char *end;
+		
+		id = atoi(idString);
+		employee.id = id;
+		
+		basePay = strtod(basePayString, &end);
+		employee.basePay = basePay;
+		
+		overtimePay = strtod(overtimePayString, &end);
+		employee.overtimePay = overtimePay;
+		
+		benefit = strtod(benefitString, &end);
+		employee.benefit = benefit;
+		
+		satisfactionLevel = strtof(satisfactionLevelString, &end);
+		employee.satisfactionLevel = satisfactionLevel;
+		
+		numberProject = atoi(numberProjectString);
+		employee.numberProject = numberProject;
+		
+		averageMonthlyHours = atoi(averageMonthlyHoursString);
+		employee.averageMonthlyHours = averageMonthlyHours;
+		
+		yearsInCompany = atoi(yearsInCompanyString);
+		employee.yearsInCompany = yearsInCompany;
+		
+		workAccident = atoi(workAccidentString);
+		employee.workAccident = workAccident;
+		
+		promotionsLast5Years = atoi(promotionsLast5YearsString);
+		employee.promotionsLast5Years = promotionsLast5Years;
+	}
+	
+	fclose(history);
+	
+	return employee;
+}
 
 // gcc landen.c 
 // int main(){
