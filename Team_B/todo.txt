@@ -3,10 +3,11 @@ TODO LIST:
 CLIENT
 
     test mulitple people name instead of automated names - everyone
+    create struct with 10+ names to automate full program
 
        ASSISTANT:
-        - write employee information to history.txt - landen
         - queue functionality of history file  - landen
+        - lowercase conversion for writing to file - landen
         - add func to read query from history file and print to terminal if query is found in file (handles the 'if') -landen
         - lowercase conversion for query and file - parker
 

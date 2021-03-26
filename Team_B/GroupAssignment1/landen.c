@@ -12,7 +12,6 @@ void writeToHistoryFile(char* fileName, struct EmployeeStructure employee){
 	char newLine;
 	int count = 0;
 	
-	
 	while((newLine = getc(history)) != EOF){
 		if(newLine == '\n'){
 			count++;  //Whenever the char variable newLine is a newline character, int variable count increments by one. This is done to check whether or not the file has 10 lines.

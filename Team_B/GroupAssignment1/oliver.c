@@ -2,7 +2,6 @@
 #include <sys/socket.h>
 
 
-
 // Salary Search is the function that takes a EmployeeStructure with a non-empty ID field as input, and finds the information
 // for that Employee ID in the SaLary File. It then adds that information to the relevant fields in the Structure.
 void convertToLowerCase (char* string) {
