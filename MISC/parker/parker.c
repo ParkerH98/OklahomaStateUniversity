@@ -15,7 +15,7 @@ job title, and status.
 Params: pointers to the file name, and pointers to the employee name, job title, and status of the query in question
 Return: an int representing the number of matches found in the file
 */
-int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
+int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status)
 {
     FILE *f;             // file pointer
     int line_num = 1;    // keeps track of the line number
@@ -336,7 +336,7 @@ void assistant()
 
     char fname[] = "History.txt"; // name of file to search
 
-    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    if (searchForQuery(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         // function to print to a new terminal will go here
     }

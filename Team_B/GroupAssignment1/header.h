@@ -18,7 +18,7 @@
 #define JOBTITLE_LEN 128
 #define STATUS_LEN 3
 
-#define TESTING_LOOP 1
+#define TESTING_LOOP 2
 #define PORT 9007
 
 extern int iterationCount;

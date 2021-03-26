@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
-void historyFile(char* fileName, struct EmployeeStructure employee){
+void writeToHistoryFile(char* fileName, struct EmployeeStructure employee){
 //Accepts the name of the file as a string and the employee's information as a string for arguments.
 	
 	FILE *history;

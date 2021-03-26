@@ -35,23 +35,21 @@ void convertToLowerCase (char* string) {
       i++;
    }
 }
-int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
+int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status)
 {
     FILE *f;            // file pointer
     int line_num = 1;   // keeps track of the line number
     int numMatches = 0; // number of matches found
     char temp[512];     // stores the current read line
 
-    // opens file for reading
-    if ((f = fopen(fname, "r")) == NULL) { return (-1); }
+    if ((f = fopen(fname, "r")) == NULL) { return (-1); } // opens file for reading
 
     while (fgets(temp, 512, f) != NULL) // goes through file line by line
     {
         if ((strstr(temp, employeeName)) != NULL && (strstr(temp, jobTitle)) != NULL && (strstr(temp, status)) != NULL) // searches for the specific employee attributes
         {
-            printf("A match found on line: %d\n", line_num);
-            printf("========================HERE====================== \n ");
-            printf("\n%s\n", temp);
+            printf("Client: A match found on line: %d\n", line_num);
+            // printf("\n%s\n", temp);
             numMatches++;
         }
         line_num++;
@@ -63,57 +61,50 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status)
     }
 
     //Close the file if still open.
-    if (f)
-    {
-        fclose(f);
-    }
+    if (f) { fclose(f); }
     return numMatches;
 }
 
-
-void getNumberOfTerminals(char* numberOfTerminal)
+void getNumberOfTerminals(char *numberOfTerminal)
 {
+    FILE *fp;
 
-  FILE *fp;
-//   char numberOfTerminal[50];
+    /* Open the command for reading. */
+    fp = popen("/bin/ls /dev/pts/  | wc -l", "r");
+    if (fp == NULL)
+    {
+        printf("Failed to run command\n");
+        exit(1);
+    }
 
-  /* Open the command for reading. */
-  fp = popen("/bin/ls /dev/pts/  | wc -l", "r");
-  if (fp == NULL) {
-    printf("Failed to run command\n" );
-    exit(1);
-  }
+    /* Read the output a line at a time - output it. */
+    while (fgets(numberOfTerminal, sizeof(numberOfTerminal), fp) != NULL)
+    {
+        printf("%s", numberOfTerminal);
+    }
 
-  /* Read the output a line at a time - output it. */
-  while (fgets(numberOfTerminal, sizeof(numberOfTerminal), fp) != NULL) {
-    printf("%s", numberOfTerminal);
-  }
-
-  /* close */
-  pclose(fp);
+    /* close */
+    pclose(fp);
 }
-
-// char s[] = "45";
-// int num = atoi(s);
 
 void printToTerminal(struct EmployeeStructure employee)
 {
-    
     char numberOfTerminal[50];
     getNumberOfTerminals(numberOfTerminal);
-    char commendPath[] = "/dev/pts/";
-    strcat(commendPath,numberOfTerminal);
-    printf("========================%s \n ", commendPath);
-    if (iterationCount == 1)
+
+    char  commandPath[] = "/dev/pts/";
+    strcat( commandPath,numberOfTerminal);
+    printf("========================%s \n ",  commandPath);
+
+    if (iterationCount == 1) // only opens a new terminal if on the first iteration
     {
         system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
     }
     
-    int file = open(commendPath, O_WRONLY); // sets the gnome-terminal as a file to write to
+    int file = open( commandPath, O_WRONLY); // sets the gnome-terminal as a file to write to
     int stdoutDescriptor = dup(1);           // copies the file descriptor for stdout
     
     dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
-    // printf("=========================DeBug==========================\n\n");
     printf("Id: %d\n", employee.id);
     printf("Employee Name:%s \n ", employee.employeeName);
     printf("Job Title: %s \n ", employee.jobTitle);
@@ -128,7 +119,7 @@ void printToTerminal(struct EmployeeStructure employee)
     printf("Work Accident: %d ", employee.workAccident);
     printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
 
-    dup2(stdoutDescriptor, 1);            // sets the stdout file descriptor back thereby undoing the change
+    dup2(stdoutDescriptor, 1); // sets the stdout file descriptor back thereby undoing the change
 }
 
 struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
@@ -346,21 +337,21 @@ void manager()
     struct Query query;              // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
-    // printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
-    // fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
-    // strtok(queryPtr->employeeName, "\n");
+    printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
+    fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
+    strtok(queryPtr->employeeName, "\n");
 
-    // printf("Enter a job title.\n"); // gets and stores job title into Query struct
-    // fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
-    // strtok(queryPtr->jobTitle, "\n");
+    printf("Enter a job title.\n"); // gets and stores job title into Query struct
+    fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
+    strtok(queryPtr->jobTitle, "\n");
 
-    // printf("Enter a status.\n"); // gets and stores status into Query struct
-    // fgets(queryPtr->status, STATUS_LEN, stdin);
-    // strtok(queryPtr->status, "\n");
+    printf("Enter a status.\n"); // gets and stores status into Query struct
+    fgets(queryPtr->status, STATUS_LEN, stdin);
+    strtok(queryPtr->status, "\n");
 
-    strcpy(queryPtr->employeeName, "BRIAN BENSON");
-    strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-    strcpy(queryPtr->status, "FT");
+    // strcpy(queryPtr->employeeName, "BRIAN BENSON");
+    // strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+    // strcpy(queryPtr->status, "FT");
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
@@ -388,23 +379,17 @@ void assistant()
     char fname[] = "History.txt"; // name of file to search
     struct EmployeeStructure employee;
     
-    if (searchFile(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    if (searchForQuery(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
-        // we need a copy of the Employee struct here
+        employee = getEmployeeFromHistory(fname, query); // gets the employee from the local history file
         // printToTerminal(employee);
-        
-        printf("FOUND employee from history\n");
     }
     else // a match wasn't found
     {
-        
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
-        
-        printToTerminal(employee); // prints the returned employee information to a new terminal
-        // printf("===================DEBUG=======================\n");                                                                         // prints the received result to a new terminal
+        writeToHistoryFile(fname, employee); // writes resulted employee to history file
+        // printToTerminal(employee); // prints the resulted employee information to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
-
-        historyFile(fname, employee);
     }
     iterationCount++;
 }
