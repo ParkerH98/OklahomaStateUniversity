@@ -1,25 +1,22 @@
 #include "header.h"
-// #include <sys/socket.h>
-
-// #include <ctype.h>
 #include "oliver.c"
-// server
 
+// void convertToLowerCase(char *string)
+// {
+//     int i = 0;
+//     char c;
+//     // char str[] = "JOONMO KOO";
 
-
-// void convertToLowerCase (char* string) {
-//    int i = 0;
-//    char c;
-//    // char str[] = "JOONMO KOO";
-   
-//    while(string[i]) {
-//       // putchar (toupper(str[i]));
-//       string[i] = tolower(string[i]);
-//       i++;
-//    }
+//     while (string[i])
+//     {
+//         // putchar (toupper(str[i]));
+//         string[i] = tolower(string[i]);
+//         i++;
+//     }
 // }
 
-struct EmployeeStack* searchMain(void *sourceQueryFromClient){
+struct EmployeeStack *searchMain(void *sourceQueryFromClient)
+{
     struct Query* queryFromClient = sourceQueryFromClient;
 	struct EmployeeStructure* pEmployeeStruct = malloc(sizeof (struct EmployeeStructure)); //Introduced by M Oliver.
     // NOTE: Yes, I'm aware that this is now implemented as a queue. It would take too long to fix.
@@ -109,12 +106,7 @@ struct EmployeeStack* searchMain(void *sourceQueryFromClient){
     }
 
     return top;
-
 }
-
-
-
-
 
 void runServer(){
     

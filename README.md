@@ -1,17 +1,16 @@
 # OS-Group_B
 Operating Systems Spring 2021 Group B Repository
 
-
 ### Usage
 -------------
 #### SERVER
 
-`gcc driver_server.c -lpthread -o server`
-`./server`
+* `gcc driver_server.c -lpthread -o server`
+* `./server`
 
 #### CLIENT
-`gcc driver_client.c -lpthread -o client`
-`./client [server IP address]`
+* `gcc driver_client.c -lpthread -o client`
+* `./client [server IP address]`
 
 ### Important Notes
 -------------
