@@ -1,27 +1,32 @@
 # OS-Group_B
 Operating Systems Spring 2021 Group B Repository
 
+
 ### Usage
 -------------
 
-'gcc driver_client.c -lpthread -o client'
-'./client [server IP address]'
+`gcc driver_client.c -lpthread -o client`
 
-'gcc driver_server.c -lpthread -o server'
-'./server'
+`./client [server IP address]`
+
+`gcc driver_server.c -lpthread -o server`
+
+`./server`
+
 
 ### Important Notes
 -------------
-* must specify an IP address when running the client program
-* the client will create a new terminal each time the client program is ran. User must have 
+* Must specify an IP address when running the client program
+* The client will create a new terminal each time the client program is ran. User must have 
     multiple iterations on a single program execution in order to see multiple queries on the same terminal
+
 
 ### Group Members
 -------------
-Parker Hague
-Joonmo Koo
-Michael Oliver
-Landon Thorton
+1. Parker Hague
+2. Joonmo Koo
+3. Michael Oliver
+4. Landen Thornton
 
 
 ### Contents
