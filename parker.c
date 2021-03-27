@@ -6,6 +6,7 @@ void assistant();
 
 int iterationCount = 1;
 char IP[16];
+char commandPath[] = "/dev/pts/";
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 
@@ -55,7 +56,7 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
     return numMatches;
 }
 
-void getNumberOfTerminals(char *numberOfTerminal)
+void getnumberOfTerminals(char *numberOfTerminals)
 {
     FILE *fp;
 
@@ -68,46 +69,46 @@ void getNumberOfTerminals(char *numberOfTerminal)
     }
 
     /* Read the output a line at a time - output it. */
-    while (fgets(numberOfTerminal, sizeof(numberOfTerminal), fp) != NULL)
-    {
-        printf("%s", numberOfTerminal);
-    }
+    while (fgets(numberOfTerminals, sizeof(numberOfTerminals), fp) != NULL) {}
 
-    /* close */
-    pclose(fp);
+    pclose(fp); // close the file
 }
 
 void printToTerminal(struct EmployeeStructure employee)
 {
-    char numberOfTerminal[50];
-    getNumberOfTerminals(numberOfTerminal);
-
-    char  commandPath[] = "/dev/pts/";
-    strcat( commandPath,numberOfTerminal);
-    printf("========================%s \n ",  commandPath);
-
     if (iterationCount == 1) // only opens a new terminal if on the first iteration
     {
-        system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
+        char numberOfTerminals[50];
+        getnumberOfTerminals(numberOfTerminals);
+
+        int temp = atoi(numberOfTerminals);
+        temp -= 1;
+
+        sprintf(numberOfTerminals, "%d", temp);
+
+        strcat(commandPath, numberOfTerminals);
+        system("gnome-terminal --  bash -c \"exec bash\""); // opens a new terminal
+        // system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
+
     }
-    
-    int file = open( commandPath, O_WRONLY); // sets the gnome-terminal as a file to write to
+
+    int file = open(commandPath, O_WRONLY); // sets the gnome-terminal as a file to write to
     int stdoutDescriptor = dup(1);           // copies the file descriptor for stdout
     
     dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
     printf("Id: %d\n", employee.id);
-    printf("Employee Name:%s \n ", employee.employeeName);
-    printf("Job Title: %s \n ", employee.jobTitle);
-    printf("Base Pay: %f \n ", employee.basePay);
-    printf("Overtime Pay: %f \n ", employee.overtimePay);
-    printf("Benefit: %f \n ", employee.benefit);
-    printf("Status: %s \n ", employee.status);
-    printf("Satisfaction Level: %f \n ", employee.satisfactionLevel);
-    printf("Number of Projects: %d \n ", employee.numberProject);
-    printf("Average Monthly Hours: %d \n ", employee.averageMonthlyHours);
-    printf("Company Time (Years): %d \n ", employee.yearsInCompany);
-    printf("Work Accident: %d ", employee.workAccident);
-    printf("Promotion in Last 5 Years: %d\n", employee.promotionsLast5Years);
+    printf("Employee Name:%s \n", employee.employeeName);
+    printf("Job Title: %s \n", employee.jobTitle);
+    printf("Base Pay: %f \n", employee.basePay);
+    printf("Overtime Pay: %f \n", employee.overtimePay);
+    printf("Benefit: %f \n", employee.benefit);
+    printf("Status: %s \n", employee.status);
+    printf("Satisfaction Level: %f \n", employee.satisfactionLevel);
+    printf("Number of Projects: %d \n", employee.numberProject);
+    printf("Average Monthly Hours: %d \n", employee.averageMonthlyHours);
+    printf("Company Time (Years): %d \n", employee.yearsInCompany);
+    printf("Work Accident: %d\n", employee.workAccident);
+    printf("Promotion in Last 5 Years: %d\n\n", employee.promotionsLast5Years);
 
     dup2(stdoutDescriptor, 1); // sets the stdout file descriptor back thereby undoing the change
 }
@@ -236,7 +237,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
 {
     int fd; // file descriptor
 
-    struct Query send;             // struct to hold query
+    struct Query send; // struct to hold query
     struct Query *sendPtr = &send; // pointer to query
 
     strcpy(sendPtr->employeeName, employeeName); // copies input parameters to the struct to be sent
@@ -270,7 +271,7 @@ struct Query pipeReceive()
 {
     int fd; // file descriptor
 
-    struct Query received;                 // holds received user query information
+    struct Query received; // holds received user query information
     struct Query *receivedPtr = &received; // pointer to the received query
 
     char myPipe[] = "./NamedPipe"; // FIFO file path
@@ -324,7 +325,7 @@ Return: void
 */
 void manager()
 {
-    struct Query query;              // stores query information
+    struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
     printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
@@ -339,8 +340,74 @@ void manager()
     fgets(queryPtr->status, STATUS_LEN, stdin);
     strtok(queryPtr->status, "\n");
 
+    // // iteration 1
     // strcpy(queryPtr->employeeName, "BRIAN BENSON");
     // strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 2
+    // strcpy(queryPtr->employeeName, "NATHANIEL FORD");
+    // strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 3
+    // strcpy(queryPtr->employeeName, "GARY JIMENEZ");
+    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 4
+    // strcpy(queryPtr->employeeName, "ALBERT PARDINI");
+    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 5
+    // strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
+    // strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 6
+    // strcpy(queryPtr->employeeName, "PATRICK GARDNER");
+    // strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 7
+    // strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
+    // strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 8
+    // strcpy(queryPtr->employeeName, "ALSON LEE");
+    // strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 9
+    // strcpy(queryPtr->employeeName, "DAVID KUSHNER");
+    // strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 10
+    // strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
+    // strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 11
+    // strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
+    // strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 12
+    // strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
+    // strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+    // strcpy(queryPtr->status, "PT");
+
+    // // iteration 13
+    // strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
+    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    // strcpy(queryPtr->status, "FT");
+
+    // // iteration 14
+    // strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+    // strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
     // strcpy(queryPtr->status, "FT");
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
@@ -359,6 +426,8 @@ Return: void
 */
 void assistant()
 {
+
+
     struct Query query;                                                                                                                                    // holds user query
     query = pipeReceive();                                                                                                                                 // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message

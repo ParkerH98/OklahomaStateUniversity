@@ -1,7 +1,7 @@
 #include "header.h"
-#include <sys/socket.h>
+// #include <sys/socket.h>
 
-#include <ctype.h>
+// #include <ctype.h>
 #include "oliver.c"
 // server
 
