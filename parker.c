@@ -42,7 +42,7 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
     {
         if ((strstr(temp, employeeName)) != NULL && (strstr(temp, jobTitle)) != NULL && (strstr(temp, status)) != NULL) // searches for the specific employee attributes
         {
-            printf("Client: A match found on line: %d\n", line_num);
+            printf("Client: A match found on line: %d...printing to terminal.\n", line_num);
             // printf("\n%s\n", temp);
             numMatches++;
         }
@@ -429,8 +429,6 @@ Return: void
 */
 void assistant()
 {
-
-
     struct Query query;                                                                                                                                    // holds user query
     query = pipeReceive();                                                                                                                                 // assistant receives query from Manager
     printf("\nCLIENT: RECEIVED FROM MANAGER VIA PIPE:\nEmployee Name: %s\nJob Title: %s\nStatus: %s\n", query.employeeName, query.jobTitle, query.status); // Print the read message
@@ -444,6 +442,8 @@ void assistant()
     if (searchForQuery(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         employee = getEmployeeFromHistory(fname, query); // gets the employee from the local history file
+
+        printf("%s---%f\n\n\n", employee.employeeName, employee.basePay);
         printToTerminal(employee);
     }
     else // a match wasn't found

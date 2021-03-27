@@ -10,6 +10,7 @@ CLIENT
         - lowercase conversion for writing to file - landen
         - add func to read query from history file and print to terminal if query is found in file (handles the 'if') -landen
         - lowercase conversion for query and file - parker
+        - fix returned empty employee struct from getEmployeeFromHistroy() -landen
 
 SERVER
     - make server receive from any IP - jooonmo
