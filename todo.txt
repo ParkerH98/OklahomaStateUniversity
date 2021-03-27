@@ -13,9 +13,39 @@ CLIENT
 
 SERVER
     - make server receive from any IP - jooonmo
-    -
+    - server handling non-exist input??
 
 EXTRA
     - all reading string use to lowercase conversion -everyone
+
+
+
+
+
+
+
+
+
+
+
+Issue by Joonmo 3/8/2021
+    - some employees' name are Captial letter and other are mixed. So I think we need to convert names to lower case or somthing.
+        * tolower() will take non-alphabetical characters, so we should just need to iterate over the field.
+            could just go ALLCAPS and note that we've done such in the readme. That's an old Database trick.
+            by Micheal
+    - String somtime contains '\n', which make difficult to compare to others
+        * implement this kind of code to remove that 
+            if (employeeName[strlen(employeeName)-1] == '\n'){
+                employeeName[strlen(employeeName)-1] = 0;
+            }
+            by Joonmo
+
+
+Issue by Joonmo 3/19/2021
+    - Combined attempt1 Code
+        - it appears that Server does not read correct ID and employeeName 
+        - server is not handling non-exist input
+        - at 2nd iteration in Loop, thread is not working (I think momery lose data or somthing)
+        - history queue is not IO function( It is puting all in memory. I think it should be IO function line by line)
 
 

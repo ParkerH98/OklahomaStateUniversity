@@ -1,7 +1,7 @@
 #include "header.h"
 #include "parker.c"
 
-// Run: gcc client_driver.c -lpthread -o client
+// Run: gcc driver_client.c -lpthread -o client
 // ./client 127.0.0.1
 
 int main(int argc, char *argv[])

@@ -372,13 +372,13 @@ void assistant()
     if (searchForQuery(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
     {
         employee = getEmployeeFromHistory(fname, query); // gets the employee from the local history file
-        // printToTerminal(employee);
+        printToTerminal(employee);
     }
     else // a match wasn't found
     {
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         writeToHistoryFile(fname, employee); // writes resulted employee to history file
-        // printToTerminal(employee); // prints the resulted employee information to a new terminal
+        printToTerminal(employee); // prints the resulted employee information to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
     }
     iterationCount++;

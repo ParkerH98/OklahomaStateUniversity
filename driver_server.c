@@ -1,6 +1,6 @@
 #include "joonmo.c"
 
-// Run: gcc server_driver.c -lpthread -o server
+// Run: gcc driver_server.c -lpthread -o server
 
 int main(int argc, char *argv[])
 {
