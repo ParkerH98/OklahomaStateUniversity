@@ -337,7 +337,6 @@ void manager()
 
     if (iterationCount == 1)
     {
-        // iteration 1
         strcpy(queryPtr->employeeName, "BRIAN BENSON");
         strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
         strcpy(queryPtr->status, "FT");
@@ -345,107 +344,96 @@ void manager()
 
     if (iterationCount == 2)
     {
-        // iteration 2
         strcpy(queryPtr->employeeName, "NATHANIEL FORD");
         strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
         strcpy(queryPtr->status, "PT");
     }
 
-    // if (iterationCount == 3)
-    // {
-    //     // iteration 3
-    //     strcpy(queryPtr->employeeName, "GARY JIMENEZ");
-    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 3)
+    {
+        strcpy(queryPtr->employeeName, "GARY JIMENEZ");
+        strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // if (iterationCount == 4)
-    // {
-    //     // iteration 4
-    //     strcpy(queryPtr->employeeName, "ALBERT PARDINI");
-    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 4)
+    {
+        strcpy(queryPtr->employeeName, "ALBERT PARDINI");
+        strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // if (iterationCount == 5)
-    // {
-    //     // iteration 5
-    //     strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
-    //     strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 5)
+    {
+        // iteration 5
+        strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
+        strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // if (iterationCount == 6)
-    // {
-    //     // iteration 6
-    //     strcpy(queryPtr->employeeName, "PATRICK GARDNER");
-    //     strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 6)
+    {
+        strcpy(queryPtr->employeeName, "PATRICK GARDNER");
+        strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // if (iterationCount == 7)
-    // {
-    //     // iteration 7
-    //     strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
-    //     strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 7)
+    {
+        // iteration 7
+        strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
+        strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 8)
-    // {
-    //     // iteration 8
-    //     strcpy(queryPtr->employeeName, "ALSON LEE");
-    //     strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 8)
+    {
+        strcpy(queryPtr->employeeName, "ALSON LEE");
+        strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 9)
-    // {
-    //     // iteration 9
-    //     strcpy(queryPtr->employeeName, "DAVID KUSHNER");
-    //     strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 9)
+    {
+        strcpy(queryPtr->employeeName, "DAVID KUSHNER");
+        strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 10)
-    // {
-    //     // iteration 10
-    //     strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
-    //     strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 10)
+    {
+        strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
+        strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 11)
-    // {
-    //     // iteration 11
-    //     strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
-    //     strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 11)
+    {
+        strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
+        strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 12)
-    // {
-    //     // iteration 12
-    //     strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
-    //     strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
+    if (iterationCount == 12)
+    {
+        strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
+        strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // if (iterationCount == 13)
-    // {
-    //     // iteration 13
-    //     strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
-    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 13)
+    {
+        strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
+        strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // if (iterationCount == 13)
-    // {
-    //     // iteration 14
-    //     strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
-    //     strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
-    //     strcpy(queryPtr->status, "FT");
-    // }
+    if (iterationCount == 14)
+    {
+        strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+        strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
+        strcpy(queryPtr->status, "FT");
+    }
 
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
