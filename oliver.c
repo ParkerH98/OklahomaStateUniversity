@@ -1,22 +1,6 @@
 #include "header.h"
 
-#ifndef CON_LC
-#define CON_LC
 
-void convertToLowerCase (char* string) {
-
-   int i = 0;
-   char c;
-   // char str[] = "JOONMO KOO";
-   
-   while(string[i]) {
-      // putchar (toupper(str[i]));
-      string[i] = tolower(string[i]);
-      i++;
-   }
-}
-
-#endif
 
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, struct EmployeeStructure *newLine)
 {
@@ -45,8 +29,10 @@ int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, st
     {
         if ((strstr(temp, employeeNameL)) != NULL && (strstr(temp, jobTitleL)) != NULL && (strstr(temp, statusL)) != NULL) // searches for the specific employee attributes
         {
-            printf("A match found on line: %d\n", line_num);
-            printf("\n%s\n", temp);
+            //printf("A match found on line: %d\n", line_num);
+            //printf("\n%s\n", temp);
+
+			// Convert the right string to a series of tokens, then feed things into the right field.
 
 			token = strtok(temp,"\t");
 

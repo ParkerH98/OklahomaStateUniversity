@@ -9,24 +9,7 @@ int iterationCount = 1;
 char IP[16];
 char commandPath[] = "/dev/pts/";
 
-#ifndef CON_LC
-#define CON_LC
 
-void convertToLowerCase(char *string)
-{
-    int i = 0;
-    char c;
-    // char str[] = "JOONMO KOO";
-
-    while (string[i])
-    {
-        // putchar (toupper(str[i]));
-        string[i] = tolower(string[i]);
-        i++;
-    }
-}
-
-#endif
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 
