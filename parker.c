@@ -5,6 +5,8 @@
 void manager();
 void assistant();
 
+int writepos = 0;
+
 int iterationCount = 1;
 char IP[16];
 char commandPath[] = "/dev/pts/";
@@ -429,7 +431,6 @@ void assistant()
     FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
 
-    int writepos = 0;
 
     char fname[] = "History.txt"; // name of file to search
     struct EmployeeStructure employee;
