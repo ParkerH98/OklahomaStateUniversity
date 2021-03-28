@@ -84,34 +84,34 @@ struct EmployeeStructure getEmployeeFromHistory(char* fileName, struct Query que
 	char *jobTitle = query.jobTitle;
 	char *status = query.status;
 	
-	char idString[500];
+	char idString[16];
 	int id;
 	
-	char basePayString[500];
+	char basePayString[32];
 	double basePay;
 	
-	char overtimePayString[500];
+	char overtimePayString[32];
 	double overtimePay;
 	
-	char benefitString[500];
+	char benefitString[32];
 	double benefit;
 	
-	char satisfactionLevelString[500];
+	char satisfactionLevelString[32];
 	float satisfactionLevel;
 	
-	char numberProjectString[500];
+	char numberProjectString[32];
 	int numberProject;
 	
-	char averageMonthlyHoursString[500];
+	char averageMonthlyHoursString[32];
 	int averageMonthlyHours;
 	
-	char yearsInCompanyString[500];
+	char yearsInCompanyString[32];
 	int yearsInCompany;
 	
-	char workAccidentString[500];
+	char workAccidentString[32];
 	int workAccident;
 	
-	char promotionsLast5YearsString[500];
+	char promotionsLast5YearsString[32];
 	int promotionsLast5Years;
 	
 	char next;

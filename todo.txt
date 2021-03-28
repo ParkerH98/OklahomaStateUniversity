@@ -11,6 +11,7 @@ CLIENT
         - add func to read query from history file and print to terminal if query is found in file (handles the 'if') -landen
         - lowercase conversion for query and file - parker
         - fix returned empty employee struct from getEmployeeFromHistroy() -landen
+        - client handle empty input
 
 SERVER
     - make server receive from any IP - jooonmo
