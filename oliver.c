@@ -142,7 +142,7 @@ int writeFile(char *fname, struct EmployeeStructure newLine, int writePos){
     }
     if (write == 0){
         //printf("New Line In");
-        fprintf(fp2,"%d\t%s\t%s\t%f\t%f\t%f\t%s\t%f\t%d\t%d\t%d\t%d\t%d",
+        fprintf(fp2,"%d\t%s\t%s\t%f\t%f\t%f\t%s\t%f\t%d\t%d\t%d\t%d\t%d\n",
         newLine.id,newLine.employeeName,newLine.jobTitle,newLine.basePay,newLine.overtimePay,
         newLine.benefit,newLine.status,newLine.satisfactionLevel,newLine.numberProject,
         newLine.averageMonthlyHours,newLine.yearsInCompany,newLine.workAccident,newLine.promotionsLast5Years);
@@ -152,6 +152,7 @@ int writeFile(char *fname, struct EmployeeStructure newLine, int writePos){
     fclose(fp);
     remove(fname);
     rename("HistoryTemp.c",fname);
+	sleep(1);
     return 0;
 };
 
