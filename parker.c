@@ -36,6 +36,10 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
     int numMatches = 0; // number of matches found
     char temp[512];     // stores the current read line
 
+    convertToLowerCase(employeeName);
+    convertToLowerCase(jobTitle);
+    convertToLowerCase(status);
+
     if ((f = fopen(fname, "r")) == NULL) { return (-1); } // opens file for reading
 
     while (fgets(temp, 512, f) != NULL) // goes through file line by line
@@ -331,22 +335,22 @@ void manager()
     struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
-    printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
-    fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
-    strtok(queryPtr->employeeName, "\n");
+    // printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
+    // fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
+    // strtok(queryPtr->employeeName, "\n");
 
-    printf("Enter a job title.\n"); // gets and stores job title into Query struct
-    fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
-    strtok(queryPtr->jobTitle, "\n");
+    // printf("Enter a job title.\n"); // gets and stores job title into Query struct
+    // fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
+    // strtok(queryPtr->jobTitle, "\n");
 
-    printf("Enter a status.\n"); // gets and stores status into Query struct
-    fgets(queryPtr->status, STATUS_LEN, stdin);
-    strtok(queryPtr->status, "\n");
+    // printf("Enter a status.\n"); // gets and stores status into Query struct
+    // fgets(queryPtr->status, STATUS_LEN, stdin);
+    // strtok(queryPtr->status, "\n");
 
     // // iteration 1
-    // strcpy(queryPtr->employeeName, "BRIAN BENSON");
-    // strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-    // strcpy(queryPtr->status, "FT");
+    strcpy(queryPtr->employeeName, "BRIAN BENSON");
+    strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+    strcpy(queryPtr->status, "FT");
 
     // // iteration 2
     // strcpy(queryPtr->employeeName, "NATHANIEL FORD");
