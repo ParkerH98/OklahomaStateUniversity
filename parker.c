@@ -38,7 +38,6 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
         if ((strstr(temp, employeeName)) != NULL && (strstr(temp, jobTitle)) != NULL && (strstr(temp, status)) != NULL) // searches for the specific employee attributes
         {
             printf("Client: A match found on line: %d...printing to terminal.\n", line_num);
-            // printf("\n%s\n", temp);
             numMatches++;
         }
         line_num++;
@@ -86,12 +85,10 @@ void printToTerminal(struct EmployeeStructure employee)
 
         strcat(commandPath, numberOfTerminals);
         system("gnome-terminal --  bash -c \"exec bash\""); // opens a new terminal
-        // system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
-
     }
 
     int file = open(commandPath, O_WRONLY); // sets the gnome-terminal as a file to write to
-    int stdoutDescriptor = dup(1);           // copies the file descriptor for stdout
+    int stdoutDescriptor = dup(1); // copies the file descriptor for stdout
     
     dup2(file, 1); // writes the stdout file descriptor to that of the new gnome-terminal
     printf("Id: %d\n", employee.id);
@@ -121,9 +118,9 @@ struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobT
     clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
     if (clientSocket < 0) { perror("[-]Error in socket"); exit(1); }
 
-    serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr(IP);                    //Set IP address to localhost
+    serverAddr.sin_family = AF_INET; //Address family = Internet
+    serverAddr.sin_port = htons(PORT); //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = inet_addr(IP); //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     // Connect the socket to the server using the address struct
@@ -178,7 +175,7 @@ void serverSocket_SendReceive()
     entrySocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
 
     // Configure settings of the server address struct
-    serverAddr.sin_family = AF_INET;                               //Address family = Internet
+    serverAddr.sin_family = AF_INET; //Address family = Internet
     serverAddr.sin_port = htons(PORT); //Set port number, using htons function to use proper byte order
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY); //Sets IP to accept from any IP address
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
@@ -243,7 +240,7 @@ void pipeSend(char *employeeName, char *jobTitle, char *status)
     strcpy(sendPtr->status, status);
 
     char myPipe[] = "./NamedPipe"; // FIFO file path
-    mkfifo(myPipe, 0666);          // Creating the named file(FIFO)
+    mkfifo(myPipe, 0666); // Creating the named file(FIFO)
 
     if ((fd = open(myPipe, O_WRONLY | O_CREAT)) < 0) // Open FIFO for write only
     {
@@ -338,75 +335,118 @@ void manager()
     // fgets(queryPtr->status, STATUS_LEN, stdin);
     // strtok(queryPtr->status, "\n");
 
-    // // iteration 1
-    strcpy(queryPtr->employeeName, "BRIAN BENSON");
-    strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-    strcpy(queryPtr->status, "FT");
+    if (iterationCount == 1)
+    {
+        // iteration 1
+        strcpy(queryPtr->employeeName, "BRIAN BENSON");
+        strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+        strcpy(queryPtr->status, "FT");
+    }
 
-    // // iteration 2
-    // strcpy(queryPtr->employeeName, "NATHANIEL FORD");
-    // strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
-    // strcpy(queryPtr->status, "PT");
+    if (iterationCount == 2)
+    {
+        // iteration 2
+        strcpy(queryPtr->employeeName, "NATHANIEL FORD");
+        strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
+        strcpy(queryPtr->status, "PT");
+    }
 
-    // // iteration 3
-    // strcpy(queryPtr->employeeName, "GARY JIMENEZ");
-    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 3)
+    // {
+    //     // iteration 3
+    //     strcpy(queryPtr->employeeName, "GARY JIMENEZ");
+    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "FT");
+    // }
 
-    // // iteration 4
-    // strcpy(queryPtr->employeeName, "ALBERT PARDINI");
-    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 4)
+    // {
+    //     // iteration 4
+    //     strcpy(queryPtr->employeeName, "ALBERT PARDINI");
+    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "FT");
+    // }
 
-    // // iteration 5
-    // strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
-    // strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 5)
+    // {
+    //     // iteration 5
+    //     strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
+    //     strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
+    //     strcpy(queryPtr->status, "FT");
+    // }
 
-    // // iteration 6
-    // strcpy(queryPtr->employeeName, "PATRICK GARDNER");
-    // strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 6)
+    // {
+    //     // iteration 6
+    //     strcpy(queryPtr->employeeName, "PATRICK GARDNER");
+    //     strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "FT");
+    // }
 
-    // // iteration 7
-    // strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
-    // strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 7)
+    // {
+    //     // iteration 7
+    //     strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
+    //     strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 8
-    // strcpy(queryPtr->employeeName, "ALSON LEE");
-    // strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 8)
+    // {
+    //     // iteration 8
+    //     strcpy(queryPtr->employeeName, "ALSON LEE");
+    //     strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 9
-    // strcpy(queryPtr->employeeName, "DAVID KUSHNER");
-    // strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 9)
+    // {
+    //     // iteration 9
+    //     strcpy(queryPtr->employeeName, "DAVID KUSHNER");
+    //     strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 10
-    // strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
-    // strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 10)
+    // {
+    //     // iteration 10
+    //     strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
+    //     strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 11
-    // strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
-    // strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 11)
+    // {
+    //     // iteration 11
+    //     strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
+    //     strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 12
-    // strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
-    // strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    // strcpy(queryPtr->status, "PT");
+    // if (iterationCount == 12)
+    // {
+    //     // iteration 12
+    //     strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
+    //     strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "PT");
+    // }
 
-    // // iteration 13
-    // strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
-    // strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 13)
+    // {
+    //     // iteration 13
+    //     strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
+    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+    //     strcpy(queryPtr->status, "FT");
+    // }
 
-    // // iteration 14
-    // strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
-    // strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
-    // strcpy(queryPtr->status, "FT");
+    // if (iterationCount == 13)
+    // {
+    //     // iteration 14
+    //     strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+    //     strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
+    //     strcpy(queryPtr->status, "FT");
+    // }
+
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
@@ -435,11 +475,8 @@ void assistant()
     char fname[] = "History.txt"; // name of file to search
     struct EmployeeStructure employee;
     
-    if (searchFile(fname,query.employeeName,query.jobTitle,query.status,&employee) != 0) // a match was found
+    if (searchFile(fname, query.employeeName, query.jobTitle, query.status,&employee) != 0) // a match was found
     {
-        // gets the employee from the local history file
-
-        printf("%s---%f\n\n\n", employee.employeeName, employee.basePay);
         printToTerminal(employee);
     }
     else // a match wasn't found
@@ -447,7 +484,7 @@ void assistant()
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
         writeFile(fname, employee, writepos); // writes resulted employee to history file
         writepos = (writepos + 1) % HISTORYMAX;
-        printf("Writepos %d",writepos);
+
         printToTerminal(employee); // prints the resulted employee information to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
     }
@@ -455,7 +492,7 @@ void assistant()
 }
 
 void runServer()
-{
+{   
     for (int i = 0; i < TESTING_LOOP; i++)
     {
         serverSocket_SendReceive(); // starts server and begins listening

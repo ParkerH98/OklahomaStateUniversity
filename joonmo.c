@@ -1,19 +1,6 @@
 #include "header.h"
 #include "oliver.c"
 
-// void convertToLowerCase(char *string)
-// {
-//     int i = 0;
-//     char c;
-//     // char str[] = "JOONMO KOO";
-
-//     while (string[i])
-//     {
-//         // putchar (toupper(str[i]));
-//         string[i] = tolower(string[i]);
-//         i++;
-//     }
-// }
 
 struct EmployeeStack *searchMain(void *sourceQueryFromClient)
 {

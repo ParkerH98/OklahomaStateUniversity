@@ -37,7 +37,7 @@ Operating Systems Spring 2021 Group B Repository
 * Salary.txt - file containing IDs, job titles, base pay, overtime pay, benefits, and status
 
 #### PROGRAM FILES
-* parker.c - TBD
+* parker.c - 
 * joonmo.c - TBD
 * michael.c - TBD
 * landon.c - TBD
