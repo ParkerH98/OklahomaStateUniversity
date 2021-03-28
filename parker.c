@@ -1,5 +1,6 @@
 #include "header.h"
 #include "landen.c"
+#include "oliver.c"
 
 void manager();
 void assistant();
@@ -7,6 +8,9 @@ void assistant();
 int iterationCount = 1;
 char IP[16];
 char commandPath[] = "/dev/pts/";
+
+#ifndef CON_LC
+#define CON_LC
 
 void convertToLowerCase(char *string)
 {
@@ -21,6 +25,8 @@ void convertToLowerCase(char *string)
         i++;
     }
 }
+
+#endif
 /*
 ---------------------------------------------------------
 Searches an input file for a specific employee's name, 
@@ -436,12 +442,14 @@ void assistant()
     FILE *f; // file pointer
     f = fopen("History.txt", "a+"); // opens file for appending
 
+    int writepos = 0;
+
     char fname[] = "History.txt"; // name of file to search
     struct EmployeeStructure employee;
     
-    if (searchForQuery(fname, query.employeeName, query.jobTitle, query.status) != 0) // a match was found
+    if (searchFile(fname,query.employeeName,query.jobTitle,query.status,&employee) != 0) // a match was found
     {
-        employee = getEmployeeFromHistory(fname, query); // gets the employee from the local history file
+        // gets the employee from the local history file
 
         printf("%s---%f\n\n\n", employee.employeeName, employee.basePay);
         printToTerminal(employee);
@@ -449,7 +457,9 @@ void assistant()
     else // a match wasn't found
     {
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
-        writeToHistoryFile(fname, employee); // writes resulted employee to history file
+        writeFile(fname, employee, writepos); // writes resulted employee to history file
+        writepos = (writepos + 1) % HISTORYMAX;
+        printf("Writepos %d",writepos);
         printToTerminal(employee); // prints the resulted employee information to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
     }
