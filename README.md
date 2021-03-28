@@ -17,6 +17,9 @@ Operating Systems Spring 2021 Group B Repository
 * Must specify an IP address when running the client program
 * The client will create a new terminal each time the client program is ran. User must have 
     multiple iterations on a single program execution in order to see multiple queries on the same terminal
+* If the program prematurely exits and the sockets aren't able to close, sometimes this will create a bind error on a
+   future execution of the program. If this happens, change the `#define PORT` constant located in the header.h file
+* Both the client and server require 'Control + C' in order to stop the program
 
 
 ### Group Members
