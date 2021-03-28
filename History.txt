@@ -1,1 +1,1 @@
-13	edward harrington	executive contract employee	294580.020000	0.000000	0.000000	ft	0.840000	4	234	5	0	1
+15000	brian benson	is business analyst	78059.800000	0.000000	0.000000	ft	0.370000	2	158	3	0	0
