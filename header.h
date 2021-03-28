@@ -56,4 +56,24 @@ struct EmployeeStack{
     struct EmployeeStack *next;
 };
 
+#ifndef CON_LC
+#define CON_LC
+
+
+// Courtesy of Joonmo Koo
+void convertToLowerCase (char* string) {
+
+   int i = 0;
+   char c;
+   // char str[] = "JOONMO KOO";
+   
+   while(string[i]) {
+      // putchar (toupper(str[i]));
+      string[i] = tolower(string[i]);
+      i++;
+   }
+}
+
+#endif
+
 #endif
