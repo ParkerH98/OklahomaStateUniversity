@@ -6,18 +6,15 @@ CLIENT
     create struct with 10+ names to automate full program
 
        ASSISTANT:
-        - queue functionality of history file  - landen
-        - lowercase conversion for writing to file - landen
-        - add func to read query from history file and print to terminal if query is found in file (handles the 'if') -landen
-        - lowercase conversion for query and file - parker
-        - fix returned empty employee struct from getEmployeeFromHistroy() -landen
+
+        - handle empty input
+
+    
 
 SERVER
     - make server receive from any IP - jooonmo
     - server handling non-exist input??
 
-EXTRA
-    - all reading string use to lowercase conversion -everyone
 
 
 

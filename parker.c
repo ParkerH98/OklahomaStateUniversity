@@ -101,8 +101,6 @@ void printToTerminal(struct EmployeeStructure employee)
 
         strcat(commandPath, numberOfTerminals);
         system("gnome-terminal --  bash -c \"exec bash\""); // opens a new terminal
-        // system("gnome-terminal --  bash -c \"tty; exec bash\""); // opens a new terminal
-
     }
 
     int file = open(commandPath, O_WRONLY); // sets the gnome-terminal as a file to write to
@@ -136,9 +134,9 @@ struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobT
     clientSocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
     if (clientSocket < 0) { perror("[-]Error in socket"); exit(1); }
 
-    serverAddr.sin_family = AF_INET;                               //Address family = Internet
-    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = inet_addr(IP);                    //Set IP address to localhost
+    serverAddr.sin_family = AF_INET; //Address family = Internet
+    serverAddr.sin_port = htons(PORT); //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = inet_addr(IP); //Set IP address to localhost
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
 
     // Connect the socket to the server using the address struct
@@ -354,9 +352,9 @@ void manager()
     // strtok(queryPtr->status, "\n");
 
     // // iteration 1
-    strcpy(queryPtr->employeeName, "BRIAN BENSON");
-    strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-    strcpy(queryPtr->status, "FT");
+    // strcpy(queryPtr->employeeName, "BRIAN BENSON");
+    // strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+    // strcpy(queryPtr->status, "FT");
 
     // // iteration 2
     // strcpy(queryPtr->employeeName, "NATHANIEL FORD");
@@ -419,9 +417,9 @@ void manager()
     // strcpy(queryPtr->status, "FT");
 
     // // iteration 14
-    // strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
-    // strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
-    // strcpy(queryPtr->status, "FT");
+    strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+    strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
+    strcpy(queryPtr->status, "FT");
 
     pipeSend(queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); // sends the query to the assistant
 }
@@ -464,6 +462,7 @@ void assistant()
         writeFile(fname, employee, writepos); // writes resulted employee to history file
         writepos = (writepos + 1) % HISTORYMAX;
         printf("Writepos %d",writepos);
+
         printToTerminal(employee); // prints the resulted employee information to a new terminal
         printf("\n====================\nQUERY END\n====================\n\n");
     }
