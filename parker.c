@@ -1,3 +1,7 @@
+// Parker Hague
+// Group B
+// phague@okstate.edu
+
 #include "header.h"
 #include "oliver.c"
 

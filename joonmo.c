@@ -1,3 +1,6 @@
+// Joonmo Koo
+// Group B
+//
 #include "header.h"
 #include "oliver.c"
 

@@ -1,3 +1,6 @@
+// Michael Oliver
+// Group B
+// 
 #include "header.h"
 
 
