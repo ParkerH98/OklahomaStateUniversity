@@ -1,16 +1,13 @@
 #include "header.h"
-#include "landen.c"
 #include "oliver.c"
 
 void manager();
 void assistant();
 
-int writepos = 0;
-
-int iterationCount = 1;
+int writepos = 0; // file writing position -- see writeFile()
+int iterationCount = 1; // initializes the itterCount later used to check if a new terminal should be opened -- see printToTerminal()
 char IP[16];
-char commandPath[] = "/dev/pts/";
-
+char commandPath[] = "/dev/pts/"; // terminal path -- see printToTerminal()
 
 /*
 ---------------------------------------------------------
@@ -27,6 +24,7 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
     int numMatches = 0; // number of matches found
     char temp[512];     // stores the current read line
 
+    // converts the inputs to lowercase
     convertToLowerCase(employeeName);
     convertToLowerCase(jobTitle);
     convertToLowerCase(status);
@@ -52,7 +50,15 @@ int searchForQuery(char *fname, char *employeeName, char *jobTitle, char *status
     if (f) { fclose(f); }
     return numMatches;
 }
+/*
+---------------------------------------------------------
+This function gets the value of X where X is the number in
+dev/pts/X. This represents the current working terminal to 
+print to. The result is used in printToTerminal()
 
+Params: a char pointer to the numberOfTerminals variable to alter
+Return: void
+*/
 void getnumberOfTerminals(char *numberOfTerminals)
 {
     FILE *fp;
@@ -70,20 +76,27 @@ void getnumberOfTerminals(char *numberOfTerminals)
 
     pclose(fp); // close the file
 }
+/*
+---------------------------------------------------------
+This function prints an inputted EmployeeStructure to the 
+terminal.
 
+Params: an instance of an EmployeeStructure to print to terminal
+Return: void
+*/
 void printToTerminal(struct EmployeeStructure employee)
 {
     if (iterationCount == 1) // only opens a new terminal if on the first iteration
     {
         char numberOfTerminals[50];
-        getnumberOfTerminals(numberOfTerminals);
+        getnumberOfTerminals(numberOfTerminals); // gets the current terminal number
 
-        int temp = atoi(numberOfTerminals);
+        int temp = atoi(numberOfTerminals); // decrements the returned terminal number
         temp -= 1;
 
-        sprintf(numberOfTerminals, "%d", temp);
+        sprintf(numberOfTerminals, "%d", temp); // rewrites new value
 
-        strcat(commandPath, numberOfTerminals);
+        strcat(commandPath, numberOfTerminals); // appends terminal number to terminal path
         system("gnome-terminal --  bash -c \"exec bash\""); // opens a new terminal
     }
 
@@ -107,7 +120,15 @@ void printToTerminal(struct EmployeeStructure employee)
 
     dup2(stdoutDescriptor, 1); // sets the stdout file descriptor back thereby undoing the change
 }
+/*
+---------------------------------------------------------
+This function handles all of the client socket connections.
+This function connects to the server and sends a query. The 
+function then waits and receives a result back from the server.
 
+Params: char pointers of query fields: employee name, job title, and status
+Return: an Employee structure instance containing the resulted employee
+*/
 struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobTitle, char *status)
 {
     int clientSocket;
@@ -161,64 +182,6 @@ struct EmployeeStructure clientSocket_SendReceive(char *employeeName, char *jobT
     
     close(clientSocket);
     return employee;
-}
-
-void serverSocket_SendReceive()
-{
-    int entrySocket, connectionSocket; // socket file descriptors
-    int bindCheck;
-    struct sockaddr_in serverAddr;
-    struct sockaddr_storage serverStorage;
-    socklen_t addr_size;
-
-    // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
-    entrySocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
-
-    // Configure settings of the server address struct
-    serverAddr.sin_family = AF_INET; //Address family = Internet
-    serverAddr.sin_port = htons(PORT); //Set port number, using htons function to use proper byte order
-    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY); //Sets IP to accept from any IP address
-    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
-
-    bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
-    if (bindCheck < 0) { perror("[-]Error in bind"); exit(1); }
-
-    // Listen on the socket, with 5 max connection requests queued
-    if (listen(entrySocket, 5) == 0) { printf("SERVER: Listening....\n"); }
-    else { printf("[-]Error in listening"); }
-
-    // for (int i = 0; i < TESTING_LOOP; i++)
-    // {
-    //     // Accept call creates a new socket for the incoming connection
-    //     addr_size = sizeof serverStorage;
-    //     connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
-
-    //     struct Query query;
-    //     struct Query *queryPtr = &query;
-
-    //     recv(connectionSocket, queryPtr, sizeof(struct Query), 0);                                                                      //Read the message from the server into the buffer
-    //     printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
-
-    //     struct EmployeeStructure employee;
-    //     struct EmployeeStructure *employeePtr = &employee;
-
-    //     employeePtr->id = 15000;
-    //     strcpy(employeePtr->employeeName, "BRIAN BENSON");
-    //     strcpy(employeePtr->jobTitle, "IS BUSINESS ANALYST");
-    //     employeePtr->basePay = 78059.8;
-    //     employeePtr->overtimePay = 0;
-    //     employeePtr->benefit = 0;
-    //     strcpy(employeePtr->status, "FT");
-    //     employeePtr->satisfactionLevel = 0.37;
-    //     employeePtr->numberProject = 2;
-    //     employeePtr->averageMonthlyHours = 158;
-    //     employeePtr->yearsInCompany = 3;
-    //     employeePtr->workAccident = 0;
-    //     employeePtr->promotionsLast5Years = 0;
-
-    //     send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
-    //     printf("\nSERVER: Result sent to assistant.\n\n");
-    // }
 }
 /*
 ---------------------------------------------------------
@@ -285,7 +248,15 @@ struct Query pipeReceive()
     close(fd); // Close the pipe
     return received;
 }
+/*
+---------------------------------------------------------
+This function begins the client program. The function forks
+a child process and uses the new process to run the manager()
+while the other process runs the assistant()
 
+Params: none
+Return: an instance of the Query struct containing the user query information
+*/
 void runClient()
 {
     while (1)
@@ -410,11 +381,99 @@ void assistant()
     }
     iterationCount++;
 }
+/*
+---------------------------------------------------------
+THIS IS A FULLY WORKING TEST FUNCTION. THIS IS NOT IMPLEMENTED
+IN THE PROGRAM.
+This function runs the server program on an infinite loop.
 
+Params: none
+Return: void
+*/
 void runServer()
 {   
     while (1)
     {
         serverSocket_SendReceive(); // starts server and begins listening
     }
+}
+/*
+---------------------------------------------------------
+THIS IS A FULLY WORKING TEST FUNCTION. THIS IS NOT IMPLEMENTED
+IN THE PROGRAM. WE DECIDED TO USE JOONMO'S SERVER FUNCTION INSTEAD.
+
+This function handles all socket connections on the server side.
+This functions binds and then begins listening for incoming
+client connections. The function then sends a result to the 
+client.
+
+Params: none
+Return: void
+*/
+void serverSocket_SendReceive()
+{
+    int entrySocket, connectionSocket; // socket file descriptors
+    int bindCheck;
+    struct sockaddr_in serverAddr;
+    struct sockaddr_storage serverStorage;
+    socklen_t addr_size;
+
+    // The three arguments are: Internet domain, Stream socket, Default protocol (TCP in this case)
+    entrySocket = socket(PF_INET, SOCK_STREAM, 0); // Create the socket
+
+    // Configure settings of the server address struct
+    serverAddr.sin_family = AF_INET;                               //Address family = Internet
+    serverAddr.sin_port = htons(PORT);                             //Set port number, using htons function to use proper byte order
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);                //Sets IP to accept from any IP address
+    memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero); //Set all bits of the padding field to 0
+
+    bindCheck = bind(entrySocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)); //Bind the address struct to the socket
+    if (bindCheck < 0)
+    {
+        perror("[-]Error in bind");
+        exit(1);
+    }
+
+    // Listen on the socket, with 5 max connection requests queued
+    if (listen(entrySocket, 5) == 0)
+    {
+        printf("SERVER: Listening....\n");
+    }
+    else
+    {
+        printf("[-]Error in listening");
+    }
+
+    // for (int i = 0; i < TESTING_LOOP; i++)
+    // {
+    //     // Accept call creates a new socket for the incoming connection
+    //     addr_size = sizeof serverStorage;
+    //     connectionSocket = accept(entrySocket, (struct sockaddr *)&serverStorage, &addr_size);
+
+    //     struct Query query;
+    //     struct Query *queryPtr = &query;
+
+    //     recv(connectionSocket, queryPtr, sizeof(struct Query), 0);                                                                      //Read the message from the server into the buffer
+    //     printf("SERVER: Query received from assistant:\n\n%s\n%s\n%s\n", queryPtr->employeeName, queryPtr->jobTitle, queryPtr->status); //Print the received message
+
+    //     struct EmployeeStructure employee;
+    //     struct EmployeeStructure *employeePtr = &employee;
+
+    //     employeePtr->id = 15000;
+    //     strcpy(employeePtr->employeeName, "BRIAN BENSON");
+    //     strcpy(employeePtr->jobTitle, "IS BUSINESS ANALYST");
+    //     employeePtr->basePay = 78059.8;
+    //     employeePtr->overtimePay = 0;
+    //     employeePtr->benefit = 0;
+    //     strcpy(employeePtr->status, "FT");
+    //     employeePtr->satisfactionLevel = 0.37;
+    //     employeePtr->numberProject = 2;
+    //     employeePtr->averageMonthlyHours = 158;
+    //     employeePtr->yearsInCompany = 3;
+    //     employeePtr->workAccident = 0;
+    //     employeePtr->promotionsLast5Years = 0;
+
+    //     send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
+    //     printf("\nSERVER: Result sent to assistant.\n\n");
+    // }
 }
