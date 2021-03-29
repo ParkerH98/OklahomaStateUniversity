@@ -365,13 +365,14 @@ void assistant()
     
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status,&employee) != 0) // a match was found
     {
-        printToTerminal(employee);
+        printToTerminal(employee); // prints the existing employee to the terminal
         sleep(1);
     }
     else // a match wasn't found
     {
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
-        if (employee.id != -99){
+        if (employee.id != -99)
+        {
             writeFile(fname, employee, writepos); // writes resulted employee to history file
             writepos = (writepos + 1) % HISTORYMAX;
 
