@@ -23,7 +23,6 @@
 #define STATUS_LEN 3
 #define HISTORYMAX 10
 
-#define TESTING_LOOP 100
 #define PORT 9007
 
 extern int iterationCount;

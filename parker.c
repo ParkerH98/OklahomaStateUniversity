@@ -288,7 +288,7 @@ struct Query pipeReceive()
 
 void runClient()
 {
-    for (int i = 0; i < TESTING_LOOP; i++)
+    while (1)
     {
         pid_t pid;
         pid = fork(); // creates a child process
@@ -320,6 +320,24 @@ Return: void
 */
 void manager()
 {
+    // BRIAN BENSON
+    // IS BUSINESS ANALYST
+    // FT
+
+    // NATHANIEL FORD
+    // GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY
+    // PT
+
+    // ALBERT PARDINI
+    // CAPTAIN III (POLICE DEPARTMENT)
+    // FT
+
+    // CHRISTOPHER CHONG
+    // WIRE ROPE CABLE MAINTENANCE MECHANIC
+    // FT
+
+    fflush(stdin);
+
     struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
@@ -335,121 +353,8 @@ void manager()
     fgets(queryPtr->status, STATUS_LEN, stdin);
     strtok(queryPtr->status, "\n");
 
-//     if (iterationCount == 1)
-//     {
-//         strcpy(queryPtr->employeeName, "BRIAN BENSON");
-//         strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-//         strcpy(queryPtr->status, "FT");
-//     }
-
-//     if (iterationCount == 2)
-//     {
-//         strcpy(queryPtr->employeeName, "NATHANIEL FORD");
-//         strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
-//         strcpy(queryPtr->status, "PT");
-//     }
-
-//    if (iterationCount == 3)
-//     {
-//         strcpy(queryPtr->employeeName, "BRIAN BENSON");
-//         strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
-//         strcpy(queryPtr->status, "FT");
-//     }
-
-//     if (iterationCount == 4)
-//     {
-//         strcpy(queryPtr->employeeName, "ALBERT PARDINI");
-//         strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-//         strcpy(queryPtr->status, "FT");
-//     }
-
-//     if (iterationCount == 5)
-//     {
-//         strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
-//         strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
-//         strcpy(queryPtr->status, "FT");
-//     }
-
-//     if (iterationCount == 6)
-//     {
-//         strcpy(queryPtr->employeeName, "PATRICK GARDNER");
-//         strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
-//         strcpy(queryPtr->status, "FT");
-//     }
-
-//     if (iterationCount == 7)
-//     {
-//         strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
-//         strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
-//         strcpy(queryPtr->status, "PT");
-//     }
-
-//     if (iterationCount == 8)
-//     {
-//         strcpy(queryPtr->employeeName, "ALSON LEE");
-//         strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-//         strcpy(queryPtr->status, "PT");
-//     }
-
-
-//     if (iterationCount == 9)
-//     {
-//         strcpy(queryPtr->employeeName, "ALSON LEE");
-//         strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-//         strcpy(queryPtr->status, "PT");
-//     }
-
-//     if (iterationCount == 10)
-//     {
-//         strcpy(queryPtr->employeeName, "DAVID KUSHNER");
-//         strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
-//         strcpy(queryPtr->status, "PT");
-//     }
-
-    // if (iterationCount == 11)
-    // {
-    //     strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
-    //     strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
-
-    // if (iterationCount == 12)
-    // {
-    //     strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
-    //     strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
-
-    // if (iterationCount == 13)
-    // {
-    //     strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
-    //     strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "PT");
-    // }
-
-    // if (iterationCount == 14)
-    // {
-    //     strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
-    //     strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
-    //     strcpy(queryPtr->status, "FT");
-    // }
-
-    // if (iterationCount == 15)
-    // {
-    //     strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
-    //     strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
-    //     strcpy(queryPtr->status, "FT");
-    // }
-
-    // if (iterationCount == 16)
-    // {
-    //     strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
-    //     strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
-    //     strcpy(queryPtr->status, "FT");
-    // }
-
-
-    if (strlen(queryPtr->employeeName) < 2 || strlen(queryPtr->jobTitle) < 2 || strlen(queryPtr->status) < 2){ // checks for empty input
+    if (strlen(queryPtr->employeeName) < 2 || strlen(queryPtr->jobTitle) < 2 || strlen(queryPtr->status) < 2)
+    { // checks for empty input
 
         printf("You had an empty query input field. Please try again.\n");
         exit(1);
@@ -485,6 +390,7 @@ void assistant()
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status,&employee) != 0) // a match was found
     {
         printToTerminal(employee);
+        sleep(1);
     }
     else // a match wasn't found
     {
@@ -494,6 +400,8 @@ void assistant()
             writepos = (writepos + 1) % HISTORYMAX;
 
             printToTerminal(employee); // prints the resulted employee information to a new terminal
+            sleep(1);
+
         }
         else{
             printf("EMPLOYEE NOT FOUND\n");
@@ -505,7 +413,7 @@ void assistant()
 
 void runServer()
 {   
-    for (int i = 0; i < TESTING_LOOP; i++)
+    while (1)
     {
         serverSocket_SendReceive(); // starts server and begins listening
     }
