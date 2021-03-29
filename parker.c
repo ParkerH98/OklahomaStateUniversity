@@ -365,7 +365,7 @@ void assistant()
     
     if (searchFile(fname, query.employeeName, query.jobTitle, query.status,&employee) != 0) // a match was found
     {
-        // printToTerminal(employee);
+        printToTerminal(employee);
         sleep(1);
     }
     else // a match wasn't found
@@ -375,7 +375,7 @@ void assistant()
             writeFile(fname, employee, writepos); // writes resulted employee to history file
             writepos = (writepos + 1) % HISTORYMAX;
 
-            // printToTerminal(employee); // prints the resulted employee information to a new terminal
+            printToTerminal(employee); // prints the resulted employee information to a new terminal
             sleep(1);
 
         }
