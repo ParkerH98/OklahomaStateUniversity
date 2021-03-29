@@ -1,6 +1,11 @@
 # OS-Group_B
 Operating Systems Spring 2021 Group B Repository
 
+### About
+-----
+Repo for the group B OS assignment. This is a client/server program that uses socket connections, IPC via pipes, and multithreaded file searching to search a database for a query
+and send it back to the client.
+
 ### Usage
 -------------
 #### SERVER
@@ -32,20 +37,18 @@ Operating Systems Spring 2021 Group B Repository
 
 ### Contents
 --------
+#### PROGRAM FILES
+* driver_client.c - main() for client
+* driver_server.c - main() for server
+* parker.c - client, manager, terminal printing, client socket connection, IPC via pipes
+* joonmo.c - server socket connection, searching database with threads
+* michael.c - searching database with threads, writing to history file, and history file
+* landon.c
+* header.h - includes, global function, and struct definitions
+
 #### INPUT FILES
 * Name.txt - file containing IDs, and names
 
 * Satisfaction.txt - file containing IDs, satisfaction levels, average monthly hours, time spent in company in years, work accidents, and promotions in the last 5 years
 
 * Salary.txt - file containing IDs, job titles, base pay, overtime pay, benefits, and status
-
-#### PROGRAM FILES
-* parker.c - 
-* joonmo.c - TBD
-* michael.c - TBD
-* landon.c - TBD
-
-### About
------
-Repo for the group B OS assignment. This is a client/server program that uses socket connections, IPC via pipes, and multithreaded file searching to search a database for a query
-and send it back to the client.
