@@ -1,288 +1,288 @@
-#include "header.h"
+// #include "header.h"
 
-void writeToHistoryFile(char* fileName, struct EmployeeStructure employee){
-//Accepts the name of the file as a string and the employee's information as a string for arguments.
+// void writeToHistoryFile(char* fileName, struct EmployeeStructure employee){
+// //Accepts the name of the file as a string and the employee's information as a string for arguments.
 	
-	FILE *history;
-	history = fopen(fileName, "r");  //Opens the history file
+// 	FILE *history;
+// 	history = fopen(fileName, "r");  //Opens the history file
 	
-	FILE *temp;
-	temp = fopen("temp.txt", "w+");  //Creates a new file to copy the old history file to
+// 	FILE *temp;
+// 	temp = fopen("temp.txt", "w+");  //Creates a new file to copy the old history file to
 	
-	char newLine;
-	int count = 0;
+// 	char newLine;
+// 	int count = 0;
 	
-	while((newLine = getc(history)) != EOF){
-		if(newLine == '\n'){
-			count++;  //Whenever the char variable newLine is a newline character, int variable count increments by one. This is done to check whether or not the file has 10 lines.
-		}
-	}
+// 	while((newLine = getc(history)) != EOF){
+// 		if(newLine == '\n'){
+// 			count++;  //Whenever the char variable newLine is a newline character, int variable count increments by one. This is done to check whether or not the file has 10 lines.
+// 		}
+// 	}
 	
-	fseek(history, 0, SEEK_SET);
+// 	fseek(history, 0, SEEK_SET);
 	
-	if(count < 10){
-		while((newLine = getc(history)) != EOF){
-			fprintf(temp, "%c", newLine);
-		}
-		fprintf(temp, "Id: [%d] ", employee.id);
-		fprintf(temp, "Employee Name: {%s} ", employee.employeeName);
-		fprintf(temp, "Job Title: <%s>  ", employee.jobTitle);
-		fprintf(temp, "Base Pay: [%f]  ", employee.basePay);
-		fprintf(temp, "Overtime Pay: [%f]  ", employee.basePay);
-		fprintf(temp, "Benefit: [%f]  ", employee.benefit);
-		fprintf(temp, "Status: /%s/ ", employee.status);
-		fprintf(temp, "Satisfaction Level: [%f]  ", employee.satisfactionLevel);
-		fprintf(temp, "Number of Projects: [%d]  ", employee.numberProject);
-		fprintf(temp, "Average Monthly Hours: [%d]  ", employee.averageMonthlyHours);
-		fprintf(temp, "Company Time (Years): [%d]  ", employee.yearsInCompany);
-		fprintf(temp, "Work Accident: [%d]  ", employee.workAccident);
-		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
-		//If the history file has less than 10 lines, the whole history file is copied to temp, and then the new employee information is appended to the end.
-	}
-	else{
-		int tmpcount = 0;
-		while((newLine = getc(history)) != EOF){
-			if(tmpcount > 0){
-				fprintf(temp, "%c", newLine);
-			}
-			if(newLine == '\n'){
-				tmpcount++;
-			}
-		}
+// 	if(count < 10){
+// 		while((newLine = getc(history)) != EOF){
+// 			fprintf(temp, "%c", newLine);
+// 		}
+// 		fprintf(temp, "Id: [%d] ", employee.id);
+// 		fprintf(temp, "Employee Name: {%s} ", employee.employeeName);
+// 		fprintf(temp, "Job Title: <%s>  ", employee.jobTitle);
+// 		fprintf(temp, "Base Pay: [%f]  ", employee.basePay);
+// 		fprintf(temp, "Overtime Pay: [%f]  ", employee.basePay);
+// 		fprintf(temp, "Benefit: [%f]  ", employee.benefit);
+// 		fprintf(temp, "Status: /%s/ ", employee.status);
+// 		fprintf(temp, "Satisfaction Level: [%f]  ", employee.satisfactionLevel);
+// 		fprintf(temp, "Number of Projects: [%d]  ", employee.numberProject);
+// 		fprintf(temp, "Average Monthly Hours: [%d]  ", employee.averageMonthlyHours);
+// 		fprintf(temp, "Company Time (Years): [%d]  ", employee.yearsInCompany);
+// 		fprintf(temp, "Work Accident: [%d]  ", employee.workAccident);
+// 		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
+// 		//If the history file has less than 10 lines, the whole history file is copied to temp, and then the new employee information is appended to the end.
+// 	}
+// 	else{
+// 		int tmpcount = 0;
+// 		while((newLine = getc(history)) != EOF){
+// 			if(tmpcount > 0){
+// 				fprintf(temp, "%c", newLine);
+// 			}
+// 			if(newLine == '\n'){
+// 				tmpcount++;
+// 			}
+// 		}
 		
-		fprintf(temp, "Id: [%d] ", employee.id);
-		fprintf(temp, "Employee Name: {%s} ", employee.employeeName);
-		fprintf(temp, "Job Title: <%s> ", employee.jobTitle);
-		fprintf(temp, "Base Pay: [%f] ", employee.basePay);
-		fprintf(temp, "Overtime Pay: [%f] ", employee.basePay);
-		fprintf(temp, "Benefit: [%f] ", employee.benefit);
-		fprintf(temp, "Status: /%s/ ", employee.status);
-		fprintf(temp, "Satisfaction Level: [%f] ", employee.satisfactionLevel);
-		fprintf(temp, "Number of Projects: [%d] ", employee.numberProject);
-		fprintf(temp, "Average Monthly Hours: [%d] ", employee.averageMonthlyHours);
-		fprintf(temp, "Company Time (Years): [%d] ", employee.yearsInCompany);
-		fprintf(temp, "Work Accident: [%d] ", employee.workAccident);
-		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
-		//If the history file already has 10 lines, all of the employee info except for the first line is copied to temp, then the new employee information is appended to the end.
-	}
+// 		fprintf(temp, "Id: [%d] ", employee.id);
+// 		fprintf(temp, "Employee Name: {%s} ", employee.employeeName);
+// 		fprintf(temp, "Job Title: <%s> ", employee.jobTitle);
+// 		fprintf(temp, "Base Pay: [%f] ", employee.basePay);
+// 		fprintf(temp, "Overtime Pay: [%f] ", employee.basePay);
+// 		fprintf(temp, "Benefit: [%f] ", employee.benefit);
+// 		fprintf(temp, "Status: /%s/ ", employee.status);
+// 		fprintf(temp, "Satisfaction Level: [%f] ", employee.satisfactionLevel);
+// 		fprintf(temp, "Number of Projects: [%d] ", employee.numberProject);
+// 		fprintf(temp, "Average Monthly Hours: [%d] ", employee.averageMonthlyHours);
+// 		fprintf(temp, "Company Time (Years): [%d] ", employee.yearsInCompany);
+// 		fprintf(temp, "Work Accident: [%d] ", employee.workAccident);
+// 		fprintf(temp, "Promotion in Last 5 Years: [%d]\n", employee.promotionsLast5Years);
+// 		//If the history file already has 10 lines, all of the employee info except for the first line is copied to temp, then the new employee information is appended to the end.
+// 	}
 	
-	fclose(history); //Closes the history file
-	remove(fileName); //Deletes the history file
-	fclose(temp); //Closes temp
-	rename("temp.txt", fileName); //Renames temp to the same name as the history file
-	return;
-}
+// 	fclose(history); //Closes the history file
+// 	remove(fileName); //Deletes the history file
+// 	fclose(temp); //Closes temp
+// 	rename("temp.txt", fileName); //Renames temp to the same name as the history file
+// 	return;
+// }
 
-struct EmployeeStructure getEmployeeFromHistory(char* fileName, struct Query query){
+// struct EmployeeStructure getEmployeeFromHistory(char* fileName, struct Query query){
 	
-	struct EmployeeStructure employee;
+// 	struct EmployeeStructure employee;
 	
-	FILE *history;
-	history = fopen(fileName, "r");
+// 	FILE *history;
+// 	history = fopen(fileName, "r");
 	
-	char *name = query.employeeName;
-	char *jobTitle = query.jobTitle;
-	char *status = query.status;
+// 	char *name = query.employeeName;
+// 	char *jobTitle = query.jobTitle;
+// 	char *status = query.status;
 	
-	char idString[500];
-	int id;
+// 	char idString[500];
+// 	int id;
 	
-	char basePayString[500];
-	double basePay;
+// 	char basePayString[500];
+// 	double basePay;
 	
-	char overtimePayString[500];
-	double overtimePay;
+// 	char overtimePayString[500];
+// 	double overtimePay;
 	
-	char benefitString[500];
-	double benefit;
+// 	char benefitString[500];
+// 	double benefit;
 	
-	char satisfactionLevelString[500];
-	float satisfactionLevel;
+// 	char satisfactionLevelString[500];
+// 	float satisfactionLevel;
 	
-	char numberProjectString[500];
-	int numberProject;
+// 	char numberProjectString[500];
+// 	int numberProject;
 	
-	char averageMonthlyHoursString[500];
-	int averageMonthlyHours;
+// 	char averageMonthlyHoursString[500];
+// 	int averageMonthlyHours;
 	
-	char yearsInCompanyString[500];
-	int yearsInCompany;
+// 	char yearsInCompanyString[500];
+// 	int yearsInCompany;
 	
-	char workAccidentString[500];
-	int workAccident;
+// 	char workAccidentString[500];
+// 	int workAccident;
 	
-	char promotionsLast5YearsString[500];
-	int promotionsLast5Years;
+// 	char promotionsLast5YearsString[500];
+// 	int promotionsLast5Years;
 	
-	char next;
+// 	char next;
 	
-	bool sameName = true;
-	bool sameJobTitle = true;
-	bool sameStatus = true;
+// 	bool sameName = true;
+// 	bool sameJobTitle = true;
+// 	bool sameStatus = true;
 	
-	while((next = getc(history)) != EOF){
+// 	while((next = getc(history)) != EOF){
 		
-		if(next == '{'){
-			int i = 0;
-			while((next = getc(history)) != '}'){
-				if(next != name[i]){
-					sameName = false;
-				}
-				i++;
-			}
-		}
+// 		if(next == '{'){
+// 			int i = 0;
+// 			while((next = getc(history)) != '}'){
+// 				if(next != name[i]){
+// 					sameName = false;
+// 				}
+// 				i++;
+// 			}
+// 		}
 		
-		if(next == '<'){
-			int i = 0;
-			while((next = getc(history)) != '>'){
-				if(next != jobTitle[i]){
-					sameJobTitle = false;
-				}
-				i++;
-			}
-		}
+// 		if(next == '<'){
+// 			int i = 0;
+// 			while((next = getc(history)) != '>'){
+// 				if(next != jobTitle[i]){
+// 					sameJobTitle = false;
+// 				}
+// 				i++;
+// 			}
+// 		}
 		
-		if(next == '/'){
-			int i = 0;
-			while((next = getc(history)) != '/'){
-				if(next != status[i]){
-					sameStatus = false;
-				}
-				i++;
-			}
-		}
-	}
+// 		if(next == '/'){
+// 			int i = 0;
+// 			while((next = getc(history)) != '/'){
+// 				if(next != status[i]){
+// 					sameStatus = false;
+// 				}
+// 				i++;
+// 			}
+// 		}
+// 	}
 	
-	fseek(history, 0, SEEK_SET);
+// 	fseek(history, 0, SEEK_SET);
 	
-	if(sameName && sameJobTitle && sameStatus){
+// 	if(sameName && sameJobTitle && sameStatus){
 		
-		int i = 0;
+// 		int i = 0;
 		
-		strcpy(employee.employeeName, name);
-		strcpy(employee.jobTitle, jobTitle);
-		strcpy(employee.status, status);
+// 		strcpy(employee.employeeName, name);
+// 		strcpy(employee.jobTitle, jobTitle);
+// 		strcpy(employee.status, status);
 		
-		while((next = getc(history)) != EOF){
-			if(next == '[' && i == 0){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					idString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 1){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					basePayString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 2){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					overtimePayString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 3){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					benefitString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 4){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					satisfactionLevelString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 5){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					numberProjectString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 6){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					averageMonthlyHoursString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 7){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					yearsInCompanyString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 8){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					workAccidentString[j] = next;
-					j++;
-				}
-			}
-			else if(next == '[' && i == 9){
-				i++;
-				int j = 0;
-				while((next = getc(history)) != ']'){
-					promotionsLast5YearsString[j] = next;
-					j++;
-				}
-			}
-		}
+// 		while((next = getc(history)) != EOF){
+// 			if(next == '[' && i == 0){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					idString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 1){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					basePayString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 2){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					overtimePayString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 3){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					benefitString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 4){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					satisfactionLevelString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 5){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					numberProjectString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 6){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					averageMonthlyHoursString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 7){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					yearsInCompanyString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 8){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					workAccidentString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 			else if(next == '[' && i == 9){
+// 				i++;
+// 				int j = 0;
+// 				while((next = getc(history)) != ']'){
+// 					promotionsLast5YearsString[j] = next;
+// 					j++;
+// 				}
+// 			}
+// 		}
 		
-		char *end;
+// 		char *end;
 		
-		id = atoi(idString);
-		employee.id = id;
+// 		id = atoi(idString);
+// 		employee.id = id;
 		
-		basePay = strtod(basePayString, &end);
-		employee.basePay = basePay;
+// 		basePay = strtod(basePayString, &end);
+// 		employee.basePay = basePay;
 		
-		overtimePay = strtod(overtimePayString, &end);
-		employee.overtimePay = overtimePay;
+// 		overtimePay = strtod(overtimePayString, &end);
+// 		employee.overtimePay = overtimePay;
 		
-		benefit = strtod(benefitString, &end);
-		employee.benefit = benefit;
+// 		benefit = strtod(benefitString, &end);
+// 		employee.benefit = benefit;
 		
-		satisfactionLevel = strtof(satisfactionLevelString, &end);
-		employee.satisfactionLevel = satisfactionLevel;
+// 		satisfactionLevel = strtof(satisfactionLevelString, &end);
+// 		employee.satisfactionLevel = satisfactionLevel;
 		
-		numberProject = atoi(numberProjectString);
-		employee.numberProject = numberProject;
+// 		numberProject = atoi(numberProjectString);
+// 		employee.numberProject = numberProject;
 		
-		averageMonthlyHours = atoi(averageMonthlyHoursString);
-		employee.averageMonthlyHours = averageMonthlyHours;
+// 		averageMonthlyHours = atoi(averageMonthlyHoursString);
+// 		employee.averageMonthlyHours = averageMonthlyHours;
 		
-		yearsInCompany = atoi(yearsInCompanyString);
-		employee.yearsInCompany = yearsInCompany;
+// 		yearsInCompany = atoi(yearsInCompanyString);
+// 		employee.yearsInCompany = yearsInCompany;
 		
-		workAccident = atoi(workAccidentString);
-		employee.workAccident = workAccident;
+// 		workAccident = atoi(workAccidentString);
+// 		employee.workAccident = workAccident;
 		
-		promotionsLast5Years = atoi(promotionsLast5YearsString);
-		employee.promotionsLast5Years = promotionsLast5Years;
-	}
+// 		promotionsLast5Years = atoi(promotionsLast5YearsString);
+// 		employee.promotionsLast5Years = promotionsLast5Years;
+// 	}
 	
-	fclose(history);
+// 	fclose(history);
 	
-	return employee;
-}
+// 	return employee;
+// }
 
 // gcc landen.c 
 // int main(){

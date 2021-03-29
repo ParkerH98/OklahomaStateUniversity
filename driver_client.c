@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    iterationCount = 1; // initializes the itterCount later used to check if a new terminal should be opened -- see printToTerminal()
+    iterationCount = 1; // initializes the iterationCount later used to check if a new terminal should be opened -- see printToTerminal()
     if (argc == 1) // an IP address wasn't entered
     {
         printf("Please enter a server IP address to run the program\n");
