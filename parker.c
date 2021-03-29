@@ -489,10 +489,15 @@ void assistant()
     else // a match wasn't found
     {
         employee = clientSocket_SendReceive(query.employeeName, query.jobTitle, query.status); // sends query to Server
-        writeFile(fname, employee, writepos); // writes resulted employee to history file
-        writepos = (writepos + 1) % HISTORYMAX;
+        if (employee.id != -99){
+            writeFile(fname, employee, writepos); // writes resulted employee to history file
+            writepos = (writepos + 1) % HISTORYMAX;
 
-        printToTerminal(employee); // prints the resulted employee information to a new terminal
+            printToTerminal(employee); // prints the resulted employee information to a new terminal
+        }
+        else{
+            printf("EMPLOYEE NOT FOUND\n");
+        }
         printf("\n====================\nQUERY END\n====================\n\n");
     }
     iterationCount++;
