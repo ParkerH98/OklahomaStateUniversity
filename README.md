@@ -38,7 +38,7 @@ and send it back to the client.
 * driver_server.c - main() for server
 * parker.c - client, manager, terminal printing, client socket connection, IPC via pipes
 * joonmo.c - server socket connection, searching database with threads
-* michael.c - searching database with threads, writing to history file, and history file
+* michael.c - searching database with threads, writing to history file, and searching history file
 * landon.c
 * header.h - includes, global function, and struct definitions
 
