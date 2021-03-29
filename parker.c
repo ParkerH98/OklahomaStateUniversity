@@ -291,6 +291,7 @@ Return: void
 */
 void manager()
 {
+    // I only left these here as easy test inputs
     // BRIAN BENSON
     // IS BUSINESS ANALYST
     // FT
@@ -307,7 +308,7 @@ void manager()
     // WIRE ROPE CABLE MAINTENANCE MECHANIC
     // FT
 
-    fflush(stdin);
+    fflush(stdin); // to remove an leftover buffer from previous executions
 
     struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
