@@ -3,8 +3,6 @@
 // 
 #include "header.h"
 
-
-
 int searchFile(char *fname, char *employeeName, char *jobTitle, char *status, struct EmployeeStructure *newLine)
 {
     FILE *f;             // file pointer

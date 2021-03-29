@@ -4,7 +4,6 @@
 #include "header.h"
 #include "oliver.c"
 
-
 struct EmployeeStack *searchMain(void *sourceQueryFromClient)
 {
     struct Query* queryFromClient = sourceQueryFromClient;
