@@ -28,7 +28,7 @@ and send it back to the client.
 * If the program prematurely exits and the sockets aren't able to close, sometimes this will create a bind error on a
    future execution of the program. If this happens, change the `#define PORT` constant located in the header.h file
 * Both the client and server require 'Control + C' in order to stop the program
-* `landen.c` is not connected to the program. We were having issues with his functions on the day of submission so Michael wrote his own versions of `writeFile()` and `searchFile()`
+* `landen.c` is not connected to the program. We were having issues with his functions on the day of submission so Michael wrote his own versions of `writeFile()` and `searchFile()`. Landen's code is commented out so it is not confused with implemented code.
 
 
 ### Contents
