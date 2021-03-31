@@ -6,17 +6,14 @@ A = [4^2 4 1;
      7^2 7 1];
  
  % Row-Sum Norm
- infNorm = norm(A, inf);
  infCond = cond(A, inf);
  
  % Part b:
  
  % Spectral
- spNorm = norm(A, 2);
  spCond = cond(A, 2);
 
  % Frobenius
- froNorm = norm(A, 'fro');
  froCond = cond(A, 'fro');
  
  % create strings
