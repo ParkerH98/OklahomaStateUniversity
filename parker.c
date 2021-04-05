@@ -317,17 +317,131 @@ void manager()
     struct Query query; // stores query information
     struct Query *queryPtr = &query; // pointer to query information
 
-    printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
-    fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
-    strtok(queryPtr->employeeName, "\n");
+    // printf("Enter an employee name.\n"); // gets and stores employee name into Query struct
+    // fgets(queryPtr->employeeName, EMPLOYEENAME_LEN, stdin);
+    // strtok(queryPtr->employeeName, "\n");
 
-    printf("Enter a job title.\n"); // gets and stores job title into Query struct
-    fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
-    strtok(queryPtr->jobTitle, "\n");
+    // printf("Enter a job title.\n"); // gets and stores job title into Query struct
+    // fgets(queryPtr->jobTitle, JOBTITLE_LEN, stdin);
+    // strtok(queryPtr->jobTitle, "\n");
 
-    printf("Enter a status.\n"); // gets and stores status into Query struct
-    fgets(queryPtr->status, STATUS_LEN, stdin);
-    strtok(queryPtr->status, "\n");
+    // printf("Enter a status.\n"); // gets and stores status into Query struct
+    // fgets(queryPtr->status, STATUS_LEN, stdin);
+    // strtok(queryPtr->status, "\n");
+
+
+    if (iterationCount == 1)
+    {
+        strcpy(queryPtr->employeeName, "BRIAN BENSON");
+        strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 2)
+    {
+        strcpy(queryPtr->employeeName, "NATHANIEL FORD");
+        strcpy(queryPtr->jobTitle, "GENERAL MANAGER-METROPOLITAN TRANSIT AUTHORITY");
+        strcpy(queryPtr->status, "PT");
+    }
+
+   if (iterationCount == 3)
+    {
+        strcpy(queryPtr->employeeName, "BRIAN BENSON");
+        strcpy(queryPtr->jobTitle, "IS BUSINESS ANALYST");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 4)
+    {
+        strcpy(queryPtr->employeeName, "ALBERT PARDINI");
+        strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 5)
+    {
+        strcpy(queryPtr->employeeName, "CHRISTOPHER CHONG");
+        strcpy(queryPtr->jobTitle, "WIRE ROPE CABLE MAINTENANCE MECHANIC");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 6)
+    {
+        strcpy(queryPtr->employeeName, "PATRICK GARDNER");
+        strcpy(queryPtr->jobTitle, "DEPUTY CHIEF OF DEPARTMENT,(FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 7)
+    {
+        strcpy(queryPtr->employeeName, "DAVID SULLIVAN");
+        strcpy(queryPtr->jobTitle, "ASSISTANT DEPUTY CHIEF II");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 8)
+    {
+        strcpy(queryPtr->employeeName, "ALSON LEE");
+        strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
+
+
+    if (iterationCount == 9)
+    {
+        strcpy(queryPtr->employeeName, "ALSON LEE");
+        strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 10)
+    {
+        strcpy(queryPtr->employeeName, "DAVID KUSHNER");
+        strcpy(queryPtr->jobTitle, "DEPUTY DIRECTOR OF INVESTMENTS");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 11)
+    {
+        strcpy(queryPtr->employeeName, "MICHAEL MORRIS");
+        strcpy(queryPtr->jobTitle, "BATTALION CHIEF, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 12)
+    {
+        strcpy(queryPtr->employeeName, "JOANNE HAYES-WHITE");
+        strcpy(queryPtr->jobTitle, "CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 13)
+    {
+        strcpy(queryPtr->employeeName, "ARTHUR KENNEY");
+        strcpy(queryPtr->jobTitle, "ASSISTANT CHIEF OF DEPARTMENT, (FIRE DEPARTMENT)");
+        strcpy(queryPtr->status, "PT");
+    }
+
+    if (iterationCount == 14)
+    {
+        strcpy(queryPtr->employeeName, "PATRICIA JACKSON");
+        strcpy(queryPtr->jobTitle, "CAPTAIN III (POLICE DEPARTMENT)");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 15)
+    {
+        strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+        strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
+        strcpy(queryPtr->status, "FT");
+    }
+
+    if (iterationCount == 16)
+    {
+        strcpy(queryPtr->employeeName, "EDWARD HARRINGTON");
+        strcpy(queryPtr->jobTitle, "EXECUTIVE CONTRACT EMPLOYEE");
+        strcpy(queryPtr->status, "FT");
+    }
 
     if (strlen(queryPtr->employeeName) < 2 || strlen(queryPtr->jobTitle) < 2 || strlen(queryPtr->status) < 2)
     { // checks for empty input
@@ -386,22 +500,6 @@ void assistant()
         printf("\n====================\nQUERY END\n====================\n\n");
     }
     iterationCount++;
-}
-/*
----------------------------------------------------------
-THIS IS A FULLY WORKING TEST FUNCTION. THIS IS NOT IMPLEMENTED
-IN THE PROGRAM.
-This function runs the server program on an infinite loop.
-
-Params: none
-Return: void
-*/
-void runServer()
-{   
-    while (1)
-    {
-        serverSocket_SendReceive(); // starts server and begins listening
-    }
 }
 /*
 ---------------------------------------------------------
@@ -482,4 +580,20 @@ void serverSocket_SendReceive()
     //     send(connectionSocket, employeePtr, sizeof(struct EmployeeStructure), 0);
     //     printf("\nSERVER: Result sent to assistant.\n\n");
     // }
+}
+/*
+---------------------------------------------------------
+THIS IS A FULLY WORKING TEST FUNCTION. THIS IS NOT IMPLEMENTED
+IN THE PROGRAM.
+This function runs the server program on an infinite loop.
+
+Params: none
+Return: void
+*/
+void runServer()
+{   
+    while (1)
+    {
+        serverSocket_SendReceive(); // starts server and begins listening
+    }
 }
