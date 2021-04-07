@@ -8,10 +8,10 @@ iter = 0;
 ea = 100;
 
 while(1)
-    evalold = eval;
-    evect = A * evect;
-    eval = max(abs(evect));
-    evect = evect ./ eval;
+    evalold = eval; % save old value
+    evect = A * evect; % determine eigen vector as [A] * {x}
+    eval = max(abs(evect)); % determine new eigen value
+    evect = evect ./ eval; % normalize eigen vector to eigen value
     iter = iter + 1;
     
     if eval ~= 0
