@@ -5,7 +5,7 @@ A = [2 8 10;
      10 5 7];
  
  % calculates min and max eigen values
- min = minEigenValue(A, .00001, 1000);
+ min = minEigenValue(A, .000001, 100);
  max = maxEigenValue(A, .000001, 100);
 
  % strings to print
