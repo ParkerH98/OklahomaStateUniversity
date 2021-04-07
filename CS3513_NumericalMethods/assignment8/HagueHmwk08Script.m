@@ -13,9 +13,17 @@ A = [2 8 10;
  maxString = sprintf('The max eigen value of matrix A is: %f', max);
  
   % prints strings
- disp('Corresponding Eigen Vector');
- display(eig(A));
  display(minString);
+ disp('Corresponding Eigen Vector');
+ display(minEvect);
+ 
  display(maxString);
+ disp('Corresponding Eigen Vector');
+ display(maxEvect);
+ 
+ disp('Eigen Values');
+ eig(A)
+ 
+ 
  
  
