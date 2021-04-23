@@ -23,7 +23,3 @@ A = [2 8 10;
  
  disp('Eigen Values');
  eig(A)
- 
- 
- 
- 
