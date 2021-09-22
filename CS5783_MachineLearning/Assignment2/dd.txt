@@ -1,0 +1,65 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def sigmoid(a):
+    return (np.exp(a) / (1 + (np.exp(a))))
+
+def d_sigmoid(a):
+    return sigmoid(a) * (1 - sigmoid(a))
+
+def identity(a):
+    return np.dot(1, a)
+
+def d_identity(a):
+    a = 1
+    return a
+
+def mean_square_error(y_predicted, y_actual):
+    return np.mean((y_predicted - y_actual) ** 2)
+
+def back_propagation(w1, w2):
+    
+    dL2 = 2 * (a2 - Y_train)
+    da2 = d_identity(z2)
+    dz2 = a1
+    
+    da1 = d_sigmoid(z1)
+    dz1 = X_train
+    
+    dw2 = np.dot(dz2.T, dL2) * da2
+    dw1 = np.dot( X_train.T, (np.dot(dL2 * d_sigmoid(a2), w2.T) * d_sigmoid(a1)))
+    
+    w2 = w2 - (dw2 * .000001)
+    w1 = w1 - (dw1 * .000001)
+    
+    return w1, w2
+    
+
+X_train = np.loadtxt("X_train.csv")
+Y_train = np.loadtxt("Y_train.csv")
+X_test = np.loadtxt("X_test.csv")
+Y_test = np.loadtxt("Y_test.csv")
+Y_train = np.reshape(Y_train, (100, 1))
+
+# initializing weights and biases
+np.random.seed(1)
+w1 = np.random.rand(2, 2)
+w2 = np.random.rand(2, 1)
+b1 = np.random.rand(1, 1)
+b2 = np.random.rand(1, 1)
+
+for i in range(10000):
+    
+    # original product of input layer and activation output
+    z1 = np.dot(X_train, w1) + b1
+    a1 = sigmoid(z1)
+
+    # original product of hidden layer and activation output
+    z2 = np.dot(a1, w2) + b2
+    a2 = identity(z2)
+    
+    loss = mean_square_error(a2, Y_train)
+    
+    w1, w2 = back_propagation(w1, w2)
+     
+    
