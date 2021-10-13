@@ -4,7 +4,6 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from collections import defaultdict
 from format import *
-import csv
 
 # columns for DataFrame
 movieFields = ['id', 'title', 'vote_average', 'cast', 'cast_ids']
@@ -20,20 +19,21 @@ df = pd.DataFrame(movie_dataset)
 # gets unique keys from actors i.e:
 # ['Tom Hanks', 'Will Smith', 'Tom Hanks', 'Jonah Hill', 'Tom Hanks', 'Will Smith', 'Jonah Hill']
 # returns list [0, 1, 0, 2, 0, 1, 2]
-key_assignment = defaultdict(lambda: len(key_assignment))
+# key_assignment = defaultdict(lambda: len(key_assignment))
 
 # list of unique keys for each actor
-keys = [key_assignment[key] for key in all_names]
+# keys = [key_assignment[key] for key in all_names]
 
 # assigns keys to actors to form a hash table...nums are keys
-actor_dict = dict(zip(keys, all_names))
+# actor_dict = dict(zip(keys, all_names))
 
 # inverts dictionary...names are keys
-actor_dict_inv = {v: k for k, v in actor_dict.items()}
+# actor_dict_inv = {v: k for k, v in actor_dict.items()}
 
-# w = csv.writer(open("actor_dict.csv", "w"))
-# for key, val in actor_dict.items():
-#     w.writerow([key, val])
+
+# print(df['title'])
+
+
 
 # need to ma
 
