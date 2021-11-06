@@ -1,5 +1,6 @@
 adult,
-belongs_to_collection,budget,
+belongs_to_collection,
+budget,
 genres,
 homepage,
 id,
