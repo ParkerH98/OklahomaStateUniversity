@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import sklearn.naive_bayes as NB
 import DatasetFormatting as df
+import matplotlib.pyplot as plot
 
 def roundY(y_col):
   print()
@@ -74,6 +75,12 @@ def main():
   accuracy = total_correct/y_test.shape[0]
   print(f"Total Correct Ratio: {total_correct}/{y_test.shape[0]}")
   print(accuracy)
+
+  plot.figure(figsize = [10, 10])
+  actuals = plot.scatter(np.linspace(0, y_test.shape[0], y_test.shape[0]), y_test, color='red', marker='.')
+  estimates = plot.scatter(np.linspace(0, y_test.shape[0], y_test.shape[0]), y_pred, color='blue', marker='.')
+  plot.legend([actuals, estimates], ["Actuals", "Estimated"])
+  plot.show()
   
 
 
