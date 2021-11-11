@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+import sklearn.naive_bayes as NB
 import DatasetFormatting as df
 
 def roundY(y_col):
@@ -7,13 +9,8 @@ def roundY(y_col):
 
 
 def naiveBayes(X, y):
- from sklearn.model_selection import train_test_split
- import sklearn.naive_bayes as NB
-
-
- x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
  NBmodel = NB.CategoricalNB()
- NBmodel = NBmodel.fit(x_train, y_train)
+ NBmodel = NBmodel.fit(X, y)
  return NBmodel
 
 
@@ -22,12 +19,23 @@ def prepareForNB(data):
   genres = data['genres'].to_list()
 
   X = []
+  unique_keys = {'': 0}
+  unique_key = 1
+
   for i in range(0, len(all_actors)):
-    row = all_actors[i].split()
-    row.insert(0, genres[i])
-    if len(row) < 6:
-      for i in range(0, 6 - len(row)):
-        row.append('')
+    row = []
+
+    raw_row = all_actors[i].split()
+    raw_row.insert(0, genres[i])
+    if len(raw_row) < 6:
+      for i in range(0, 6 - len(raw_row)):
+        raw_row.append('')
+
+    for item in raw_row:
+      if item not in unique_keys:
+        unique_keys[item] = unique_key
+        unique_key += 1
+      row.append(unique_keys[item])
 
     X.append(row)
   
@@ -42,8 +50,30 @@ def prepareForNB(data):
 def main():
   data = df.getData()
   X, ratings = prepareForNB(data)
-  print(X[0])
-  # NBmodel = naiveBayes(X, ratings)
+
+  data_count = data.shape[0]
+  training_data_count = int(data_count * 0.75) + 1
+  test_data_count = data_count - training_data_count
+
+  y_train = np.array(ratings[0:training_data_count])
+  x_train = np.array(X[0:training_data_count])
+
+  y_test = np.array(ratings[:-1 * test_data_count])
+  x_test = np.array(X[:-1 * test_data_count])
+
+  NBmodel = naiveBayes(x_train, y_train)
+
+  y_pred = NBmodel.predict(x_test)
+  
+  total_correct = 0
+  for i in range(0, y_test.shape[0]):
+    if int(y_pred[i]) == y_test[i]:
+      total_correct += 1
+  
+  
+  accuracy = total_correct/y_test.shape[0]
+  print(f"Total Correct Ratio: {total_correct}/{y_test.shape[0]}")
+  print(accuracy)
   
 
 
