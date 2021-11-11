@@ -126,7 +126,7 @@ genres = df['genres'].to_list()
 i = 0
 count = len(cast)
 for i in range(count):
-    final_string = cast[i] + " " + genres[i]
+    final_string = genres[i] + " " + cast[i]
     final_format_col.append(final_string)
 
 df.insert(loc=0, column='training_col', value=final_format_col)
