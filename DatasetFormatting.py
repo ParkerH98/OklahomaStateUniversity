@@ -5,8 +5,8 @@ def getData():
     movieFields = ['id', 'title', 'vote_average', 'vote_count', 'genres']
     castFields = ['id', 'cast']
 
-    movieData = pd.read_csv('archive/movies_metadata.csv', skipinitialspace=True, usecols=movieFields, engine='python')
-    castData = pd.read_csv('archive/credits.csv', skipinitialspace=True, usecols=castFields, engine='python')
+    movieData = pd.read_csv('data_files/movies_metadata.csv', skipinitialspace=True, usecols=movieFields, engine='python')
+    castData = pd.read_csv('data_files/credits.csv', skipinitialspace=True, usecols=castFields, engine='python')
 
     dfMovies = pd.DataFrame(movieData)
     dfCast = pd.DataFrame(castData)
