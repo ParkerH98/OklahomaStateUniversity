@@ -5,9 +5,6 @@ import sklearn.naive_bayes as NB
 import DatasetFormatting as df
 import matplotlib.pyplot as plot
 
-def roundY(y_col):
-  print()
-
 
 def naiveBayes(X, y):
  NBmodel = NB.CategoricalNB()
