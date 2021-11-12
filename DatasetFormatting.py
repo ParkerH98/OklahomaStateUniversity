@@ -1,4 +1,4 @@
-import re
+import re as regex
 import pandas as pd
 
 def getData():
@@ -32,7 +32,7 @@ def getData():
         grouped = ""
 
         # pulls actors' names out of the paragraph
-        line_list = re.findall("(?<=\'name\': )(.*?)(?=,)", unformattedNameString)
+        line_list = regex.findall("(?<=\'name\': )(.*?)(?=,)", unformattedNameString)
         
         # converts list of cast for one movie into a string to manipulate further 
         line_string = str(line_list)
@@ -78,17 +78,11 @@ def getData():
     # main list of genres grouped by movies
     genre_master_copy = []
 
-    # list of overall cast by individual names
-    genre_name_list = []
-
     # reads through the genre string for each movie
     for unformatted_genre_string in unformatted_genres:
 
-        # creates new list for current movie
-        genre_grouped = []
-
         # pulls genres out of the paragraph
-        genre_line_list = re.findall("(?<=\'name\': )(.*?)(?=})", unformatted_genre_string)
+        genre_line_list = regex.findall("(?<=\'name\': )(.*?)(?=})", unformatted_genre_string)
 
         # converts list of genres for one movie into a string to manipulate further 
         genre_line_string = str(genre_line_list)
