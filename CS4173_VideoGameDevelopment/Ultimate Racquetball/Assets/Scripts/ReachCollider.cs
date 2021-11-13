@@ -5,17 +5,19 @@ using UnityEngine;
 public class ReachCollider : MonoBehaviour
 {
 
-    Rigidbody rb;
-    public float pushForce = 10;
-
-
-    void Start()
-    {
-        rb = this.GetComponentInParent<Rigidbody>();
-    }
-
     void OnTriggerEnter(Collider coll)
     {
-      
+        if (coll.gameObject.tag == "Ball")
+        {
+            print("One Vote Added");
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+            }
+        }
     }
 }
+
+
+
