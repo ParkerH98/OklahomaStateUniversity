@@ -20,13 +20,6 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 1000))
-        {
-            Debug.Log("Hit" + hit.transform.name);
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
-        }
+    
     }
 }
