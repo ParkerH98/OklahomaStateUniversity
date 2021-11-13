@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerWallCollision : MonoBehaviour
 {
     Rigidbody rb;
-    public float pushForce = 5;
+    public float pushForce = 4;
 
     void Start()
     {

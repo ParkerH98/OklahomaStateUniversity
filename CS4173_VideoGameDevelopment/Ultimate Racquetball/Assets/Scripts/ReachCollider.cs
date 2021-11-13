@@ -11,7 +11,7 @@ public class ReachCollider : MonoBehaviour
     RaycastHit hit;
     public GameObject Ball;
     public GameObject Player;
-    public float hittingForce = 15f;
+    public float hittingForce = 20f;
     public bool inReach = false;
 
 
@@ -30,22 +30,21 @@ public class ReachCollider : MonoBehaviour
         r = new Ray(Player.transform.position, hit.point);
         Debug.DrawRay(r.origin, r.direction * hit.distance, Color.green);
         
-        if(Input.GetMouseButtonDown(0) && inReach)
-        {
-            print(r.direction);
-            Ball.GetComponent<Rigidbody>().AddForce(r.direction * hittingForce, ForceMode.Impulse);
-            // Ball.GetComponent<Rigidbody>().AddForce(Vector3.left * hittingForce, ForceMode.Impulse);
-
-            
-        }
+        // if(Input.GetMouseButtonDown(0) && inReach)
+        // {
+        //     print(r.direction);
+        //     // Ball.GetComponent<Rigidbody>().AddForce(r.direction * hittingForce, ForceMode.Impulse);
+        //     // Ball.GetComponent<Rigidbody>().AddForce(Vector3.left * hittingForce, ForceMode.Impulse);
+        // }
     }
 
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Ball")
         {
-            print("IN REACH");
             inReach = true;
+            Ball.GetComponent<Rigidbody>().AddForce(r.direction * hittingForce, ForceMode.Impulse);
+
         }
     }
 
@@ -54,7 +53,6 @@ public class ReachCollider : MonoBehaviour
         if (coll.gameObject.tag == "Ball")
         {
             inReach = false;
-            print("EXITED");
         }
     }
 }
