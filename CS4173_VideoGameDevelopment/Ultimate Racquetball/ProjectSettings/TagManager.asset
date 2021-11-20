@@ -9,6 +9,7 @@ TagManager:
   - Back Wall
   - Front Wall
   - Ceiling
+  - Ball
   layers:
   - Default
   - TransparentFX

@@ -14,3 +14,7 @@ AI: haven't started
 Different Difficulties: haven't started 
 Stats Upgrade Screen: haven't started 
 Final Game Logic: Haven't started yet
+
+
+Move the player with the WASD keys. The player will automatically hit the ball when in close proximity. Use the mouse
+to aim where the ball will be hit.
