@@ -5,10 +5,9 @@ using UnityEngine;
 public class ReachCollider : MonoBehaviour
 {
 
-    Ray ray;
-
-    Ray r;
-    RaycastHit hit;
+    Ray cameraToCursorRay;
+    Ray playerToCurorRay;
+    RaycastHit cursorPos;
     public GameObject Ball;
     public GameObject Player;
     public float hittingForce = 20f;
@@ -17,23 +16,21 @@ public class ReachCollider : MonoBehaviour
 
     void FixedUpdate()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        cameraToCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-       
-
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(cameraToCursorRay, out cursorPos, 1000))
         {
-            // Debug.Log("Hit" + hit.transform.name);
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
+            Debug.DrawRay(cameraToCursorRay.origin, cameraToCursorRay.direction * cursorPos.distance, Color.yellow);
         }
 
-        r = new Ray(Player.transform.position, hit.point);
-        Debug.DrawRay(r.origin, r.direction * hit.distance, Color.green);
+
+        playerToCurorRay = new Ray(Player.transform.position, cursorPos.point);
+        Debug.DrawRay(playerToCurorRay.origin, playerToCurorRay.direction * cursorPos.distance, Color.green);
         
         // if(Input.GetMouseButtonDown(0) && inReach)
         // {
-        //     print(r.direction);
-        //     // Ball.GetComponent<Rigidbody>().AddForce(r.direction * hittingForce, ForceMode.Impulse);
+        //     print(playerToCurorRay.direction);
+        //     // Ball.GetComponent<Rigidbody>().AddForce(playerToCurorRay.direction * hittingForce, ForceMode.Impulse);
         //     // Ball.GetComponent<Rigidbody>().AddForce(Vector3.left * hittingForce, ForceMode.Impulse);
         // }
     }
@@ -43,7 +40,10 @@ public class ReachCollider : MonoBehaviour
         if (coll.gameObject.tag == "Ball")
         {
             inReach = true;
-            Ball.GetComponent<Rigidbody>().AddForce(r.direction * hittingForce, ForceMode.Impulse);
+            
+            // Ball.GetComponent<Rigidbody>().AddForce(playerToCurorRay.direction * hittingForce, ForceMode.Impulse);
+            Ball.GetComponent<Rigidbody>().AddForce((playerToCurorRay.direction * hittingForce) + Vector3.left, ForceMode.Impulse);
+
 
         }
     }
