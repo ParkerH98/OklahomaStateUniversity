@@ -14,6 +14,9 @@ public class ReachCollider : MonoBehaviour
     public bool inReach = false;
 
 
+    public static bool playerLastTouched = false;
+
+
     void FixedUpdate()
     {
         cameraToCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -40,7 +43,10 @@ public class ReachCollider : MonoBehaviour
         if (coll.gameObject.tag == "Ball")
         {
             inReach = true;
-            
+            playerLastTouched = true;
+            FrontWallCollider.hitFrontWall = false;
+
+
             // Ball.GetComponent<Rigidbody>().AddForce(playerToCurorRay.direction * hittingForce, ForceMode.Impulse);
             Ball.GetComponent<Rigidbody>().AddForce((playerToCurorRay.direction * hittingForce) + Vector3.left, ForceMode.Impulse);
 

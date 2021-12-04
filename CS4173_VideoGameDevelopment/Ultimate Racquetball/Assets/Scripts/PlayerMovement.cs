@@ -24,18 +24,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Vector3 inputVector = new Vector3(horizontal, 0, Input.GetAxisRaw("Vertical"));
         // playerRB.velocity = (inputVector  * speed) + new Vector3(0, playerRB.velocity.y, 0);
-
-
     }
-
-    // public void Update()
-    // {
-    // 	float horizontalInput = Input.GetAxis("Horizontal");
-    // 	float verticalInput = Input.GetAxis("Vertical");
-
-    // 	Vector3 movement = new Vector3(horizontalInput, verticalInput, 0);
-    // 	movement = movement.normalized * speed * Time.deltaTime;
-
-    // 	transform.position += movement;
-    // }
 }

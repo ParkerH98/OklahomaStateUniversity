@@ -16,6 +16,8 @@ public class ReachColliderAI : MonoBehaviour
         if (coll.gameObject.tag == "Ball")
         {
             inReach = true;
+            ReachCollider.playerLastTouched = false;
+            FrontWallCollider.hitFrontWall = false;
 
             float randomY = Random.Range(10, 20);
             float randomZ = Random.Range(-12, 12);

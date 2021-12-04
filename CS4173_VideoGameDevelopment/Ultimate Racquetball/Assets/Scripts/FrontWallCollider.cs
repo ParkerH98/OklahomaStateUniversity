@@ -8,6 +8,7 @@ public class FrontWallCollider : MonoBehaviour
 
     public GameObject Ball;
     bool countable = true;
+    public static bool hitFrontWall = false;
 
     void Update()
     {
@@ -15,6 +16,7 @@ public class FrontWallCollider : MonoBehaviour
         {
             GameController.touchCount = 0;
             countable = false;
+            hitFrontWall = true;
         }
 
         if (Ball.transform.position.y > -16.5f)
