@@ -10,11 +10,12 @@ TagManager:
   - Front Wall
   - Ceiling
   - Ball
+  - AI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
