@@ -9,19 +9,20 @@ for each line in the .txt file. The program uses threads in a
 threadpool to carry out the tasks of reading the file and 
 creating each histogram. 
 
-### Contents
 
+### Contents
 assignment1.c - main .c file with the assignment's source code
 Makefile - optional file to make compilation quicker and easier
 readMe - this
 
-### Usage
 
+### Usage
 **Makefile**
 make p && ./p
 
-if not using makefile, then compilation is like a normal .c program
-
+**Alternative Compilation**
+gcc assignment1.c -o parker -pthread
+./parker
 
 ### Input Parameters
 1. filepath of .txt file

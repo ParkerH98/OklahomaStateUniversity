@@ -119,6 +119,8 @@ void *threadTask()
             line[strlen(line) - 1] = '\0';
         }
 
+        convertToLowerCase(line);
+
         // evalutes the line read and creates the histogram from it
         populateHistogram(&histogram, line);
 
