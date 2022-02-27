@@ -8,7 +8,7 @@
 #include <assert.h>  // assert()
 #include <stdlib.h>  // malloc()
 
-// struct that will serve as a dictionary for each histogram
+// struct that will serve as a dictionary for the global histogram
 typedef struct CharDictionary
 {
     int key;
@@ -30,36 +30,29 @@ void populateHistogram(char line[]);
 FILE *f;
 pthread_mutex_t histogram_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t print_mutex = PTHREAD_MUTEX_INITIALIZER;
-
 Histogram histogram;
-
 int *remaining_threads;
 
 int main()
 {
+    // use if debugging
+    // char filePath[512] = "file.txt";
+    // int numThreads = 3;
 
+    char filePath[512];
+    int numThreads = 0;
 
+    printf("Please enter a filepath to read from.\n");
+    fgets(filePath, sizeof(filePath), stdin);
+    filePath[strlen(filePath) - 1] = '\0';
 
-    char filePath[512] = "file.txt";
-    int numThreads = 3;
+    // gets thread # input and forces a specific range
+    printf("Please specify the number of threads between 1 and 4.\n");
+    scanf("%d", &numThreads);
+    assert(numThreads >= 1 && numThreads <= 4);
+    printf("\n\n{%d} threads processing file: %s\n", numThreads, filePath);
 
-
-
-    // char filePath[512];
-    // int numThreads = 0;
-
-    // printf("Please enter a filepath to read from.\n");
-    // fgets(filePath, sizeof(filePath), stdin);
-    // filePath[strlen(filePath) - 1] = '\0';
-
-    // // gets thread # input and forces a specific range
-    // printf("Please specify the number of threads between 2 and 4 inclusive.\n");
-    // scanf("%d", &numThreads);
-    // assert(numThreads > 1 && numThreads <= 4);
-
-    // printf("\n\n{%d} threads processing file at path: %s\n", numThreads, filePath);
-
-
+    // dynamically allocates this variable and it's used to know when the last thread is finished
     remaining_threads = malloc(numThreads * sizeof(int));
     *remaining_threads = numThreads;
 
@@ -80,11 +73,21 @@ int main()
     // waits for all of the threads to finish executing
     pthread_exit(NULL);
 
+    // frees dynamically allocated memory
+    free(remaining_threads);
+
     return 0;
 }
 
 /*
 ---------------------------------------------------------
+This is the primary function that will be executed by each
+thread in the threadpool. Each thread will read a line from 
+the file. Then the thread waits for the mutex so be available
+for updating the global histogram. Finally, the thread gives 
+up the mutex and repeats this loop until all of the lines 
+in the file have been read. The final thread will print the 
+histogram on exit.
 
 Params: none
 Return: void
@@ -115,6 +118,7 @@ void *threadTask()
             line[strlen(line) - 1] = '\0';
         }
 
+        // CRITICAL SECTION
         pthread_mutex_lock(&histogram_mutex);
 
         convertToLowerCase(line);
@@ -127,8 +131,9 @@ void *threadTask()
 
 /*
 ---------------------------------------------------------
-Populates the passed Histogram with the occurrances of the
-characters in the passed char[] 'line'.
+Populates the global Histogram with occurrances of the
+characters in the passed char[] 'line'. This function assumes
+all the characters in 'line' are lowercase. 
 
 Params: pointer to char[]
 Return: void
@@ -173,10 +178,10 @@ void convertToLowerCase(char *string)
 
 /*
 ---------------------------------------------------------
-Fills the passed Histogram with the English alphabet as keys
+Fills the global Histogram with the English alphabet as keys
 and initializes each value to be 0, the number of occurrances.
 
-Params: Histogram *
+Params: none
 Return: void
 */
 void initializeHistogram()
@@ -190,8 +195,10 @@ void initializeHistogram()
 
 /*
 ---------------------------------------------------------
+Prints the global histogram to the specification of the 
+assignment document.
 
-Params: Histogram * & char[]
+Params: none
 Return: void
 */
 void printHistogram()
