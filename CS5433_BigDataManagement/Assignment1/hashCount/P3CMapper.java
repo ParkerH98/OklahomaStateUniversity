@@ -2,8 +2,7 @@ import java.io.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
 
-
-public class P3Mapper extends Mapper<LongWritable, Text, Text, IntWritable>
+public class P3CMapper extends Mapper<LongWritable, Text, Text, IntWritable>
 {
     @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
@@ -47,12 +46,8 @@ public class P3Mapper extends Mapper<LongWritable, Text, Text, IntWritable>
                 }
             }
         }
-
-        // used to print the whole tweet
-        // for (int i = 0; i < tweets.length; i++) {
-        // context.write(new Text(tweets[i].toString()), new IntWritable(1));
-        // }
     }
+    
 
     private static String cleanTextContent(String text)
     {

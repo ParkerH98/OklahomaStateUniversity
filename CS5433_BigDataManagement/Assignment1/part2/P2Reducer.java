@@ -1,9 +1,8 @@
-import java.io.IOException;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
+import java.io.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
 
-public class P4Reducer extends Reducer<Text, IntWritable, Text, IntWritable>
+public class P2Reducer extends Reducer<Text, IntWritable, Text, IntWritable>
 {
     int max = 1;
     @Override
@@ -14,7 +13,8 @@ public class P4Reducer extends Reducer<Text, IntWritable, Text, IntWritable>
         {
             if (count == 1)
             {
-                context.write(key, new IntWritable(max));
+                String toWrite = "Created Date: " + key + " ----- Tweet Count: ";
+                context.write(new Text(toWrite), new IntWritable(max));
                 max++;
             }
             count++;

@@ -1,9 +1,8 @@
-import java.io.IOException;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
+import java.io.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
 
-public class P2Reducer extends Reducer<Text, IntWritable, Text, IntWritable>
+public class P1Reducer extends Reducer<Text, IntWritable, Text, IntWritable>
 {
     int max = 1;
     @Override

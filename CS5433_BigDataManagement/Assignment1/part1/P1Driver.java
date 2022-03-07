@@ -1,28 +1,15 @@
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.util.GenericOptionsParser;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.LocatedFileStatus;
-import org.apache.hadoop.fs.RemoteIterator;
-import org.apache.hadoop.fs.FSDataOutputStream;
-import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import org.apache.hadoop.fs.FSDataInputStream;
 import java.io.*;
-import java.io.IOException;
 import java.util.*;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.fs.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-//hdfs dfs -rm -r /user/phague/assn1/log2; rm *.class; rm part2.jar; clear && ls && javac --release 8 *.java -cp $(hadoop classpath ) && jar cf part2.jar *.class && hadoop jar part2.jar P2Driver && hdfs dfs -cat /user/phague/assn1/log2/part-r-00000
+//hdfs dfs -rm -r /user/phague/assn1/log1; rm *.class; rm part1.jar; clear && ls && javac --release 8 *.java -cp $(hadoop classpath ) && jar cf part1.jar *.class && hadoop jar part1.jar P1Driver
 
-public class P2Driver
+public class P1Driver
 {
   static Configuration conf;
   static FileSystem fs;
@@ -30,22 +17,14 @@ public class P2Driver
   public static void main(String[] args) throws Exception
   {
     initializeConfig();
-    // ReadDirectory();
-    getInputFileSumamry();
+    ReadDirectory();
     // ReadFile("/user/phague/assn1/2022/03/04/23/FlumeData.1646456853318");
-
-    RunJob();
   }
 
   public static void initializeConfig() throws Exception
   {
-    try
-    {
-      P2Driver.conf = new Configuration();
-      P2Driver.fs = FileSystem.get(conf);
-    } catch (IOException e)
-    {
-    }
+      P1Driver.conf = new Configuration();
+      P1Driver.fs = FileSystem.get(conf);
   }
 
   public static void ReadFile(String filePath)
@@ -90,7 +69,6 @@ public class P2Driver
     }
   }
 
-
   public static void ReadDirectory() throws IOException
   {
     Path input_dir = new Path("/user/phague/assn1");
@@ -121,7 +99,6 @@ public class P2Driver
       e.printStackTrace();
     }
   }
-
 
   public static void getInputFileSumamry()
   {
@@ -160,31 +137,5 @@ public class P2Driver
     {
       e.printStackTrace();
     }
-  }
-
-
-  public static void RunJob() throws IOException, InterruptedException, ClassNotFoundException
-  {
-    Job job = new Job();
-    job.setJarByClass(P2Driver.class);
-    job.setJobName("Parker Job");
-    Date d = new Date();
-    long time = d.getTime();
-
-    String longString = Long.toString(time);
-
-    longString = longString.substring(7, 12);
-
-    FileInputFormat.addInputPath(job, new Path("/user/phague/assn1/2022/03/04/23/FlumeData.1646456853318"));
-    FileInputFormat.addInputPath(job, new Path("/user/phague/assn1/2022/03/04/23/FlumeData.1646457124988"));
-
-    FileOutputFormat.setOutputPath(job, new Path("/user/phague/assn1/log2"));
-
-    job.setMapperClass(P2Mapper.class);
-    job.setReducerClass(P2Reducer.class);
-    job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(IntWritable.class);
-
-    System.exit(job.waitForCompletion(true) ? 0 : 1);
   }
 }

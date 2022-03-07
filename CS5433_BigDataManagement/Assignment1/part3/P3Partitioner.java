@@ -1,9 +1,5 @@
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Partitioner;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.IntWritable;
-
-
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
 
 public class P3Partitioner extends Partitioner<Text, IntWritable>
 {
