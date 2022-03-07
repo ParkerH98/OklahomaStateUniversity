@@ -1,0 +1,915 @@
+{
+    "extended_tweet": {
+        "entities": {
+            "urls": [],
+            "hashtags": [],
+            "user_mentions": [
+                {
+                    "indices": [
+                        189,
+                        204
+                    ],
+                    "screen_name": "Lokeshgamer_07",
+                    "id_str": "1356087602294755329",
+                    "name": "LOKESH GAMER",
+                    "id": 1356087602294755329
+                },
+                {
+                    "indices": [
+                        206,
+                        213
+                    ],
+                    "screen_name": "vloeks",
+                    "id_str": "1926852138",
+                    "name": "riaz",
+                    "id": 1926852138
+                },
+                {
+                    "indices": [
+                        215,
+                        231
+                    ],
+                    "screen_name": "RakeshK80741171",
+                    "id_str": "1416325197980786688",
+                    "name": "Rakesh Kumar Ghadei",
+                    "id": 1416325197980786688
+                },
+                {
+                    "indices": [
+                        233,
+                        243
+                    ],
+                    "screen_name": "techFIFA_",
+                    "id_str": "792130269822259201",
+                    "name": "Umesh",
+                    "id": 792130269822259201
+                },
+                {
+                    "indices": [
+                        245,
+                        253
+                    ],
+                    "screen_name": "DachinB",
+                    "id_str": "986333883099561984",
+                    "name": "Dachin Bhadana",
+                    "id": 986333883099561984
+                }
+            ],
+            "symbols": []
+        },
+        "full_text": "This is definitely going to be HUGE! as the team has been an inspiration in their innovative approaches towards achieving the project goals and visions , I am so glad to be part of this.😊\n\n@Lokeshgamer_07 \n@vloeks \n@RakeshK80741171 \n@techFIFA_ \n@DachinB",
+        "display_text_range": [
+            0,
+            253
+        ]
+    },
+    "quoted_status": {
+        "extended_tweet": {
+            "extended_entities": {
+                "media": [
+                    {
+                        "display_url": "pic.twitter.com/eBPa4MO9jt",
+                        "indices": [
+                            279,
+                            302
+                        ],
+                        "sizes": {
+                            "small": {
+                                "w": 680,
+                                "h": 383,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 1280,
+                                "h": 720,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1200,
+                                "h": 675,
+                                "resize": "fit"
+                            }
+                        },
+                        "id_str": "1499927944608817162",
+                        "expanded_url": "https://twitter.com/AirdropDet/status/1499927960006111242/video/1",
+                        "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1499927944608817162/pu/img/EZjvGMxy1cajEWqS.jpg",
+                        "id": 1499927944608817162,
+                        "additional_media_info": {
+                            "monetizable": false
+                        },
+                        "type": "video",
+                        "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1499927944608817162/pu/img/EZjvGMxy1cajEWqS.jpg",
+                        "url": "https://t.co/eBPa4MO9jt",
+                        "video_info": {
+                            "aspect_ratio": [
+                                16,
+                                9
+                            ],
+                            "duration_millis": 5085,
+                            "variants": [
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 256000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/480x270/n1aM7NFK8xPEGBum.mp4?tag=12"
+                                },
+                                {
+                                    "content_type": "application/x-mpegURL",
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/pl/_pcm9Fx9FdomqNaI.m3u8?tag=12&container=fmp4"
+                                },
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 832000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/640x360/xYXwO6zAkV7gJ3Yp.mp4?tag=12"
+                                },
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 2176000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/1280x720/Gk4PwdRXnUJl_-EV.mp4?tag=12"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "entities": {
+                "urls": [
+                    {
+                        "display_url": "t.me/FQSWAPNewround\u2026",
+                        "indices": [
+                            98,
+                            121
+                        ],
+                        "expanded_url": "http://t.me/FQSWAPNewroundAirdropBot",
+                        "url": "https://t.co/8fLfRGtK4v"
+                    },
+                    {
+                        "display_url": "t.me/AirdropDetecti\u2026",
+                        "indices": [
+                            184,
+                            207
+                        ],
+                        "expanded_url": "http://t.me/AirdropDetective/1038",
+                        "url": "https://t.co/G1Q38sSAps"
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "indices": [
+                            6,
+                            14
+                        ],
+                        "text": "Airdrop"
+                    },
+                    {
+                        "indices": [
+                            209,
+                            218
+                        ],
+                        "text": "Airdrops"
+                    },
+                    {
+                        "indices": [
+                            219,
+                            226
+                        ],
+                        "text": "FQSWAP"
+                    },
+                    {
+                        "indices": [
+                            227,
+                            235
+                        ],
+                        "text": "Bitcoin"
+                    },
+                    {
+                        "indices": [
+                            236,
+                            253
+                        ],
+                        "text": "AirdropDetective"
+                    },
+                    {
+                        "indices": [
+                            254,
+                            258
+                        ],
+                        "text": "FQS"
+                    },
+                    {
+                        "indices": [
+                            259,
+                            266
+                        ],
+                        "text": "Crypto"
+                    },
+                    {
+                        "indices": [
+                            267,
+                            278
+                        ],
+                        "text": "Blockchain"
+                    }
+                ],
+                "media": [
+                    {
+                        "display_url": "pic.twitter.com/eBPa4MO9jt",
+                        "indices": [
+                            279,
+                            302
+                        ],
+                        "sizes": {
+                            "small": {
+                                "w": 680,
+                                "h": 383,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 1280,
+                                "h": 720,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1200,
+                                "h": 675,
+                                "resize": "fit"
+                            }
+                        },
+                        "id_str": "1499927944608817162",
+                        "expanded_url": "https://twitter.com/AirdropDet/status/1499927960006111242/video/1",
+                        "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1499927944608817162/pu/img/EZjvGMxy1cajEWqS.jpg",
+                        "id": 1499927944608817162,
+                        "additional_media_info": {
+                            "monetizable": false
+                        },
+                        "type": "video",
+                        "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1499927944608817162/pu/img/EZjvGMxy1cajEWqS.jpg",
+                        "url": "https://t.co/eBPa4MO9jt",
+                        "video_info": {
+                            "aspect_ratio": [
+                                16,
+                                9
+                            ],
+                            "duration_millis": 5085,
+                            "variants": [
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 256000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/480x270/n1aM7NFK8xPEGBum.mp4?tag=12"
+                                },
+                                {
+                                    "content_type": "application/x-mpegURL",
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/pl/_pcm9Fx9FdomqNaI.m3u8?tag=12&container=fmp4"
+                                },
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 832000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/640x360/xYXwO6zAkV7gJ3Yp.mp4?tag=12"
+                                },
+                                {
+                                    "content_type": "video/mp4",
+                                    "bitrate": 2176000,
+                                    "url": "https://video.twimg.com/ext_tw_video/1499927944608817162/pu/vid/1280x720/Gk4PwdRXnUJl_-EV.mp4?tag=12"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "user_mentions": [],
+                "symbols": []
+            },
+            "full_text": "🔍 New #Airdrop: FQSWAP\n\n💲 Reward: Up to 100K FQS + 18M FQS referral pool\n\n🔴 Start the airdrop bot https://t.co/8fLfRGtK4v\n\n🔘 Do the tasks on the bot &amp; submit your data\n\n🔘 Details: https://t.co/G1Q38sSAps\n\n#Airdrops #FQSWAP #Bitcoin #AirdropDetective #FQS #Crypto #Blockchain https://t.co/eBPa4MO9jt",
+            "display_text_range": [
+                0,
+                278
+            ]
+        },
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_status_id": null,
+        "created_at": "Sat Mar 05 02:01:07 +0000 2022",
+        "in_reply_to_user_id_str": null,
+        "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App<\/a>",
+        "retweet_count": 4152,
+        "retweeted": false,
+        "geo": null,
+        "filter_level": "low",
+        "in_reply_to_screen_name": null,
+        "is_quote_status": false,
+        "id_str": "1499927960006111242",
+        "in_reply_to_user_id": null,
+        "favorite_count": 4626,
+        "id": 1499927960006111242,
+        "text": "🔍 New #Airdrop: FQSWAP\n\n💲 Reward: Up to 100K FQS + 18M FQS referral pool\n\n🔴 Start the airdrop bot\u2026 https://t.co/ZRaIOcbjpv",
+        "place": null,
+        "lang": "en",
+        "quote_count": 1741,
+        "favorited": false,
+        "possibly_sensitive": false,
+        "coordinates": null,
+        "truncated": true,
+        "reply_count": 1263,
+        "entities": {
+            "urls": [
+                {
+                    "display_url": "twitter.com/i/web/status/1\u2026",
+                    "indices": [
+                        99,
+                        122
+                    ],
+                    "expanded_url": "https://twitter.com/i/web/status/1499927960006111242",
+                    "url": "https://t.co/ZRaIOcbjpv"
+                }
+            ],
+            "hashtags": [
+                {
+                    "indices": [
+                        6,
+                        14
+                    ],
+                    "text": "Airdrop"
+                }
+            ],
+            "user_mentions": [],
+            "symbols": []
+        },
+        "display_text_range": [
+            0,
+            140
+        ],
+        "contributors": null,
+        "user": {
+            "utc_offset": null,
+            "friends_count": 3,
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1209666058283573248/tgA6NW2k_normal.jpg",
+            "listed_count": 802,
+            "profile_background_image_url": "",
+            "default_profile_image": false,
+            "favourites_count": 164,
+            "description": "🔍 We, \"Airdrop Detective Team,\" are experts in crypto, especially in airdrop & bounty. \n\n📞Contact: https://t.co/h9vnmRt2Nh\n\n#Bitcoin #Airdrop #Blockchain #Crypto",
+            "created_at": "Thu Jun 28 20:44:36 +0000 2018",
+            "is_translator": false,
+            "withheld_in_countries": [],
+            "profile_background_image_url_https": "",
+            "protected": false,
+            "screen_name": "AirdropDet",
+            "id_str": "1012436626776174592",
+            "profile_link_color": "1DA1F2",
+            "translator_type": "none",
+            "id": 1012436626776174592,
+            "geo_enabled": false,
+            "profile_background_color": "F5F8FA",
+            "lang": null,
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_text_color": "333333",
+            "verified": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/1209666058283573248/tgA6NW2k_normal.jpg",
+            "time_zone": null,
+            "url": "https://AirdropDetective.io",
+            "contributors_enabled": false,
+            "profile_background_tile": false,
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/1012436626776174592/1577284435",
+            "statuses_count": 802,
+            "follow_request_sent": null,
+            "followers_count": 1240871,
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "following": null,
+            "name": "AirdropDetective",
+            "location": null,
+            "profile_sidebar_fill_color": "DDEEF6",
+            "notifications": null
+        }
+    },
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_status_id": null,
+    "created_at": "Sat Mar 05 05:07:58 +0000 2022",
+    "in_reply_to_user_id_str": null,
+    "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App<\/a>",
+    "quoted_status_id": 1499927960006111242,
+    "retweet_count": 0,
+    "retweeted": false,
+    "geo": null,
+    "filter_level": "low",
+    "in_reply_to_screen_name": null,
+    "is_quote_status": true,
+    "id_str": "1499974980033212418",
+    "in_reply_to_user_id": null,
+    "favorite_count": 0,
+    "id": 1499974980033212418,
+    "text": "This is definitely going to be HUGE! as the team has been an inspiration in their innovative approaches towards ach\u2026 https://t.co/neXTcLUbXN",
+    "place": null,
+    "quoted_status_permalink": {
+        "expanded": "https://twitter.com/AirdropDet/status/1499927960006111242",
+        "display": "twitter.com/AirdropDet/sta\u2026",
+        "url": "https://t.co/u67VhoHXi6"
+    },
+    "lang": "en",
+    "quote_count": 0,
+    "favorited": false,
+    "coordinates": null,
+    "truncated": true,
+    "timestamp_ms": "1646456878084",
+    "reply_count": 0,
+    "entities": {
+        "urls": [
+            {
+                "display_url": "twitter.com/i/web/status/1\u2026",
+                "indices": [
+                    117,
+                    140
+                ],
+                "expanded_url": "https://twitter.com/i/web/status/1499974980033212418",
+                "url": "https://t.co/neXTcLUbXN"
+            }
+        ],
+        "hashtags": [],
+        "user_mentions": [],
+        "symbols": []
+    },
+    "quoted_status_id_str": "1499927960006111242",
+    "contributors": null,
+    "user": {
+        "utc_offset": null,
+        "friends_count": 109,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1490764856168882178/K3mN1pjd_normal.png",
+        "listed_count": 0,
+        "profile_background_image_url": "",
+        "default_profile_image": false,
+        "favourites_count": 142,
+        "description": "Hi",
+        "created_at": "Mon Feb 07 19:10:13 +0000 2022",
+        "is_translator": false,
+        "withheld_in_countries": [],
+        "profile_background_image_url_https": "",
+        "protected": false,
+        "screen_name": "Giraseabnf",
+        "id_str": "1490764789861076993",
+        "profile_link_color": "1DA1F2",
+        "translator_type": "none",
+        "id": 1490764789861076993,
+        "geo_enabled": false,
+        "profile_background_color": "F5F8FA",
+        "lang": null,
+        "profile_sidebar_border_color": "C0DEED",
+        "profile_text_color": "333333",
+        "verified": false,
+        "profile_image_url": "http://pbs.twimg.com/profile_images/1490764856168882178/K3mN1pjd_normal.png",
+        "time_zone": null,
+        "url": null,
+        "contributors_enabled": false,
+        "profile_background_tile": false,
+        "statuses_count": 177,
+        "follow_request_sent": null,
+        "followers_count": 8,
+        "profile_use_background_image": true,
+        "default_profile": true,
+        "following": null,
+        "name": "Aniket Girase",
+        "location": "Baldane, Maharashtra, india",
+        "profile_sidebar_fill_color": "DDEEF6",
+        "notifications": null
+    }
+},
+
+{
+    "extended_tweet": {
+        "entities": {
+            "urls": [],
+            "hashtags": [],
+            "user_mentions": [
+                {
+                    "indices": [
+                        190,
+                        200
+                    ],
+                    "screen_name": "BucCinnnn",
+                    "id_str": "1345679315300536320",
+                    "name": "ell",
+                    "id": 1345679315300536320
+                },
+                {
+                    "indices": [
+                        202,
+                        218
+                    ],
+                    "screen_name": "AdipatiArifudin",
+                    "id_str": "1249145380161441793",
+                    "name": "Adipati Arifudin",
+                    "id": 1249145380161441793
+                },
+                {
+                    "indices": [
+                        220,
+                        231
+                    ],
+                    "screen_name": "NaovaRiyan",
+                    "id_str": "1238818275099684864",
+                    "name": "Siapa???",
+                    "id": 1238818275099684864
+                },
+                {
+                    "indices": [
+                        232,
+                        241
+                    ],
+                    "screen_name": "jhvccxxv",
+                    "id_str": "1228382008381988866",
+                    "name": "😶",
+                    "id": 1228382008381988866
+                },
+                {
+                    "indices": [
+                        242,
+                        252
+                    ],
+                    "screen_name": "cvjuarez1",
+                    "id_str": "3309297991",
+                    "name": "Carlos Juarez",
+                    "id": 3309297991
+                }
+            ],
+            "symbols": []
+        },
+        "full_text": "This is a Fantastic project with great potential.\nThe team's dedication and ingenuity with excellent fan support will make this the envy of the crypto world.I am so glad to be part of this.\n@BucCinnnn \n@AdipatiArifudin \n@NaovaRiyan\n@jhvccxxv\n@cvjuarez1",
+        "display_text_range": [
+            0,
+            252
+        ]
+    },
+    "quoted_status": {
+        "extended_tweet": {
+            "extended_entities": {
+                "media": [
+                    {
+                        "display_url": "pic.twitter.com/IkR4qoHxTH",
+                        "indices": [
+                            259,
+                            282
+                        ],
+                        "sizes": {
+                            "small": {
+                                "w": 680,
+                                "h": 359,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 2048,
+                                "h": 1080,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1200,
+                                "h": 633,
+                                "resize": "fit"
+                            }
+                        },
+                        "id_str": "1499810555254747140",
+                        "expanded_url": "https://twitter.com/akitavax/status/1499810558090039297/photo/1",
+                        "media_url_https": "https://pbs.twimg.com/media/FNBlwPBXMAQWW2z.jpg",
+                        "id": 1499810555254747140,
+                        "type": "photo",
+                        "media_url": "http://pbs.twimg.com/media/FNBlwPBXMAQWW2z.jpg",
+                        "url": "https://t.co/IkR4qoHxTH"
+                    }
+                ]
+            },
+            "entities": {
+                "urls": [
+                    {
+                        "display_url": "bit.ly/3MpUhjg",
+                        "indices": [
+                            175,
+                            198
+                        ],
+                        "expanded_url": "https://bit.ly/3MpUhjg",
+                        "url": "https://t.co/X579rrMhCr"
+                    }
+                ],
+                "hashtags": [
+                    {
+                        "indices": [
+                            223,
+                            233
+                        ],
+                        "text": "Avalanche"
+                    },
+                    {
+                        "indices": [
+                            235,
+                            240
+                        ],
+                        "text": "AVAX"
+                    },
+                    {
+                        "indices": [
+                            242,
+                            250
+                        ],
+                        "text": "Airdrop"
+                    }
+                ],
+                "media": [
+                    {
+                        "display_url": "pic.twitter.com/IkR4qoHxTH",
+                        "indices": [
+                            259,
+                            282
+                        ],
+                        "sizes": {
+                            "small": {
+                                "w": 680,
+                                "h": 359,
+                                "resize": "fit"
+                            },
+                            "large": {
+                                "w": 2048,
+                                "h": 1080,
+                                "resize": "fit"
+                            },
+                            "thumb": {
+                                "w": 150,
+                                "h": 150,
+                                "resize": "crop"
+                            },
+                            "medium": {
+                                "w": 1200,
+                                "h": 633,
+                                "resize": "fit"
+                            }
+                        },
+                        "id_str": "1499810555254747140",
+                        "expanded_url": "https://twitter.com/akitavax/status/1499810558090039297/photo/1",
+                        "media_url_https": "https://pbs.twimg.com/media/FNBlwPBXMAQWW2z.jpg",
+                        "id": 1499810555254747140,
+                        "type": "photo",
+                        "media_url": "http://pbs.twimg.com/media/FNBlwPBXMAQWW2z.jpg",
+                        "url": "https://t.co/IkR4qoHxTH"
+                    }
+                ],
+                "user_mentions": [],
+                "symbols": [
+                    {
+                        "indices": [
+                            22,
+                            29
+                        ],
+                        "text": "XAKITA"
+                    },
+                    {
+                        "indices": [
+                            62,
+                            69
+                        ],
+                        "text": "XAKITA"
+                    },
+                    {
+                        "indices": [
+                            93,
+                            100
+                        ],
+                        "text": "XAKITA"
+                    },
+                    {
+                        "indices": [
+                            120,
+                            127
+                        ],
+                        "text": "XAKITA"
+                    },
+                    {
+                        "indices": [
+                            146,
+                            153
+                        ],
+                        "text": "XAKITA"
+                    },
+                    {
+                        "indices": [
+                            251,
+                            258
+                        ],
+                        "text": "XAKITA"
+                    }
+                ]
+            },
+            "full_text": "🔥 THE EIGHTH AIRDROP🔺 $XAKITA 🔥 \n\nTop scorers on gleam;\n🔺150M $XAKITA per first 50 top \n🔺75M $XAKITA 50th to 250th\n🔺15M $XAKITA random 1000\n🔺7.5M $XAKITA random 2000 \n\n📜Form: https://t.co/X579rrMhCr \n\n🎊Ends: 20 Mar. 2022 \n\n#Avalanche  #AVAX  #Airdrop $XAKITA https://t.co/IkR4qoHxTH",
+            "display_text_range": [
+                0,
+                258
+            ]
+        },
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_status_id": null,
+        "created_at": "Fri Mar 04 18:14:36 +0000 2022",
+        "in_reply_to_user_id_str": null,
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android<\/a>",
+        "retweet_count": 5670,
+        "retweeted": false,
+        "geo": null,
+        "filter_level": "low",
+        "in_reply_to_screen_name": null,
+        "is_quote_status": false,
+        "id_str": "1499810558090039297",
+        "in_reply_to_user_id": null,
+        "favorite_count": 6262,
+        "id": 1499810558090039297,
+        "text": "🔥 THE EIGHTH AIRDROP🔺 $XAKITA 🔥 \n\nTop scorers on gleam;\n🔺150M $XAKITA per first 50 top \n🔺75M $XAKITA 50th to 250th\u2026 https://t.co/IuwRTfk8b0",
+        "place": null,
+        "lang": "tl",
+        "quote_count": 2594,
+        "favorited": false,
+        "possibly_sensitive": false,
+        "coordinates": null,
+        "truncated": true,
+        "reply_count": 4398,
+        "entities": {
+            "urls": [
+                {
+                    "display_url": "twitter.com/i/web/status/1\u2026",
+                    "indices": [
+                        116,
+                        139
+                    ],
+                    "expanded_url": "https://twitter.com/i/web/status/1499810558090039297",
+                    "url": "https://t.co/IuwRTfk8b0"
+                }
+            ],
+            "hashtags": [],
+            "user_mentions": [],
+            "symbols": [
+                {
+                    "indices": [
+                        22,
+                        29
+                    ],
+                    "text": "XAKITA"
+                },
+                {
+                    "indices": [
+                        62,
+                        69
+                    ],
+                    "text": "XAKITA"
+                },
+                {
+                    "indices": [
+                        93,
+                        100
+                    ],
+                    "text": "XAKITA"
+                }
+            ]
+        },
+        "display_text_range": [
+            0,
+            140
+        ],
+        "contributors": null,
+        "user": {
+            "utc_offset": null,
+            "friends_count": 119,
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1479478321947754504/dbPhDEQx_normal.jpg",
+            "listed_count": 22,
+            "profile_background_image_url": "",
+            "default_profile_image": false,
+            "favourites_count": 166,
+            "description": "Akitavax is the community driven project of the #Avalanche network. #TheMascotOfAvax \u2022 #Metaverse Pages: https://linktr.ee/akitavax",
+            "created_at": "Thu Oct 28 06:39:22 +0000 2021",
+            "is_translator": false,
+            "withheld_in_countries": [],
+            "profile_background_image_url_https": "",
+            "protected": false,
+            "screen_name": "akitavax",
+            "id_str": "1453611952958328833",
+            "profile_link_color": "1DA1F2",
+            "translator_type": "none",
+            "id": 1453611952958328833,
+            "geo_enabled": false,
+            "profile_background_color": "F5F8FA",
+            "lang": null,
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_text_color": "333333",
+            "verified": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/1479478321947754504/dbPhDEQx_normal.jpg",
+            "time_zone": null,
+            "url": "https://akitavax.com",
+            "contributors_enabled": false,
+            "profile_background_tile": false,
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/1453611952958328833/1635925124",
+            "statuses_count": 185,
+            "follow_request_sent": null,
+            "followers_count": 107333,
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "following": null,
+            "name": "AKITAVAX 🔺 $AKITAX - $XAKITA",
+            "location": null,
+            "profile_sidebar_fill_color": "DDEEF6",
+            "notifications": null
+        }
+    },
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_status_id": null,
+    "created_at": "Sat Mar 05 05:07:49 +0000 2022",
+    "in_reply_to_user_id_str": null,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android<\/a>",
+    "quoted_status_id": 1499810558090039297,
+    "retweet_count": 0,
+    "retweeted": false,
+    "geo": null,
+    "filter_level": "low",
+    "in_reply_to_screen_name": null,
+    "is_quote_status": true,
+    "id_str": "1499974945018843136",
+    "in_reply_to_user_id": null,
+    "favorite_count": 0,
+    "id": 1499974945018843136,
+    "text": "This is a Fantastic project with great potential.\nThe team's dedication and ingenuity with excellent fan support wi\u2026 https://t.co/vzgJCXiVnc",
+    "place": null,
+    "quoted_status_permalink": {
+        "expanded": "https://twitter.com/akitavax/status/1499810558090039297",
+        "display": "twitter.com/akitavax/statu\u2026",
+        "url": "https://t.co/hGtRbEjOS8"
+    },
+    "lang": "en",
+    "quote_count": 0,
+    "favorited": false,
+    "coordinates": null,
+    "truncated": true,
+    "timestamp_ms": "1646456869736",
+    "reply_count": 0,
+    "entities": {
+        "urls": [
+            {
+                "display_url": "twitter.com/i/web/status/1\u2026",
+                "indices": [
+                    117,
+                    140
+                ],
+                "expanded_url": "https://twitter.com/i/web/status/1499974945018843136",
+                "url": "https://t.co/vzgJCXiVnc"
+            }
+        ],
+        "hashtags": [],
+        "user_mentions": [],
+        "symbols": []
+    },
+    "quoted_status_id_str": "1499810558090039297",
+    "contributors": null,
+    "user": {
+        "utc_offset": null,
+        "friends_count": 1495,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1471544663731359744/fQctD2T3_normal.jpg",
+        "listed_count": 3,
+        "profile_background_image_url": "",
+        "default_profile_image": false,
+        "favourites_count": 2956,
+        "description": "I Am A STUDENT",
+        "created_at": "Fri Aug 20 18:58:05 +0000 2021",
+        "is_translator": false,
+        "withheld_in_countries": [],
+        "profile_background_image_url_https": "",
+        "protected": false,
+        "screen_name": "MdAbdur00168237",
+        "id_str": "1428793417828474882",
+        "profile_link_color": "1DA1F2",
+        "translator_type": "none",
+        "id": 1428793417828474882,
+        "geo_enabled": true,
+        "profile_background_color": "F5F8FA",
+        "lang": null,
+        "profile_sidebar_border_color": "C0DEED",
+        "profile_text_color": "333333",
+        "verified": false,
+        "profile_image_url": "http://pbs.twimg.com/profile_images/1471544663731359744/fQctD2T3_normal.jpg",
+        "time_zone": null,
+        "url": null,
+        "contributors_enabled": false,
+        "profile_background_tile": false,
+        "profile_banner_url": "https://pbs.twimg.com/profile_banners/1428793417828474882/1634548414",
+        "statuses_count": 4131,
+        "follow_request_sent": null,
+        "followers_count": 21,
+        "profile_use_background_image": true,
+        "default_profile": true,
+        "following": null,
+        "name": "Md Abdur Rashid⚡️",
+        "location": null,
+        "profile_sidebar_fill_color": "DDEEF6",
+        "notifications": null
+    }
+}
