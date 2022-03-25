@@ -8,7 +8,10 @@
 #include <semaphore.h> // semaphores
 #include <assert.h>    // assert()
 #include <stdlib.h>    // malloc()
-#include <unistd.h>
+
+
+#include <sys/ipc.h>
+
 
 
 
@@ -29,21 +32,20 @@ void *writer_thread();
 sem_t *in_cs;
 sem_t *mom;
 
+#define WRITE "/write"
+sem_t *writer;
+
 int main()
 {
 
-    sem_t my_semaphore;
-  int value;
+    sem_unlink(WRITE);
 
-  sem_init(&my_semaphore, 0, 10);
-  sem_getvalue(&my_semaphore, &value);
-  printf("The initial value of the semaphore is %d\n", value);
+    writer = sem_open(WRITE, IPC_CREAT, 0660, 10);
+    int value;
 
-    int x = 1000;
-    sem_init(in_cs, 0, 5);
-    sem_getvalue(in_cs, x);
-
-    printf("VALUE: %d\n", x);
+    // sem_init(&my_semaphore, 0, 10);
+    sem_getvalue(writer, &value);
+    printf("The initial value of the semaphore is %d\n", value);
 
     int num_readers = 10;
     int k = (int)(num_readers / 2);
@@ -105,7 +107,7 @@ void *writer_thread()
 {
     while (1)
     {
-        sem_wait(&in_cs);
+        sem_wait(in_cs);
         if (counter != 25000)
         {
             counter++;
@@ -113,11 +115,11 @@ void *writer_thread()
         else
         {
             printf("Writer done. Count %d\n", counter);
-            sem_post(&in_cs);
+            sem_post(in_cs);
 
             return NULL;
         }
-        sem_post(&in_cs);
+        sem_post(in_cs);
     }
 }
 
