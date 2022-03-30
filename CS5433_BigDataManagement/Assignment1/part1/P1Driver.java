@@ -21,12 +21,14 @@ public class P1Driver
     // ReadFile("/user/phague/assn1/2022/03/04/23/FlumeData.1646456853318");
   }
 
+  //initializes a couple of important variables for fs operations
   public static void initializeConfig() throws Exception
   {
-      P1Driver.conf = new Configuration();
-      P1Driver.fs = FileSystem.get(conf);
+    P1Driver.conf = new Configuration();
+    P1Driver.fs = FileSystem.get(conf);
   }
-
+  
+  // prints input file
   public static void ReadFile(String filePath)
   {
     try
