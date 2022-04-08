@@ -7,33 +7,37 @@
 #include <pthread.h> // threads
 #include <assert.h>  // assert()
 #include <stdlib.h>  // malloc()
-#include <math.h>    
+#include <math.h>
+
+#define FRAME_NUM_LEN 5
 
 void fifo_replacement(char *argv[]);
 void lru_replacement(char *argv[]);
 void user_input_printout(char *argv[]);
 char **frame_table_init();
-void increment_rw(char *operation);
-int check_page_hit(char *location, int *indices);
+void increment_rw(char *rw_operation);
+int check_page_hit(char *frame_number);
+int lru_check_page_hit(char *frame_number, int *indices);
 void summary_printout();
 int lru_find_victim();
 void lru_update_index(int index_to_update, int *indices);
 
 int num_reads = 0;
 int num_writes = 0;
-int read_index = 0;
+int read_index = -1;
 int page_fault = 0;
 char **frames;
 int *indices;
 int *num_frames;
 
-// 784740
-//  670356
-
 int main(int argc, char *argv[])
 {
-    fifo_replacement(argv);
-    // lru_replacement(argv);
+    if (strcmp(argv[3], "fifo") == 0)
+        fifo_replacement(argv);
+
+    if (strcmp(argv[3], "lru") == 0)
+        lru_replacement(argv);
+
     return 0;
 }
 
@@ -60,19 +64,23 @@ void fifo_replacement(char *argv[])
         if (frame_ptr == *num_frames)
             frame_ptr = 0;
 
-        char *location = strtok(line, " ");
-        char *operation = strtok(NULL, " ");
-        strtok(operation, "\n");
+        char *memory_addr = strtok(line, " ");
+        char frame_number[FRAME_NUM_LEN + 1];
+        strncpy(frame_number, memory_addr, FRAME_NUM_LEN);
 
-        increment_rw(operation);
+        char *rw_operation = strtok(NULL, " ");
+        strtok(rw_operation, "\n");
 
-        int hit = check_page_hit(location, indices);
-        if (hit == 0)
+        int hit = check_page_hit(frame_number);
+        if (hit)
+            continue;
+
+        if (!hit)
         {
-            // todo bug right here
-            // strcpy(frames[frame_ptr], location);
+            strcpy(frames[frame_ptr], frame_number);
             frame_ptr++;
             page_fault++;
+            increment_rw(rw_operation);
         }
     }
 
@@ -100,88 +108,80 @@ void lru_replacement(char *argv[])
 
     while (fgets(line, 512, f) != NULL)
     {
-        char *location = strtok(line, " ");
-        char *operation = strtok(NULL, " ");
-        strtok(operation, "\n");
+        read_index++;
+        char *memory_addr = strtok(line, " ");
+        char frame_number[FRAME_NUM_LEN + 1];
+        strncpy(frame_number, memory_addr, FRAME_NUM_LEN);
 
-        increment_rw(operation);
+        char *rw_operation = strtok(NULL, " ");
+        strtok(rw_operation, "\n");
 
-        int hit = check_page_hit(location, indices);
-
-        if (hit == 0 && arr_size < *num_frames)
-        {
-            strcpy(frames[arr_size], location);
-            indices[arr_size] = read_index;
-            arr_size++;
-            read_index++;
-            page_fault++;
+        int hit = lru_check_page_hit(frame_number, indices);
+        if (hit)
             continue;
-        }
 
-        // MISS
-        if (hit == 0)
+        if (!hit)
         {
+            page_fault++;
+            increment_rw(rw_operation);
+
+            // set not full - no need to find victim
+            if (arr_size < *num_frames)
+            {
+                strcpy(frames[arr_size], frame_number);
+                indices[arr_size] = read_index;
+                arr_size++;
+                continue;
+            }
 
             int victim = lru_find_victim();
-
-            strcpy(frames[victim], location);
-
+            strcpy(frames[victim], frame_number);
             indices[victim] = read_index;
-
-            page_fault++;
         }
-
-        read_index++;
     }
 
     summary_printout();
-
 }
 
-int check_page_hit(char *location, int *indices)
+int check_page_hit(char *frame_number)
 {
     int hit = 0;
     for (int i = 0; i < *num_frames; i++)
     {
-
-        if (strcmp(frames[i], location) == 0)
+        if (strcmp(frames[i], frame_number) == 0)
         {
             hit = 1;
-            lru_update_index(i, indices);
             break;
         }
     }
-
     return hit;
 }
 
-void increment_rw(char *operation)
+void increment_rw(char *rw_operation)
 {
-    if (strcmp(operation, "R") == 0)
+    if (strcmp(rw_operation, "R") == 0)
         num_reads++;
 
-    if (strcmp(operation, "W") == 0)
+    if (strcmp(rw_operation, "W") == 0)
         num_writes++;
 }
 
 char **frame_table_init()
 {
-    int mem_addr_len = 8;
-
     // allocates an array for each row (frame)
     char **arr = malloc(sizeof(char *) * *num_frames);
 
     for (int i = 0; i < *num_frames; i++)
     {
         // allocates column elements for the length of each memory address
-        arr[i] = malloc(sizeof(char) * (mem_addr_len + 1));
+        arr[i] = malloc(sizeof(char) * (FRAME_NUM_LEN + 1));
     }
     return arr;
 }
 
 void summary_printout()
 {
-    printf("\nContents of page frames\n");
+    printf("Contents of page frames\n");
 
     for (int i = 0; i < *num_frames; i++)
     {
@@ -190,14 +190,32 @@ void summary_printout()
 
     printf("\nNumber of Reads: %d\n", num_reads);
     printf("Number of Writes: %d\n", num_writes);
-    printf("Number of Page Faults: %d\n\n", page_fault);
+    printf("Number of Page Faults: %d\n", page_fault);
+    printf("------------------------------\n");
 }
 
 void user_input_printout(char *argv[])
 {
-    printf("\nTrace File: %s\n", argv[1]);
+    printf("------------------------------\n");
+    printf("Trace File: %s\n", argv[1]);
     printf("Number of Frames: %s\n", argv[2]);
-    printf("Replacement Algorithm: %s\n\n", argv[3]);
+    printf("Replacement Algorithm: %s\n", argv[3]);
+    printf("------------------------------\n");
+}
+
+int lru_check_page_hit(char *frame_number, int *indices)
+{
+    int hit = 0;
+    for (int i = 0; i < *num_frames; i++)
+    {
+        if (strcmp(frames[i], frame_number) == 0)
+        {
+            hit = 1;
+            lru_update_index(i, indices);
+            break;
+        }
+    }
+    return hit;
 }
 
 int lru_find_victim()
@@ -216,7 +234,7 @@ int lru_find_victim()
     return victim;
 }
 
-void lru_update_index(int index_to_update, int *indices)
+void lru_update_index(int index_to_update, int *indices_arr)
 {
-    indices[index_to_update] = read_index;
+    indices_arr[index_to_update] = read_index;
 }

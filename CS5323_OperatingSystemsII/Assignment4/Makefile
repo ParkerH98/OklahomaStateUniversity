@@ -18,7 +18,7 @@ p: $(OBJS)
 test:
 	# rm *.o $(EXECS)
 	gcc assn4.c -o t
-	./t test.txt 5 lru
+	./t gcc.txt 3 lru
 
 #==========================
 #		Utilities
