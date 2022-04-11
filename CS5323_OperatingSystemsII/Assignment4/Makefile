@@ -3,7 +3,7 @@
 #==========================
 CC = gcc
 OBJS = assn4.o
-EXECS = p test
+EXECS = p t
 
 #==========================
 #		Executable
@@ -18,7 +18,7 @@ p: $(OBJS)
 test:
 	# rm *.o $(EXECS)
 	gcc assn4.c -o t
-	./t gcc.txt 3 lru
+	./t bzip.txt 4 lru
 
 #==========================
 #		Utilities

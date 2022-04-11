@@ -30,6 +30,12 @@ char **frames;
 int *indices;
 int *num_frames;
 
+// Contents of page frames
+// 02a38 05fe5 05fe8 06645
+// Number of Reads: 84536
+// Number of Writes: 8234
+// Number of Page Faults: 92770
+
 int main(int argc, char *argv[])
 {
     if (strcmp(argv[3], "fifo") == 0)
@@ -163,7 +169,10 @@ void increment_rw(char *rw_operation)
         num_reads++;
 
     if (strcmp(rw_operation, "W") == 0)
+    {
         num_writes++;
+        num_reads++;
+    }
 }
 
 char **frame_table_init()
@@ -191,16 +200,16 @@ void summary_printout()
     printf("\nNumber of Reads: %d\n", num_reads);
     printf("Number of Writes: %d\n", num_writes);
     printf("Number of Page Faults: %d\n", page_fault);
-    printf("------------------------------\n");
+    printf("----------------------------------\n");
 }
 
 void user_input_printout(char *argv[])
 {
-    printf("------------------------------\n");
+    printf("----------------------------------\n");
     printf("Trace File: %s\n", argv[1]);
     printf("Number of Frames: %s\n", argv[2]);
     printf("Replacement Algorithm: %s\n", argv[3]);
-    printf("------------------------------\n");
+    printf("----------------------------------\n");
 }
 
 int lru_check_page_hit(char *frame_number, int *indices)
