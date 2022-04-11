@@ -1,6 +1,7 @@
 
 import sys
 from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
 
 if __name__ == "__main__":
     
@@ -15,9 +16,13 @@ if __name__ == "__main__":
     house_price_dataset.createOrReplaceTempView("HousePriceDataset")
     
     query = spark.sql("""
-    SELECT location_area
+    SELECT AVG(price), location_area
     FROM HousePriceDataset
+    GROUP BY location_area
     """)
-    
+
     query.show()
+
+    spark_query = house_price_dataset.groupBy("location_area").agg(F.mean("price")).show()
+    
     
