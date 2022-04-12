@@ -3,6 +3,28 @@ import sys
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
+
+# SQL OUTPUT
+# +-----------------------+---------------+
+# |avg(median_house_value)|ocean_proximity|
+# +-----------------------+---------------+
+# |               380440.0|         ISLAND|
+# |     249433.97742663656|     NEAR OCEAN|
+# |     259212.31179039303|       NEAR BAY|
+# |     240084.28546409807|      <1H OCEAN|
+# |     124805.39200122119|         INLAND|
+# +-----------------------+---------------+
+
+# SPARK SQL OUTPUT
+# |avg(median_house_value)|ocean_proximity|
+# +-----------------------+---------------+
+# |               380440.0|         ISLAND|
+# |     249433.97742663656|     NEAR OCEAN|
+# |     259212.31179039303|       NEAR BAY|
+# |     240084.28546409807|      <1H OCEAN|
+# |     124805.39200122119|         INLAND|
+# +-----------------------+---------------+
+
 if __name__ == "__main__":
     
     spark = SparkSession.builder.getOrCreate()
@@ -11,18 +33,17 @@ if __name__ == "__main__":
     .read\
     .option("inferSchema", "true")\
     .option("header", "true")\
-    .csv("hdfs:///user/kaggle/kaggle_data/bucharest_housing_prices/house_offers.csv")
+    .csv("hdfs:///user/kaggle/kaggle_data/california_housing.csv")
     
     house_price_dataset.createOrReplaceTempView("HousePriceDataset")
     
     query = spark.sql("""
-    SELECT AVG(price), location_area
+    SELECT AVG(median_house_value), ocean_proximity
     FROM HousePriceDataset
-    GROUP BY location_area
+    GROUP BY ocean_proximity
     """)
 
     query.show()
 
-    spark_query = house_price_dataset.groupBy("location_area").agg(F.mean("price")).show()
-    
+    spark_query = house_price_dataset.groupBy("ocean_proximity").agg(F.mean("median_house_value")).show()
     
