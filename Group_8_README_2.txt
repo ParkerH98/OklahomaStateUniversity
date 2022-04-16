@@ -1,5 +1,5 @@
 
-Part 1: Raw SQL
+Part 2: Spark Dataframe
 
 Relevant Files: Group_8_Program_2.py
 

@@ -14,6 +14,10 @@
 - Group_8_README_2.txt
 <hr>
 
+### About
+The two python files each submit the same query, but while each using different methods to do so.
+The file ```Group_8_Program_1.py``` uses raw SQL as the query method. The second file, ```Group_8_Program_2.py```, uses Spark dataframes and their built-in functions as the query method. Both methods will return the same result.
+
 ### General Usage Instructions
 
 #### Logging into Hadoop Cluster
