@@ -17,4 +17,6 @@ if __name__ == "__main__":
     # queires the dataframe using spark sql functions
     spark_query = house_price_dataset.groupBy("ocean_proximity").agg(F.mean("median_house_value")).show()
     print("SPARK OUTPUT\n\n\n")
+
+    spark_query.write.csv("file://Query2")
     

@@ -23,4 +23,8 @@ if __name__ == "__main__":
     GROUP BY ocean_proximity
     """).show()
     print("RAW SQL OUTPUT\n\n\n")
+
+
+    query.write.csv("file://Query2")
+    
     
