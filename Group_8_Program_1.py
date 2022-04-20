@@ -21,10 +21,13 @@ if __name__ == "__main__":
     SELECT AVG(median_house_value), ocean_proximity
     FROM HousePriceDataset
     GROUP BY ocean_proximity
-    """).show()
-    print("RAW SQL OUTPUT\n\n\n")
-
-
-    query.write.csv("file://Query2")
+    """)
     
+    query.show()
+    print("RAW SQL OUTPUT\n\n\n")
+    
+    # saves query to output file
+    query.coalesce(1).write.csv("hdfs:///user/phague/sql_query")
+    
+
     

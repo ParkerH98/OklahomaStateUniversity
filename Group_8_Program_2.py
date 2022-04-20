@@ -1,6 +1,8 @@
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql import DataFrameWriter as W
+
 
 if __name__ == "__main__":
     
@@ -15,8 +17,11 @@ if __name__ == "__main__":
     .csv("hdfs:///user/kaggle/kaggle_data/california_housing.csv")
     
     # queires the dataframe using spark sql functions
-    spark_query = house_price_dataset.groupBy("ocean_proximity").agg(F.mean("median_house_value")).show()
+    spark_query = house_price_dataset.groupBy("ocean_proximity").agg(F.mean("median_house_value"))
+    spark_query.show()
     print("SPARK OUTPUT\n\n\n")
-
-    spark_query.write.csv("file://Query2")
+    
+    # saves query to output file
+    spark_query.coalesce(1).write.csv("hdfs:///user/phague/spark_query")
+    
     
