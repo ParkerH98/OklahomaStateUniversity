@@ -8,6 +8,8 @@ from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml import Pipeline
 
 spark = SparkSession.builder.getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+
     
 # reads dataset from file in HDFS to a spark dataframe
 house_price_df = spark\

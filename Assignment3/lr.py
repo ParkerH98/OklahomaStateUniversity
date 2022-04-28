@@ -69,9 +69,10 @@ def remove_NULL_values(house_price_df):
 
 
 if __name__ == "__main__":
-
+    
     # creates an instance of a spark session
     spark = SparkSession.builder.getOrCreate()
+    spark.sparkContext.setLogLevel('WARN')
 
     # reads dataset from file in HDFS to a spark dataframe
     house_price_df = spark\
@@ -94,11 +95,11 @@ if __name__ == "__main__":
     # house_price_df.show()
 
     # ------------------------- Feature Vector Assembler ------------------------- #
-    feature_vector_df = create_feature_vector(house_price_df)
+    # feature_vector_df = create_feature_vector(house_price_df)
     # feature_vector_df.show()
 
 
-    train_df, test_df = split_training_test(feature_vector_df)
+    # train_df, test_df = split_training_test(feature_vector_df)
 
     # lr = LinearRegression(featuresCol='features',
     #                       labelCol='median_house_value')
