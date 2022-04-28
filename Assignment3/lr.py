@@ -56,7 +56,7 @@ def apply_knn_imputer(pandas_df):
                                   "households",
                                   "median_income",
                                   "median_house_value",
-                                  "ocean_proximity"])
+                                  "ocean_proximity_index"])
     return corrected_df
 
 def remove_NULL_values(house_price_df):
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     
     # creates an instance of a spark session
     spark = SparkSession.builder.getOrCreate()
-    spark.sparkContext.setLogLevel('WARN')
+    spark.sparkContext.setLogLevel('OFF')
 
     # reads dataset from file in HDFS to a spark dataframe
     house_price_df = spark\
@@ -86,26 +86,26 @@ if __name__ == "__main__":
     house_price_df = index_ocean_proximity(house_price_df)
     house_price_df.show()
     
-    # --------------------------- Removing NULL Values --------------------------- #
-    house_price_df = remove_NULL_values(house_price_df)    
     
+    # --------------------------- Removing NULL Values --------------------------- #
+    house_price_df = remove_NULL_values(house_price_df) 
+    # house_price_df.show()
+
 
     # ----------------------------- One Hot Encoding ----------------------------- #
     # house_price_df = one_hot_encode(house_price_df)
     # house_price_df.show()
 
+
     # ------------------------- Feature Vector Assembler ------------------------- #
-    # feature_vector_df = create_feature_vector(house_price_df)
+    feature_vector_df = create_feature_vector(house_price_df)
     # feature_vector_df.show()
 
 
-    # train_df, test_df = split_training_test(feature_vector_df)
+    train_df, test_df = split_training_test(feature_vector_df)
 
-    # lr = LinearRegression(featuresCol='features',
-    #                       labelCol='median_house_value')
-    # lr_model = lr.fit(train_df)
-    # print("Coefficients: " + str(lr_model.coefficients))
-    # print("Intercept: " + str(lr_model.intercept))
-
-
-
+    lr = LinearRegression(featuresCol='features', labelCol='median_house_value')
+    lr_model = lr.fit(train_df)
+    print("Coefficients: " + str(lr_model.coefficients))
+    print("Intercept: " + str(lr_model.intercept))
+    
