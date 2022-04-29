@@ -79,9 +79,9 @@ def main():
     lr_results = lr_pipeline_model.transform(test_data)
     rf_results = rf_pipeline_model.transform(test_data)
 
-    print("Results of Linear Regression Predictions\n")
+    print("Results of Linear Regression Predictions(10 rows)\n")
     lr_results.show(10)
-    print("\nResults of Linear Regression\n")
+    print("\nResults of Linear Regression(10 rows)\n")
     rf_results.show(10)
     print("\n\nRMSE results for Linear Regression: ", evaluator.evaluate(lr_results)) # prints evaluations from RMSE
     print("\nRMSE results for Random Forrest: ", evaluator.evaluate(rf_results))
