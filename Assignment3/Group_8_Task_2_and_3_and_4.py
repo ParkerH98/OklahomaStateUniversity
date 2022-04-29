@@ -26,8 +26,17 @@ def main():
         .csv("hdfs:///user/kaggle/kaggle_data/california_housing.csv")
 
     
+    # removes undesired features
     cols_to_remove = ("longitude", "latitude", "households", "median_income")
     house_price_df = house_price_df.drop(*cols_to_remove)
+
+
+    # Sets up and indexes strings
+    indexer = StringIndexer(inputCol="ocean_proximity",
+                            outputCol="ocean_proximity_index")
+    house_price_df = indexer.fit(house_price_df).transform(house_price_df)
+    house_price_df = house_price_df.drop("ocean_proximity")
+
 
 
 
@@ -36,11 +45,7 @@ def main():
     training_data = split_data[0]
     test_data = split_data[1]
 
-
-    # Define Indexer
-    indexer = StringIndexer(inputCol="ocean_proximity",
-                            outputCol="ocean_proximity_index")
-
+    # Set Custom Data manipulation for pipeline
     data_doctorer = DataDoctorer(spark)   
 
     # Build vector assembler
@@ -48,8 +53,8 @@ def main():
                                     'population', 'ocean_proximity_index'], outputCol='features')
 
 
-    # Build Model
-    lr_model = LinearRegression(featuresCol='features', labelCol='median_house_value', predictionCol="predicions")
+    # Build Models for part 2a and 2b
+    lr_model = LinearRegression(featuresCol='features', labelCol='median_house_value', predictionCol="predictions")
     rf_model = RandomForestRegressor(featuresCol="features", labelCol='median_house_value', predictionCol="predictions", maxBins=50, seed=100)
 
 
@@ -59,27 +64,27 @@ def main():
                                     metricName="rmse")
 
     # Create pipelines
-    lr_pipeline = Pipeline(stages=[indexer, data_doctorer, vectorAssembler, lr_model])
-    rf_pipeline = Pipeline(stages=[indexer, data_doctorer, vectorAssembler, rf_model])
+    lr_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, lr_model])
+    rf_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, rf_model])
     
-    print(">Fitting Pipelines\n")
+    print(">Fitting models to training data through pipelines.\n")
 
-    # Fit the models
+    # Fit the models based on training
     lr_pipeline_model = lr_pipeline.fit(training_data)
     rf_pipeline_model = rf_pipeline.fit(training_data)
 
 
-    print(">Making Tests\n")
-    # Make predictions 
+    print(">Making predictions on test data.\n")
+    # Make predictions on test data
     lr_results = lr_pipeline_model.transform(test_data)
     rf_results = rf_pipeline_model.transform(test_data)
 
-    print("Result of Linear Regression\n")
+    print("Results of Linear Regression Predictions\n")
     lr_results.show(10)
-    print("\nResult of Linear Regression\n")
+    print("\nResults of Linear Regression\n")
     rf_results.show(10)
-    print("\n\nRMSE for Linear Regression: ", evaluator.evaluate(lr_results))
-    print("\nRMSE for Random Forrest: ", evaluator.evaluate(rf_results))
+    print("\n\nRMSE results for Linear Regression: ", evaluator.evaluate(lr_results)) # prints evaluations from RMSE
+    print("\nRMSE results for Random Forrest: ", evaluator.evaluate(rf_results))
 
 
 if __name__ == "__main__":

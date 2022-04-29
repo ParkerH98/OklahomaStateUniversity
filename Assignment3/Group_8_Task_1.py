@@ -1,12 +1,10 @@
 from matplotlib.transforms import Transform
-
-
-import pyspark.sql.functions as F
-from pyspark.ml import Pipeline, Transformer
-from pyspark.ml.feature import Bucketizer
+from pyspark.ml import Transformer
 from pyspark.sql import DataFrame
-from typing import Iterable
+from sklearn.impute import KNNImputer
 import pandas as pd
+from pyspark.sql.functions import col, isnan, when, count
+
 
 class DataDoctorer(Transformer):
     
@@ -29,7 +27,7 @@ class DataDoctorer(Transformer):
 
 
 
-    def apply_knn_imputer(pandas_df):
+    def apply_knn_imputer(self, pandas_df):
         imputer = KNNImputer(n_neighbors=10)
         knn_imputed_matrix = imputer.fit_transform(pandas_df)
         corrected_df = pd.DataFrame(knn_imputed_matrix, columns=[
@@ -63,7 +61,6 @@ class DataDoctorer(Transformer):
 
         out_of_range = house_price_df.filter(
             ~col(col_to_correct).between(lower_bound, sdf[col_to_correct].mean() + upper_bound))
-        out_of_range.show()
 
         house_price_df = house_price_df.withColumn(col_to_correct, when(
             ~col(col_to_correct).between(lower_bound, sdf[col_to_correct].mean() + upper_bound), None).otherwise(col(col_to_correct)))
