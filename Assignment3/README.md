@@ -42,31 +42,9 @@ The file `Group_8_Program_1.py` uses raw SQL as the query method. The second fil
 
     spark-submit house_avg.py
 
-<!-- todo -->
-
 #### Expected Output
 
-    # SQL OUTPUT
-    # +-----------------------+---------------+
-    # |avg(median_house_value)|ocean_proximity|
-    # +-----------------------+---------------+
-    # |               380440.0|         ISLAND|
-    # |     249433.97742663656|     NEAR OCEAN|
-    # |     259212.31179039303|       NEAR BAY|
-    # |     240084.28546409807|      <1H OCEAN|
-    # |     124805.39200122119|         INLAND|
-    # +-----------------------+---------------+
-
-
-    # SPARK SQL OUTPUT
-    # |avg(median_house_value)|ocean_proximity|
-    # +-----------------------+---------------+
-    # |               380440.0|         ISLAND|
-    # |     249433.97742663656|     NEAR OCEAN|
-    # |     259212.31179039303|       NEAR BAY|
-    # |     240084.28546409807|      <1H OCEAN|
-    # |     124805.39200122119|         INLAND|
-    # +-----------------------+---------------+
+Each task has its own output. The output has been shown at the end of each subsection.
 
 <hr>
 
@@ -88,7 +66,6 @@ ocean_proximity
 #### Sample Data
 
     -122.23,37.88,41.0,880.0,129.0,322.0,126.0,8.3252,452600.0,NEAR BAY
-
 <hr>
 
 ## Task 1 - Data Correction
@@ -116,8 +93,6 @@ format, it cannot be put into the regression model. This makes sense because you
 word. We need a number to represent each instead. I used `StringIndexer` which looks at the column values and puts
 the unique strings into a dictionary and assigns them a numerical value starting at 0. This way, for example, `NEAR BAY`
 can be represented with a 0 and `INLAND` with a 1.
-
-
 <hr>
 
 ### Part A - Define Out of Range
@@ -138,6 +113,34 @@ function that will find each `null` value and replace it when the average of its
 
 #### Implementation 1-A
 
+This line here replaces the values that are out of range of the `lower_bound` and `upper_bound` to `None` which is the same
+as null.
+
+```python 
+{
+    house_price_df.withColumn(col_to_correct, when(
+        ~col(col_to_correct).between(lower_bound, sdf[col_to_correct].mean() + upper_bound), None).otherwise(col(col_to_correct)))
+}
+```
+
+#### Output 1-A
+
+The following shows the number of null counts before the out of range function is executed.
+![ ](imgs/1.png " ")
+
+The following shows some of the collected rows that contain out of range values for each column.
+
+Out of range total_rooms
+![ ](imgs/2.png " ")
+
+Out of range total_bedrooms
+![ ](imgs/3.png " ")
+
+Out of range population
+![ ](imgs/4.png " ")
+
+The following shows the number of null values after all the range correcting has taken place.
+![ ](imgs/5.png " ")
 <hr>
 
 ### Part B - Replace Missing Values
@@ -158,7 +161,27 @@ calculate the average, we can get a more accurate approximation of the missing v
 
 #### Implementation 1-B
 
+The following is the code that runs the KNN Imputer. You can see here that we've chosen to select the 4 most 
+similar neighbors or datapoints to take the average of.
+
+```python 
+{
+    imputer = KNNImputer(n_neighbors=4)
+    knn_imputed_matrix = imputer.fit_transform(pandas_df)
+}
+```
+
+#### Output 1-B
+
+The following shows the number of null counts before the KNN Imputer operation takes place.
+![ ](imgs/6.png " ")
+
+
+The following shows the number of null counts after the KNN Imputer operation takes place.
+![ ](imgs/7.png " ")
 <hr>
+
+
 
 ## Task 2 - Prediction Algorithm
 
@@ -167,35 +190,94 @@ calculate the average, we can get a more accurate approximation of the missing v
 #### Approach 2-A
 
 The first prediction algorithm we used was linear regression. Linear regression is used to predict a **continuous**
-value. In our case, our continuous value will be thr target value, `median_house_value`. We will use the five features,
+value. In our case, our continuous value will be the target value, `median_house_value`. We will use the five features,
 `housing_median_age`, `total_rooms`, `total_bedrooms`, `population`, `ocean_proximity` as inputs into the linear regression
 model to make our prediction.
 
-Before inputting them into the model, we first pass out dataframe into a `VectorAssembler`. The `VectorAssembler` takes each
+Before inputting them into the model, we first pass our dataframe into a `VectorAssembler`. The `VectorAssembler` takes each
 row and column of the dataframe and turns them into row vectors. This list of vectors allows us to have an
 input format that the model will accept.
 
-#### Implementation 2-A
+The model finished with an RMSE of **107356.26722174945**
 
+#### Implementation 2-A
+For the implementation, we were able to create a regression model of type `LinearRegression` and use it as an estimator.
+This estimator can be passed in as one of the stages in the pipeline.
+
+```python 
+{
+    lr_model = LinearRegression(featuresCol='features', labelCol='median_house_value', predictionCol="predictions")
+    lr_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, lr_model])
+    lr_pipeline_model = lr_pipeline.fit(training_data)
+}
+```
+
+#### Output 2-A
+
+After running the model and making predictions, we appended the predictions onto the model's dataframe. You can directly see
+how the `median_house_value` compares to the `predictions`.
+![ ](imgs/8.png " ")
 <hr>
 
 ### Part B - Random Forest
 
 #### Approach 2-B
+The second prediction model we created was a random forest. A random forest is an ensemble which is a collection
+of multiple models. The benefit here is that each model uses different features and different sub samples of the 
+dataset. In this case, our model will be predicting a **continuous** value. The value will again be the target value, `median_house_value`. We will ,again, use the five features, `housing_median_age`, `total_rooms`, `total_bedrooms`, `population`, `ocean_proximity` as inputs into the random forest model to make our prediction.
+
+Before inputting them into the model, we ,again, pass our dataframe into a `VectorAssembler`. The `VectorAssembler` takes each row and column of the dataframe and turns them into row vectors. This list of vectors allows us to have an
+input format that the model will accept.
+
+The model finished with an RMSE of **93339.92233984661**
 
 #### Implementation 2-B
 
+For the implementation, we were able to create a regression model of type `RandomForestRegressor` and use it as an estimator.
+This estimator can be passed in as one of the stages in the pipeline.
+
+```python 
+{
+    rf_model = RandomForestRegressor(featuresCol="features", labelCol='median_house_value', predictionCol="predictions", maxBins=50, seed=100)
+    rf_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, rf_model])
+    rf_pipeline_model = rf_pipeline.fit(training_data)
+}
+```
+#### Output 2-B
+
+After running the model and making predictions, we appended the predictions onto the model's dataframe. You can directly see
+how the `median_house_value` compares to the `predictions`.
+![ ](imgs/9.png " ")
 <hr>
 
 ## Task 3 - Measure Accuracy
 
 ### Part A - RMSE
-When making predictions with a model, we have to have a way to measure how well the model is doing. For our models,
-we can use RMSE or root mean square error as a metric to calculate the error
-
 #### Approach 3-A
 
+When making predictions with a model, we have to have a way to measure how well the model is doing. For our models,
+we can use RMSE or root mean square error as a metric to calculate the error. The output of RMSE is a number that 
+only has meaning with relation to the actual target values in the dataset. For example, if were guessing a person's height,
+the RMSE may be a small number like less than 10. Since we're predicting house prices,m our RMSE is in the thousands.
+
 #### Implementation 3-A
+
+We specify what error function that the `evaluator` needs to use. `rmse` was passed here. After, we can get the 
+RMSE values from the `evaluator`.
+
+```python 
+{
+    evaluator = RegressionEvaluator(labelCol="median_house_value",
+                                    predictionCol="predictions",
+                                    metricName="rmse")
+    evaluator.evaluate(lr_results)
+    evaluator.evaluate(rf_results)
+}
+```
+
+#### Output 3-A
+The following shows the RMSE for the linear regression and random forest models.
+![ ](imgs/10.png " ")
 
 <hr>
 
@@ -203,10 +285,31 @@ we can use RMSE or root mean square error as a metric to calculate the error
 
 ### Part A - Pipeline
 
-#### Approach 3-A
+#### Approach 4-A
+The spark pipeline allows us to streamline the process of cleaning our data, indexing the categorical data,
+vectorizing the input, and making predictions on the data. We were able to use the built in functions 
+for most of the stages like the indexing, linear regression model, random forest model, and vectorization.
+However, since the data correction included a lot of custom manipulation, we had to turn this into our own
+custom transformer for the pipeline. This process included turning the data correction into its own class 
+that was we could create an object out of it and pass that object to the pipeline.
 
-#### Implementation 3-A
+#### Implementation 4-A
 
+
+The following shows the different stages of the pipeline. The `data_doctorer` is what handles the out of range
+values, null values, and indexs the categorical data. The `vectorAssembler` turns our input into a format the 
+pipeline can accept. The `lr_model` and `rf_model` are the actual prediction models.
+```python 
+{
+    lr_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, lr_model])
+    rf_pipeline = Pipeline(stages=[data_doctorer, vectorAssembler, rf_model])
+}
+```
+
+#### Output 4-A
+
+See the Linear Regression and Random Forest subsections as the output from the pipeline is shown in each 
+respective section.
 <hr>
 
 

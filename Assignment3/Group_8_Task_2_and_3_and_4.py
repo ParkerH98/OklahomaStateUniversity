@@ -81,7 +81,7 @@ def main():
 
     print("Results of Linear Regression Predictions(10 rows)\n")
     lr_results.show(10)
-    print("\nResults of Linear Regression(10 rows)\n")
+    print("\nResults of Random Forest(10 rows)\n")
     rf_results.show(10)
     print("\n\nRMSE results for Linear Regression: ", evaluator.evaluate(lr_results)) # prints evaluations from RMSE
     print("\nRMSE results for Random Forrest: ", evaluator.evaluate(rf_results))

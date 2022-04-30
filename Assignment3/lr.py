@@ -73,7 +73,7 @@ def show_null_counts(dataframe):
 
 
 def apply_knn_imputer(pandas_df):
-    imputer = KNNImputer(n_neighbors=10)
+    imputer = KNNImputer(n_neighbors=4)
     knn_imputed_matrix = imputer.fit_transform(pandas_df)
     corrected_df = pd.DataFrame(knn_imputed_matrix, columns=[
         "housing_median_age",
