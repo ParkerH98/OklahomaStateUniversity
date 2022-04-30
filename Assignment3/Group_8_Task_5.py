@@ -35,27 +35,37 @@ conf = SparkConf().setMaster("yarn").setAppName("Part_5_A3")
 part_five_spark_csv = SparkContext(conf=conf)
 part_five_spark_csv.setLogLevel("WARN")
 part_five_spark_csv_sql = SQLContext(part_five_spark_csv)
+pd.options.display.max_columns = None
 
+
+spark = SparkSession.builder.getOrCreate()
 
 format_print('Read csv file')
 
 # request the file location
-command_line_arg = sys.argv[1]
-command_line_arg_type = command_line_arg.split('.')[-1] 
- # warning for no csv file
-if command_line_arg_type != 'csv':  
-    raise ValueError('need csv file input.')
+# command_line_arg = sys.argv[1]
+# command_line_arg_type = command_line_arg.split('.')[-1] 
+#  # warning for no csv file
+# if command_line_arg_type != 'csv':  
+#     raise ValueError('need csv file input.')
 
 get_index_one="true"
 get_index_two="true"
 get_index_three=","
 
 # use SQLContext to load the file
-input_data_frame = part_five_spark_csv_sql.read.format(command_line_arg_type)\
-	.option("inferSchema",get_index_one)\
-	.option("header",get_index_two)\
-	.option("sep",get_index_three)\
-	.load(command_line_arg)
+# input_data_frame = part_five_spark_csv_sql.read.format(command_line_arg_type)\
+# 	.option("inferSchema",get_index_one)\
+# 	.option("header",get_index_two)\
+# 	.option("sep",get_index_three)\
+# 	.load(command_line_arg)
+ 
+# reads dataset from file in HDFS to a spark dataframe
+input_data_frame = spark\
+	.read\
+	.option("inferSchema", "true")\
+	.option("header", "true")\
+	.csv("hdfs:///user/kaggle/kaggle_data/california_housing.csv")
 
 
 format_print('data set Analysis')
@@ -128,9 +138,4 @@ print (pca.components_)
 format_print('Contribution rate')
 print (pca.explained_variance_)
 format_print('Main component score')
-print (data_frame_four)
-
-
-
-
-
+print(data_frame_four)

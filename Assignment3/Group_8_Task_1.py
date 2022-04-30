@@ -43,9 +43,6 @@ class DataDoctorer(Transformer):
     def rm_oor_operations(self, house_price_df, col_to_correct, lower_bound, upper_bound):
         sdf = self.df_spark_to_pandas(house_price_df)
 
-        out_of_range = house_price_df.filter(
-            ~col(col_to_correct).between(lower_bound, sdf[col_to_correct].mean() + upper_bound))
-
         house_price_df = house_price_df.withColumn(col_to_correct, when(
             ~col(col_to_correct).between(lower_bound, sdf[col_to_correct].mean() + upper_bound), None).otherwise(col(col_to_correct)))
         return house_price_df

@@ -9,17 +9,6 @@ from pyspark.sql import functions as F
 import pandas as pd
 from sklearn.impute import KNNImputer
 
-#! longitude,
-#! latitude,
-# ? housing_median_age,
-# ? total_rooms,
-# ? total_bedrooms,
-# ? population,
-# !households,
-# !median_income,
-# todo median_house_value,
-# ? ocean_proximity
-
 
 def df_spark_to_pandas(spark_df):
     pandas_df = spark_df.select("*").toPandas()

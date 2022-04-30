@@ -9,22 +9,25 @@
 - Dax Jones
 <hr>
 
-<!-- todo -->
 
 ### Contents
 
-- Group_8_Program_1.py
-- Group_8_Program_2.py
+- Group_8_Task_1.py - referenced for task 4
+- Group_8_Task_2_3_4.py - runs parts 1-4
+- Group_8_Task_5.py - PCA
+- data_correction.py - mostly same as Group_8_Task_1.py but the functions have outputs
 - Group_8_README_1.txt
-- Group_8_README_2.txt
+- Group_8_README_2_3_4.txt
+- Group_8_README_5.txt
+
 <hr>
 
-<!-- todo -->
 
 ### About
 
-The two python files each submit the same query, but while each using different methods to do so.
-The file `Group_8_Program_1.py` uses raw SQL as the query method. The second file, `Group_8_Program_2.py`, uses Spark dataframes and their built-in functions as the query method. Both methods will return the same result.
+The main file `Group_8_Task_2_3_4` runs parts 1 through 4 of the program. That's the data correction, prediction algorithms,error calculation, and pipeline building.
+
+The file `Group_8_Task_5` runs a principal component analysis on the dataset.
 
 ### General Usage Instructions
 
@@ -40,7 +43,8 @@ The file `Group_8_Program_1.py` uses raw SQL as the query method. The second fil
 
 #### Running the Program
 
-    spark-submit house_avg.py
+    spark-submit Group_8_Task_2_3_4.py
+    spark-submit Group_8_Task_5.py
 
 #### Expected Output
 
@@ -313,23 +317,45 @@ respective section.
 <hr>
 
 
-
 ## Task 5 - Principal Component Analysis
 
-### Part A - mat
+### Part A - Item Vector, Contribution Rate, & Main Component Score
 
-#### Approach 3-A
 
-#### Implementation 3-A
+#### Approach 5-A
+The principal component analysis can be used for several reasons. It can be used to identify which 
+features contribute mostly to the output. It can also be used in cases of dimensionality reduction
+where we need to get rid of some features because we have too many. We have done the analysis for our
+dataset and here are the findings.
 
-### Part B - comp
+The first set of outputs tells which variables carry the most weight for each component.
 
-#### Approach 3-A
+The second set of outputs will show the eigenvectors of the components that contain the most new information or variance.
 
-#### Implementation 3-A
+The last set of output shows the scores of how much each variable affects its output.
+#### Implementation 5-A
 
-### Part C - acor
+```python 
+{
+    pca.components_
+    pca.explained_variance_
+    print (data_frame_four)
+}
+```
 
-#### Approach 3-A
+#### Output 5-A
 
-#### Implementation 3-A
+![ ](imgs/11.png " ")
+
+![ ](imgs/12.png " ")
+
+![ ](imgs/13.png " ")
+
+
+
+## Conclusion
+The random forest model yielded a lower error than the linear regression model. Therefore, the 
+random forest model works better for this dataset. We think we could have gotten the error lower
+if we did the PCA before we made our predictions instead of after. We also think we may have had 
+better predictions if we used more then just five features. Overall, the algorithms predicts decently
+close in most cases.

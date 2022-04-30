@@ -39,7 +39,6 @@ def main():
 
 
 
-
     # Split data into training/testing
     split_data = house_price_df.randomSplit([.75, .25], 100)
     training_data = split_data[0]
