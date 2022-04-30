@@ -9,6 +9,13 @@ from pyspark.sql import functions as F
 import pandas as pd
 from sklearn.impute import KNNImputer
 
+# FYI:
+# these functions were used to test the data correction and
+# get their outputs for the report. copies of these functions
+# were put into the actual pipeline that way the pipeline isn't
+# filled with a bunch of print statements. The copies exist in the
+# Group_8_Task_1.py file.
+
 
 def df_spark_to_pandas(spark_df):
     pandas_df = spark_df.select("*").toPandas()
@@ -140,30 +147,25 @@ if __name__ == "__main__":
     house_price_df = index_ocean_proximity(house_price_df)
     # house_price_df.show()
 
-
     # ------------------ Replacing Out Of Range Values With NULL ----------------- #
     house_price_df = rm_out_of_range_all(house_price_df)
-
 
     # --------------------------- Removing NULL Values --------------------------- #
     house_price_df = remove_NULL_values(house_price_df)
     # house_price_df.show()
 
-
     # ----------------------------- One Hot Encoding ----------------------------- #
     # house_price_df = one_hot_encode(house_price_df)
     # house_price_df.show()
-
 
     # ------------------------- Feature Vector Assembler ------------------------- #
     feature_vector_df = create_feature_vector(house_price_df)
     # feature_vector_df.show()
 
-
     train_df, test_df = split_training_test(feature_vector_df)
 
-
-    lr = LinearRegression(featuresCol='features', labelCol='median_house_value')
+    lr = LinearRegression(featuresCol='features',
+                          labelCol='median_house_value')
     lr_model = lr.fit(train_df)
     print("Coefficients: " + str(lr_model.coefficients))
     print("Intercept: " + str(lr_model.intercept))
