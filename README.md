@@ -93,7 +93,7 @@ List of features ready and TODOs for future development
 * [Minesweeper](https://github.com/ParkerH98/OklahomaStateUniversity/tree/master/CS2133_ComputerScienceII/assignment_5_Parker_Hague)
 * [AudioMidwest.com]()
 * [Job Scheduling Priority Queue](https://github.com/ParkerH98/OklahomaStateUniversity/tree/master/CS3353_DataStructures/pgm2)
-
+* [Movie Ratings - Movie Rating Prediction ML Project](https://github.com/ParkerH98/MovieRatings)
 
 ## Status
 Project is: _in progress_
