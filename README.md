@@ -8,7 +8,6 @@
 * [Programming Languages](#Programming-Languages)
 * [Tools and Technologies](#Tools-and-Technologies)
 * [Featured Projects](#Featured-Projects)
-* [Status](#Status)
 * [Contact](#Contact)
 
 
@@ -88,9 +87,6 @@ List of features ready and TODOs for future development
 * [AudioMidwest.com]()
 * [Job Scheduling Priority Queue](https://github.com/ParkerH98/OklahomaStateUniversity/tree/master/CS3353_DataStructures/pgm2)
 * [Movie Ratings - Movie Rating Prediction ML Project](https://github.com/ParkerH98/MovieRatings)
-
-## Status
-Project is: _in progress_
 
 
 ## Contact
