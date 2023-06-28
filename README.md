@@ -69,15 +69,9 @@ I didn't become a computer science major until my first semester of my sophomore
 
 - Computer Programming for Business - Visual Studio
 
-- Computer Science II - VS Code
-
 - Database Design and Administration - SQL Server Management Studio
 
-- Data Structures and Algorithm Analysis - VS Code
-
 - Computer Systems - QtSpim
-
-- Organization of Programming Languages - VS Code
 
 - Web Application Development - SQL Server Management Studio & Visual Studio
 
