@@ -2,14 +2,14 @@
 #		Constants
 #==========================
 CC = gcc
-OBJS = assn4.o
+OBJS = parker.o
 EXECS = p t
 
 #==========================
 #		Executable
 #==========================
-assn4.o: assn4.c
-	$(CC) -c assn4.c 
+parker.o: parker.c
+	$(CC) -c parker.c 
 
 p: $(OBJS) 
 	clear
@@ -17,8 +17,8 @@ p: $(OBJS)
 
 test:
 	# rm *.o $(EXECS)
-	gcc assn4.c -o t
-	./t bzip.txt 4 lru
+	gcc parker.c -o t
+	./t _bzip.txt 5 fifo
 
 #==========================
 #		Utilities
