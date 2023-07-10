@@ -1,5 +1,3 @@
-Absolutely, here's your updated README:
-
 # Movie Ratings ML Project
 
 ## Table of Contents
