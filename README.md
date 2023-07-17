@@ -32,12 +32,14 @@ The project uses two datasets: `movies_metadata.csv` and `credits.csv`, which ar
 
 ### Prerequisites
 Before running the program, please make sure you have the following Python libraries installed:
-- Tensorboard
-- Matplotlib
-- Numpy
-- Tensorflow
-- Pandas
-- Scikit-Learn
+
+- TensorFlow: Used to create and train the neural network models.
+- sklearn: Specifically, the train_test_split function for splitting the dataset, and the CategoricalNB function for the Naive Bayes model.
+- NumPy: For various numerical operations.
+- pandas: For handling the dataset.
+- Matplotlib: For visualizing data and results.
+- Statistics: For calculating descriptive statistics.
+- TensorBoard: For visualizing the model training process.
 
 ### Usage
 1. Ensure that the main file `MovieRatings.ipynb` is placed in the root directory along with `DatasetFormatting.py` file and `datafiles` directory.
