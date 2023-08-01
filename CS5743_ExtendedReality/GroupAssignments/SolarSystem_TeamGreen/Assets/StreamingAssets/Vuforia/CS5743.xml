@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="sun200" size="200.000000 200.000000" />
+    <ImageTarget name="slowDown10" size="10.000000 7.078652" />
+    <ImageTarget name="speedUp" size="10.000000 7.860262" />
+  </Tracking>
+</QCARConfig>
