@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Oklahoma State University
 > This is a repository for all of my in-class programming assignments/projects while pursuing my bachelor's and master's degrees in computer science at Oklahoma State University.
 
@@ -92,3 +93,7 @@ List of features ready and TODOs for future development
 ## Contact
 - Email: parkerhague@gmail.com
 - Don't forget to check out my [web resume](https://www.parkerhague.com)
+=======
+# Team_Green
+Extended Reality Spring 2021 Team Green Project Repository
+>>>>>>> r1remote/main
